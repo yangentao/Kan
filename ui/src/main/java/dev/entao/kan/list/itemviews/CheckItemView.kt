@@ -27,7 +27,7 @@ open class CheckItemView(context: Context, val itemView: View, listener: CheckSt
         this.listener = listener
         addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
 
-        checkView = CheckedTextView(context).genId().gone()
+        checkView = CheckedTextView(context).needId().gone()
         checkView.checkMarkDrawable = D.CheckBox
         addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
 

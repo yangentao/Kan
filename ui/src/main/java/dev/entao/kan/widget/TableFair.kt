@@ -73,7 +73,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 		}
 		var i = 0
 		while (i < viewList.size) {
-			val row = TableRow(context).genId()
+			val row = TableRow(context).needId()
 			addView(row, TParam.widthFill().height(0).weight(1f))
 			if (verDivider != null) {
 				row.divider(verDivider!!)

@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import dev.entao.kan.ext.*
-import dev.entao.kan.res.Res
 import dev.entao.kan.creator.imageView
 import dev.entao.kan.creator.textView
+import dev.entao.kan.ext.*
+import dev.entao.kan.res.Res
 
 class UserItemView(context: Context) : RelativeLayout(context) {
 

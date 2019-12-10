@@ -16,7 +16,7 @@ class SwitchItemView(context: Context) : LinearLayout(context) {
 	var textView: TextView
 
 	init {
-		this.genId()
+		this.needId()
 		this.orientationVertical().backColor(Color.WHITE, ColorX.fade)
 		textView = context.createTextViewB()
 		textView.padding(20, 10, 20, 10).gravityCenter().backColor(Color.WHITE)

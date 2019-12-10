@@ -44,7 +44,7 @@ fun View.createTextView(): TextView {
 }
 
 fun Context.createTextView(): TextView {
-	return TextView(this).genId().gravityLeftCenter().textSizeB().textColorMajor()
+	return TextView(this).needId().gravityLeftCenter().textSizeB().textColorMajor()
 }
 
 fun Fragment.createTextView(): TextView {

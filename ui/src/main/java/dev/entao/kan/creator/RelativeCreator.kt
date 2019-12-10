@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import dev.entao.kan.base.act
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
@@ -16,6 +16,13 @@ import dev.entao.kan.ext.genId
 
 
 //RelativeLayout
+fun ViewGroup.relative(block: RelativeLayout.() -> Unit): RelativeLayout {
+	val v = this.createRelative()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 fun ViewGroup.relative(param: ViewGroup.LayoutParams, block: RelativeLayout.() -> Unit): RelativeLayout {
 	val v = this.createRelative()
 	this.addView(v, param)
@@ -43,5 +50,5 @@ fun Fragment.createRelative(): RelativeLayout {
 }
 
 fun Context.createRelative(): RelativeLayout {
-	return RelativeLayout(this).genId()
+	return RelativeLayout(this).needId()
 }

@@ -184,7 +184,7 @@ fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int 
 }
 
 fun <T : LinearLayout> T.addGrayLine(config: GrayLineConfig): View {
-	val view = View(context).genId().backColor(config.color)
+	val view = View(context).needId().backColor(config.color)
 	if (this.isVertical()) {
 		addViewParam(view) {
 			widthFill().height(config.size).margins(config.marginLeft, config.marginTop, config.marginRight, config.marginBottom)
@@ -205,7 +205,7 @@ fun <T : LinearLayout> T.addGrayLine(block: GrayLineConfig.() -> Unit): View {
 
 
 fun LinearLayout.addFlex(weight: Double = 1.0): View {
-	val view = View(this.context).genId().invisiable()
+	val view = View(this.context).needId().invisiable()
 	if (this.isVertical()) {
 		this.addViewParam(view) {
 			widthFill().height(0).weight(weight)

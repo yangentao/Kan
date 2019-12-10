@@ -30,7 +30,7 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 		orientationHorizontal().gravityCenterVertical().padding(10, 5, 10, 5).backColor(Color.WHITE, ColorX.fade)
 		linearParam().widthFill().height(ITEM_HEIGHT).margins(0, 0, 0, marginBottom).set(this)
 
-		val v = View(getContext()).genId()
+		val v = View(getContext()).needId()
 		addView(v, linearParam().weight(1f).heightFill())
 	}
 

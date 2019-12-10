@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import dev.entao.kan.base.act
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.scaleCenterCrop
 
 /**
@@ -17,6 +17,12 @@ import dev.entao.kan.ext.scaleCenterCrop
  */
 
 //Image View
+fun ViewGroup.imageView(block: ImageView.() -> Unit): ImageView {
+	val v = this.createImageView()
+	this.addView(v)
+	v.block()
+	return v
+}
 
 fun ViewGroup.imageView(param: ViewGroup.LayoutParams, block: ImageView.() -> Unit): ImageView {
 	val v = this.createImageView()
@@ -45,7 +51,7 @@ fun Fragment.createImageView(): ImageView {
 }
 
 fun Context.createImageView(): ImageView {
-	val b = ImageView(this).genId()
+	val b = ImageView(this).needId()
 	b.adjustViewBounds = true
 	b.scaleCenterCrop()
 	return b
@@ -53,6 +59,14 @@ fun Context.createImageView(): ImageView {
 
 
 //image button
+
+fun ViewGroup.imageButton(block: ImageButton.() -> Unit): ImageButton {
+	val v = this.createImageButton()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 fun ViewGroup.imageButton(param: ViewGroup.LayoutParams, block: ImageButton.() -> Unit): ImageButton {
 	val v = this.createImageButton()
 	this.addView(v, param)
@@ -80,5 +94,5 @@ fun Fragment.createImageButton(): ImageButton {
 }
 
 fun Context.createImageButton(): ImageButton {
-	return ImageButton(this).genId()
+	return ImageButton(this).needId()
 }

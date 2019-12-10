@@ -52,9 +52,9 @@ open class TitlePage : BasePage(), Progress {
             if (hasSnak) {
                 snack = append(Snack(act).gone(), LParam.WidthFill.HeightWrap.GravityCenterVertical)
             }
-            append(FrameLayout(context).genId(), LParam.WidthFill.HeightFlex).apply {
+            append(FrameLayout(context).needId(), LParam.WidthFill.HeightFlex).apply {
                 if (enableContentScroll) {
-                    append(NestedScrollView(context).genId(), FParam.Fill) {
+                    append(NestedScrollView(context).needId(), FParam.Fill) {
                         contentView = linearVer(LParam.WidthFill.HeightWrap) {}
                     }
                 } else {

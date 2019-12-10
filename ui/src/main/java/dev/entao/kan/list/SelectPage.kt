@@ -6,9 +6,9 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
-import dev.entao.kan.ui.R
 import dev.entao.kan.base.toast
 import dev.entao.kan.theme.Str
+import dev.entao.kan.ui.R
 import dev.entao.kan.widget.BarItem
 
 /**

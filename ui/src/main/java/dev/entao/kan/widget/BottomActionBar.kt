@@ -27,7 +27,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
     private val paintLine = Paint(0)
 
     init {
-        genId()
+        needId()
         horizontal()
         styleWhite()
         this.layoutParams = MParam.WidthFill.height(HEIGHT)
@@ -98,7 +98,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
 
     private fun makeView(item: BarItemData): View {
         val d: Drawable? = item.draw
-        val rl = RelativeLayout(context).genId()
+        val rl = RelativeLayout(context).needId()
         if (item.label.isEmpty()) {
             val v = createImageView()
             v.scaleCenterInside()

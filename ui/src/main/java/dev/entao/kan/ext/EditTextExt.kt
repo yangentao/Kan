@@ -1,8 +1,8 @@
 package dev.entao.kan.ext
 
 import android.widget.EditText
-import dev.entao.kan.theme.Str
 import dev.entao.kan.res.D
+import dev.entao.kan.theme.Str
 
 /**
  * Created by entaoyang@163.com on 2017-01-06.

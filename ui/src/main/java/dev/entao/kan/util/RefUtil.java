@@ -1,11 +1,16 @@
 package dev.entao.kan.util;
 
-import dev.entao.kan.appbase.App;
-import dev.entao.kan.log.Yog;
-
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
+
+import dev.entao.kan.appbase.App;
+import dev.entao.kan.log.Yog;
 
 public class RefUtil {
 

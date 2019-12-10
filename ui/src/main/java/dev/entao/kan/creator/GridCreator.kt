@@ -8,12 +8,19 @@ import android.view.ViewGroup
 import android.widget.GridView
 import androidx.fragment.app.Fragment
 import dev.entao.kan.base.act
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 import dev.entao.kan.grid.SimpleGridView
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
+
+fun ViewGroup.simpleGrid(block: SimpleGridView.() -> Unit): SimpleGridView {
+	val lv = SimpleGridView(context)
+	this.addView(lv)
+	lv.block()
+	return lv
+}
 
 fun ViewGroup.simpleGridView(index: Int, param: ViewGroup.LayoutParams, block: SimpleGridView.() -> Unit): SimpleGridView {
 	val lv = SimpleGridView(context)
@@ -27,6 +34,13 @@ fun ViewGroup.simpleGridView(param: ViewGroup.LayoutParams, block: SimpleGridVie
 	this.addView(lv, param)
 	lv.block()
 	return lv
+}
+
+fun ViewGroup.grid(block: GridView.() -> Unit): GridView {
+	val v = this.createGrid()
+	this.addView(v)
+	v.block()
+	return v
 }
 
 fun ViewGroup.grid(param: ViewGroup.LayoutParams, block: GridView.() -> Unit): GridView {
@@ -43,7 +57,11 @@ fun ViewGroup.grid(index: Int, param: ViewGroup.LayoutParams, block: GridView.()
 	return v
 }
 
-fun ViewGroup.gridBefore(ankor: View, param: ViewGroup.LayoutParams, block: GridView.() -> Unit): GridView {
+fun ViewGroup.gridBefore(
+		ankor: View,
+		param: ViewGroup.LayoutParams,
+		block: GridView.() -> Unit
+): GridView {
 	return this.grid(this.indexOfChild(ankor), param, block)
 }
 
@@ -56,7 +74,7 @@ fun Fragment.createGrid(): GridView {
 }
 
 fun Context.createGrid(): GridView {
-	val g = GridView(this).genId()
+	val g = GridView(this).needId()
 	g.numColumns = 3
 	return g
 }

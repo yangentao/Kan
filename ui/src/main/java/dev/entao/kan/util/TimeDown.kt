@@ -3,8 +3,8 @@ package dev.entao.kan.util
 import android.widget.TextView
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.log.logd
-import dev.entao.kan.ui.R
 import dev.entao.kan.res.Res
+import dev.entao.kan.ui.R
 import java.util.*
 
 /**

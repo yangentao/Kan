@@ -40,7 +40,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
     var popWindow: PopupWindow? = null
 
     init {
-        genId()
+        needId()
         horizontal()
         backColor(Color.WHITE)
         divider()

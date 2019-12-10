@@ -6,11 +6,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import dev.entao.kan.appbase.ex.dp
 import dev.entao.kan.creator.createImageView
 import dev.entao.kan.creator.createTextViewA
@@ -27,7 +27,7 @@ class IconTextView(context: Context, iconSize: Int = IconSize.Big) : LinearLayou
 	val textView: TextView
 
 	init {
-		genId().horizontal().padding(15, 7, 15, 7).backColor(Color.WHITE)
+		needId().horizontal().padding(15, 7, 15, 7).backColor(Color.WHITE)
 		iconView = context.createImageView().scaleCenterInside()
 		addView(iconView){
 			size(iconSize).gravityCenter()

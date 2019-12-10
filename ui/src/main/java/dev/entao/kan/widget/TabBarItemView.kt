@@ -23,7 +23,7 @@ open class TabBarItemView(context: Context) : RelativeLayout(context) {
     var tabIndex: Int = 0
 
     init {
-        genId()
+        needId()
         backColorWhite()
         textView = this.textView(RParam.CenterInParent.Wrap) {
             compoundDrawablePadding = 0

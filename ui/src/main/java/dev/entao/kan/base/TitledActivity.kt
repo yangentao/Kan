@@ -2,11 +2,11 @@ package dev.entao.kan.base
 
 import android.os.Bundle
 import android.widget.LinearLayout
+import dev.entao.kan.creator.createLinearVertical
 import dev.entao.kan.ext.LParam
 import dev.entao.kan.ext.WidthFill
 import dev.entao.kan.ext.backColorWhite
 import dev.entao.kan.ext.height
-import dev.entao.kan.creator.createLinearVertical
 import dev.entao.kan.widget.TitleBar
 
 /**

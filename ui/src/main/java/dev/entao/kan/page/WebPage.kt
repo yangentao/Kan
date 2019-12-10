@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import dev.entao.kan.ext.HeightFlex
 import dev.entao.kan.ext.LParam
 import dev.entao.kan.ext.WidthFill
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 
 open class WebPage : TitlePage() {
 
@@ -27,7 +27,7 @@ open class WebPage : TitlePage() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
         titleBar.title(title ?: "")
-        webView = WebView(context).genId()
+        webView = WebView(context).needId()
         contentView.addView(webView, LParam.WidthFill.HeightFlex)
 
         webView.settings.javaScriptEnabled = true

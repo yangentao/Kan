@@ -13,7 +13,7 @@ open class HorItemView(context: Context) : LinearLayout(context) {
 	var positionBind = 0
 
 	init {
-		genId()
+		needId()
 		horizontal()
 		gravityCenterVertical()
 		padding(20, 10, 20, 5)

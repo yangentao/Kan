@@ -1,9 +1,10 @@
 package dev.entao.kan.widget
 
 import android.content.Context
-import androidx.viewpager.widget.ViewPager
 import android.view.MotionEvent
-import dev.entao.kan.ext.genId
+import androidx.viewpager.widget.ViewPager
+import dev.entao.kan.ext.needId
+
 /**
  * Created by entaoyang@163.com on 2018-07-30.
  */
@@ -13,7 +14,7 @@ class MyViewPager(context: Context) : ViewPager(context) {
 	var onUserTouch: () -> Unit = {}
 
 	init {
-		genId()
+		needId()
 	}
 
 	override fun onTouchEvent(ev: MotionEvent): Boolean {

@@ -29,12 +29,22 @@ fun LinearLayout.buttonRedRound(block: Button.() -> Unit): Button {
         this.block()
     }
 }
+
 fun LinearLayout.buttonBlueRound(block: Button.() -> Unit): Button {
     return this.button(LParam.WidthFill.HeightButton.margins(15)) {
         styleBlueRound()
         this.block()
     }
 }
+
+//Button
+fun ViewGroup.button(block: Button.() -> Unit): Button {
+    val v = this.createButton()
+    this.addView(v)
+    v.block()
+    return v
+}
+
 //Button
 fun ViewGroup.button(param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
     val v = this.createButton()
@@ -50,7 +60,11 @@ fun ViewGroup.button(index: Int, param: ViewGroup.LayoutParams, block: Button.()
     return v
 }
 
-fun ViewGroup.buttonBefore(ankor: View, param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
+fun ViewGroup.buttonBefore(
+    ankor: View,
+    param: ViewGroup.LayoutParams,
+    block: Button.() -> Unit
+): Button {
     return this.button(this.indexOfChild(ankor), param, block)
 }
 
@@ -63,7 +77,7 @@ fun Fragment.createButton(text: String = ""): Button {
 }
 
 fun Context.createButton(text: String = ""): Button {
-    val b = Button(this).genId().text(text).textSizeB().padding(3)
+    val b = Button(this).needId().text(text).textSizeB().padding(3)
     b.stateListAnimator = null
     b.elevation = 6.dpf
     return b

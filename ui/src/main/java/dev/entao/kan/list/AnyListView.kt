@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.ext.backColorWhite
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 import dev.entao.kan.res.D
 
 /**
@@ -19,7 +19,7 @@ open class AnyListView(context: Context) : ListView(context) {
 	var onItemClick2: (View, Any, Int) -> Unit = { _, _, _ -> }
 
 	init {
-		genId()
+		needId()
 		this.backColorWhite()
 		cacheColorHint = 0
 		selector = D.lightColor(Color.TRANSPARENT, ColorX.fade)

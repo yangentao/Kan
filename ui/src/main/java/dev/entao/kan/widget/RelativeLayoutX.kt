@@ -1,15 +1,15 @@
 package dev.entao.kan.widget
 
 import android.content.Context
-import androidx.annotation.Keep
 import android.widget.RelativeLayout
-import dev.entao.kan.ext.genId
+import androidx.annotation.Keep
+import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.parentGroup
 
 @Keep
 class RelativeLayoutX(context: Context) : RelativeLayout(context) {
 	init {
-		genId()
+		needId()
 	}
 
 	fun setPercentX(v: Float) {

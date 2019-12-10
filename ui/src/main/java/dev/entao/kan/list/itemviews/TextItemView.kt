@@ -15,7 +15,7 @@ import dev.entao.kan.theme.Space
  */
 class TextItemView(context: Context) : TextView(context) {
     init {
-        genId()
+        needId()
         padding(Space.Normal, 12, Space.Normal, 12).gravityLeftCenter().textSizeA().textColorMajor()
     }
 

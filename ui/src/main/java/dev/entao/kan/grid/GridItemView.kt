@@ -4,11 +4,11 @@ package dev.entao.kan.grid
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import dev.entao.kan.creator.imageView
 import dev.entao.kan.creator.linearVer
 import dev.entao.kan.creator.textView

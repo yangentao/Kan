@@ -3,20 +3,28 @@
 package dev.entao.kan.creator
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import dev.entao.kan.base.act
-import dev.entao.kan.ext.genId
 import dev.entao.kan.ext.horizontal
+import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.vertical
+
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
 
 //LinearLayout
+fun ViewGroup.linear(block: LinearLayout.() -> Unit): LinearLayout {
+	val v = this.createLinear()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 fun ViewGroup.linear(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.createLinear()
 	this.addView(v, param)
@@ -35,6 +43,13 @@ fun ViewGroup.linearBefore(ankor: View, param: ViewGroup.LayoutParams, block: Li
 	return this.linear(this.indexOfChild(ankor), param, block)
 }
 
+fun ViewGroup.linearHor(block: LinearLayout.() -> Unit): LinearLayout {
+	val v = this.context.createLinearHorizontal()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 fun ViewGroup.linearHor(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.context.createLinearHorizontal()
 	this.addView(v, param)
@@ -51,6 +66,13 @@ fun ViewGroup.linearHor(index: Int, param: ViewGroup.LayoutParams, block: Linear
 
 fun ViewGroup.linearHorBefore(ankor: View, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	return this.linearHor(this.indexOfChild(ankor), param, block)
+}
+
+fun ViewGroup.linearVer(block: LinearLayout.() -> Unit): LinearLayout {
+	val v = this.context.createLinearVertical()
+	this.addView(v)
+	v.block()
+	return v
 }
 
 fun ViewGroup.linearVer(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
@@ -80,7 +102,7 @@ fun Fragment.createLinear(): LinearLayout {
 }
 
 fun Context.createLinear(): LinearLayout {
-	return LinearLayout(this).genId()
+	return LinearLayout(this).needId()
 }
 
 
@@ -93,7 +115,7 @@ fun Fragment.createLinearVertical(): LinearLayout {
 }
 
 fun Context.createLinearVertical(): LinearLayout {
-	return LinearLayout(this).genId().vertical()
+	return LinearLayout(this).needId().vertical()
 }
 
 fun View.createLinearHorizontal(): LinearLayout {
@@ -105,6 +127,6 @@ fun Fragment.createLinearHorizontal(): LinearLayout {
 }
 
 fun Context.createLinearHorizontal(): LinearLayout {
-	return LinearLayout(this).genId().horizontal()
+	return LinearLayout(this).needId().horizontal()
 }
 

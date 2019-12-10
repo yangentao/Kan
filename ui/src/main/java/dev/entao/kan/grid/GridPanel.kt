@@ -9,7 +9,7 @@ import android.widget.AdapterView
 import android.widget.GridView
 import dev.entao.kan.appbase.ex.dp
 import dev.entao.kan.appbase.ex.sized
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.padding
 import dev.entao.kan.list.AnyAdapter
 
@@ -30,7 +30,7 @@ open class GridPanel(context: Context) : GridView(context) {
 	val anyAdapter = AnyAdapter()
 
 	init {
-		this.genId()
+		this.needId()
 		padding(10)
 		numColumns = 3
 		verticalSpacing = dp(10)

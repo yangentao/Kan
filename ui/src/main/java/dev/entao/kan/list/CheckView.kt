@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Checkable
 import android.widget.CheckedTextView
 import dev.entao.kan.appbase.ex.sized
-import dev.entao.kan.log.fatalIf
 import dev.entao.kan.ext.*
 import dev.entao.kan.list.itemviews.HorItemView
+import dev.entao.kan.log.fatalIf
 import dev.entao.kan.res.D
 
 class CheckView(context: Context) : HorItemView(context), Checkable {
@@ -15,13 +15,13 @@ class CheckView(context: Context) : HorItemView(context), Checkable {
 	lateinit var view: View
 
 	init {
-		genId()
+		needId()
 		horizontal()
 		gravityCenterVertical()
 		backColorWhiteFade()
 		padding(0)
 
-		checkView = CheckedTextView(context).genId()
+		checkView = CheckedTextView(context).needId()
 //		checkView.checkMarkDrawable = D.CheckBox.mutate().sized(16)
 		checkView.rightImage(D.CheckBox.mutate().sized(20), 0)
 		addView(checkView, LParam.Wrap.GravityRightCenter.margins(10, 0, 10, 0))

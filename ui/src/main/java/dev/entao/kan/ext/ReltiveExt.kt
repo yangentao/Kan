@@ -16,7 +16,7 @@ import dev.entao.kan.base.act
 //create
 
 fun Context.relativeLayout(): RelativeLayout {
-    return RelativeLayout(this).genId()
+    return RelativeLayout(this).needId()
 }
 
 fun Fragment.relativeLayout(): RelativeLayout {

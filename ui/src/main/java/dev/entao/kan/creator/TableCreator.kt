@@ -9,27 +9,40 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
 import dev.entao.kan.base.act
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
+fun TableLayout.tableRow(block: TableRow.() -> Unit): TableRow {
+	val v = TableRow(this.context).needId()
+	this.addView(v)
+	v.block()
+	return v
+}
 
 fun TableLayout.tableRow(param: ViewGroup.LayoutParams, block: TableRow.() -> Unit): TableRow {
-	val v = TableRow(this.context).genId()
+	val v = TableRow(this.context).needId()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
 fun TableLayout.tableRow(index: Int, param: ViewGroup.LayoutParams, block: TableRow.() -> Unit): TableRow {
-	val v = TableRow(this.context).genId()
-	this.addView(v, index,  param)
+	val v = TableRow(this.context).needId()
+	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
 //TableLayout
+fun ViewGroup.table(block: TableLayout.() -> Unit): TableLayout {
+	val v = this.createTable()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 fun ViewGroup.table(param: ViewGroup.LayoutParams, block: TableLayout.() -> Unit): TableLayout {
 	val v = this.createTable()
 	this.addView(v, param)
@@ -53,7 +66,7 @@ fun Fragment.createTable(): TableLayout {
 }
 
 fun Context.createTable(): TableLayout {
-	return TableLayout(this).genId()
+	return TableLayout(this).needId()
 }
 
 

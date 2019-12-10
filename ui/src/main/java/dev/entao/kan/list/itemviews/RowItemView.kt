@@ -21,7 +21,7 @@ class RowItemView(context: Context) : LinearLayout(context) {
     private var textSize = TextSize.Normal
 
     init {
-        genId()
+        needId()
         horizontal().padding(10, 10, 10, 10).gravityCenterVertical()
         mid = View(context)
         addViewParam(mid) { widthDp(0).weight(1f).heightDp(10) }

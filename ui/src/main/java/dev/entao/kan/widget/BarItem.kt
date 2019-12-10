@@ -1,9 +1,9 @@
 package dev.entao.kan.widget
 
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import android.view.View
 import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
 
 class BarItem(val cmd: String) {
     var text: String = cmd

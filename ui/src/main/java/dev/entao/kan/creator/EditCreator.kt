@@ -17,113 +17,151 @@ import dev.entao.kan.widget.EditTextX
  */
 
 fun ViewGroup.edit(block: EditText.() -> Unit): EditText {
-	val v = this.createEdit()
-	this.addView(v)
-	v.block()
-	return v
+    val v = this.createEdit()
+    this.addView(v)
+    v.block()
+    return v
 }
 
 //EditText
 fun ViewGroup.edit(param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	val v = this.createEdit()
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = this.createEdit()
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.edit(index: Int, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	val v = this.createEdit()
-	this.addView(v, index, param)
-	v.block()
-	return v
+fun ViewGroup.edit(
+    index: Int,
+    param: ViewGroup.LayoutParams,
+    block: EditText.() -> Unit
+): EditText {
+    val v = this.createEdit()
+    this.addView(v, index, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.editBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	return this.edit(this.indexOfChild(ankor), param, block)
+fun ViewGroup.editBefore(
+    ankor: View,
+    param: ViewGroup.LayoutParams,
+    block: EditText.() -> Unit
+): EditText {
+    return this.edit(this.indexOfChild(ankor), param, block)
 }
 
 fun View.createEdit(): EditText {
-	return this.context.createEdit()
+    return this.context.createEdit()
 }
 
 fun Fragment.createEdit(): EditText {
-	return this.activity!!.createEdit()
+    return this.activity!!.createEdit()
 }
 
 fun Context.createEdit(): EditText {
-	val ed = EditText(this).genId().singleLine()
-	ed.setHintTextColor(0x80.gray)
-	ed.textColorMajor()
-	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
-	return ed
+    val ed = EditText(this).needId().singleLine()
+    ed.setHintTextColor(0x80.gray)
+    ed.textColorMajor()
+    ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
+    return ed
 }
 
+//EditTextX
+fun ViewGroup.editX(block: EditTextX.() -> Unit): EditTextX {
+    val v = this.createEditX()
+    this.addView(v)
+    v.block()
+    return v
+}
 
 //EditTextX
 fun ViewGroup.editX(param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
-	val v = this.createEditX()
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = this.createEditX()
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.editX(index: Int, param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
-	val v = this.createEditX()
-	this.addView(v, index, param)
-	v.block()
-	return v
+fun ViewGroup.editX(
+    index: Int,
+    param: ViewGroup.LayoutParams,
+    block: EditTextX.() -> Unit
+): EditTextX {
+    val v = this.createEditX()
+    this.addView(v, index, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.editXBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
-	return this.editX(this.indexOfChild(ankor), param, block)
+fun ViewGroup.editXBefore(
+    ankor: View,
+    param: ViewGroup.LayoutParams,
+    block: EditTextX.() -> Unit
+): EditTextX {
+    return this.editX(this.indexOfChild(ankor), param, block)
 }
 
 fun View.createEditX(): EditTextX {
-	return this.context.createEditX()
+    return this.context.createEditX()
 }
 
 fun Fragment.createEditX(): EditTextX {
-	return this.activity!!.createEditX()
+    return this.activity!!.createEditX()
 }
 
 fun Context.createEditX(): EditTextX {
-	val ed = EditTextX(this).genId().singleLine()
-	ed.setHintTextColor(0x80.gray)
-	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
-	return ed
+    val ed = EditTextX(this).needId().singleLine()
+    ed.setHintTextColor(0x80.gray)
+    ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
+    return ed
 }
 
+//EditArea
+fun ViewGroup.editArea(block: EditText.() -> Unit): EditText {
+    val v = this.createEditArea()
+    this.addView(v)
+    v.block()
+    return v
+}
 
 //EditArea
 fun ViewGroup.editArea(param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	val v = this.createEditArea()
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = this.createEditArea()
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.editArea(index: Int, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	val v = this.createEditArea()
-	this.addView(v, index, param)
-	v.block()
-	return v
+fun ViewGroup.editArea(
+    index: Int,
+    param: ViewGroup.LayoutParams,
+    block: EditText.() -> Unit
+): EditText {
+    val v = this.createEditArea()
+    this.addView(v, index, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.editAreaBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
-	return this.editArea(this.indexOfChild(ankor), param, block)
+fun ViewGroup.editAreaBefore(
+    ankor: View,
+    param: ViewGroup.LayoutParams,
+    block: EditText.() -> Unit
+): EditText {
+    return this.editArea(this.indexOfChild(ankor), param, block)
 }
 
 fun View.createEditArea(): EditText {
-	return this.context.createEditArea()
+    return this.context.createEditArea()
 }
 
 fun Fragment.createEditArea(): EditText {
-	return this.activity!!.createEditArea()
+    return this.activity!!.createEditArea()
 }
 
 fun Context.createEditArea(): EditText {
-	val ed = EditText(this).genId()
-	ed.setHintTextColor(0x80.gray)
-	ed.textSizeB().gravityTopLeft().backDrawable(D.Input).padding(10, 5, 10, 5).multiLine()
-	return ed
+    val ed = EditText(this).needId()
+    ed.setHintTextColor(0x80.gray)
+    ed.textSizeB().gravityTopLeft().backDrawable(D.Input).padding(10, 5, 10, 5).multiLine()
+    return ed
 }

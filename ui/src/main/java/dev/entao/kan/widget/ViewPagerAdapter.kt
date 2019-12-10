@@ -1,11 +1,11 @@
 package dev.entao.kan.widget
 
 import android.content.Context
-import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
-import dev.entao.kan.ext.onClick
+import androidx.viewpager.widget.PagerAdapter
 import dev.entao.kan.creator.createImageView
+import dev.entao.kan.ext.onClick
 import java.util.*
 
 class ViewPagerAdapter : PagerAdapter() {

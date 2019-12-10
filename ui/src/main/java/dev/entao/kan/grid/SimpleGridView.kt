@@ -35,7 +35,7 @@ open class SimpleGridView(context: Context) : LineGridView(context) {
 
 
 	init {
-		genId()
+		needId()
 		padding(10)
 		backColorWhite()
 		numColumns = 3

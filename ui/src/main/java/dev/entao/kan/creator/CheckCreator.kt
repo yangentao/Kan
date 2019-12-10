@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.Fragment
-import dev.entao.kan.ext.genId
+import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.textColorMajor
 import dev.entao.kan.res.D
 
@@ -17,37 +17,53 @@ import dev.entao.kan.res.D
 
 
 //check box
+fun ViewGroup.checkBox(block: CheckBox.() -> Unit): CheckBox {
+    val v = this.createCheckBox()
+    this.addView(v)
+    v.block()
+    return v
+}
+
+//check box
 fun ViewGroup.checkBox(param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
-	val v = this.createCheckBox()
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = this.createCheckBox()
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.checkBox(index: Int, param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
-	val v = this.createCheckBox()
-	this.addView(v, index, param)
-	v.block()
-	return v
+fun ViewGroup.checkBox(
+    index: Int,
+    param: ViewGroup.LayoutParams,
+    block: CheckBox.() -> Unit
+): CheckBox {
+    val v = this.createCheckBox()
+    this.addView(v, index, param)
+    v.block()
+    return v
 }
 
-fun ViewGroup.checkBoxBefore(ankor: View, param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
-	return this.checkBox(this.indexOfChild(ankor), param, block)
+fun ViewGroup.checkBoxBefore(
+    ankor: View,
+    param: ViewGroup.LayoutParams,
+    block: CheckBox.() -> Unit
+): CheckBox {
+    return this.checkBox(this.indexOfChild(ankor), param, block)
 }
 
 fun View.createCheckBox(): CheckBox {
-	return this.context.createCheckBox()
+    return this.context.createCheckBox()
 }
 
 fun Fragment.createCheckBox(): CheckBox {
-	return this.activity!!.createCheckBox()
+    return this.activity!!.createCheckBox()
 }
 
 fun Context.createCheckBox(): CheckBox {
-	val cb =  CheckBox(this).genId()
-	cb.textColorMajor()
-	cb.buttonDrawable = D.CheckBox
-	return cb
+    val cb = CheckBox(this).needId()
+    cb.textColorMajor()
+    cb.buttonDrawable = D.CheckBox
+    return cb
 }
 
 

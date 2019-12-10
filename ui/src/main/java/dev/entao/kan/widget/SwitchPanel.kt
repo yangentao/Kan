@@ -27,7 +27,7 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
     private var callback: SwitchSelectChangeListener? = null
 
     init {
-        genId()
+        needId()
         horizontal()
         backDrawable(ShapeRect(Color.WHITE, CORNER).value)
 
