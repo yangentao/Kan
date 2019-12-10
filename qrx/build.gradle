@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven'
+
+group = 'dev.entao.kan'
+
+android {
+    compileSdkVersion 29
+
+    resourcePrefix 'zxing_'
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 500
+        versionName "5.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'androidx.camera:camera-core:1.0.0-alpha04'
+    implementation 'androidx.camera:camera-camera2:1.0.0-alpha04'
+
+    implementation 'dev.entao.kan:appbase:5.0.0'
+    implementation 'dev.entao.kan:ui:5.0.0'
+}
+
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://maven.app800.cn/repository/public/') {
+                authentication(userName: ARCHIVA_USERNAME, password: ARCHIVA_PASSWORD)
+            }
+            pom.artifactId = "qrx"
+            pom.groupId = project.group
+            pom.version = android.defaultConfig.versionName
+            pom.packaging = 'aar'
+
+        }
+    }
+}
