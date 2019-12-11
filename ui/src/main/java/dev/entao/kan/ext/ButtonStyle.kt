@@ -3,6 +3,7 @@
 package dev.entao.kan.ext
 
 import android.graphics.Color
+import android.widget.Button
 import android.widget.TextView
 import dev.entao.kan.appbase.ex.*
 import dev.entao.kan.base.ColorX
@@ -29,7 +30,7 @@ class ButtonStyle(val button: TextView) {
 
     var fillColor: Int = Color.TRANSPARENT
     var strokeColor: Int = Color.LTGRAY
-    var textColor: Int = ColorX.textPrimary
+    var textColor: Int? = null
 
     fun cornersRound(): ButtonStyle {
         var h = button.height
@@ -71,8 +72,9 @@ class ButtonStyle(val button: TextView) {
     }
 
     fun setup() {
-        button.elevation = 4.dpf
-
+        if (button is Button) {
+            button.elevation = 4.dpf
+        }
         val normalShape = ShapeRect(fillColor, corner)
         val fadeShape = ShapeRect(fadeColor, corner)
         when (style) {
@@ -83,7 +85,9 @@ class ButtonStyle(val button: TextView) {
                     checked(fadeShape.value)
                     disabled(disabledShape.value)
                 }
-                button.textColor(textColor)
+                if (textColor != null) {
+                    button.textColor(textColor!!)
+                }
             }
             S_OUTLINE -> {
                 val aa = normalShape.stroke(1, strokeColor).value
@@ -92,9 +96,12 @@ class ButtonStyle(val button: TextView) {
                     pressed(bb)
                     checked(bb)
                 }
-                button.setTextColor(StateList.colors(textColor) {
-                    disabled(textDisabledColor)
-                })
+                val txColor = this.textColor
+                if (txColor != null) {
+                    button.setTextColor(StateList.colors(txColor) {
+                        disabled(textDisabledColor)
+                    })
+                }
 
             }
             S_TEXT -> {
@@ -102,9 +109,12 @@ class ButtonStyle(val button: TextView) {
                     pressed(fadeShape.value)
                     checked(fadeShape.value)
                 }
-                button.setTextColor(StateList.colors(textColor) {
-                    disabled(textDisabledColor)
-                })
+                val txColor = this.textColor
+                if (txColor != null) {
+                    button.setTextColor(StateList.colors(txColor) {
+                        disabled(textDisabledColor)
+                    })
+                }
             }
             else -> {
                 return

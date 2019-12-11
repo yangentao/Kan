@@ -8,6 +8,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.net.Uri
 import android.os.Looper
 import android.view.Gravity
@@ -23,7 +24,15 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import dev.entao.kan.appbase.InMainThread
 import dev.entao.kan.appbase.Task
+import dev.entao.kan.appbase.ex.argb
+import dev.entao.kan.appbase.ex.dpf
+import dev.entao.kan.appbase.ex.rgb
 import dev.entao.kan.base.ex.extraString
+import dev.entao.kan.creator.createTextView
+import dev.entao.kan.ext.padding
+import dev.entao.kan.ext.style
+import dev.entao.kan.ext.textColorWhite
+import dev.entao.kan.ext.textSizeB
 import dev.entao.kan.json.YsonObject
 import dev.entao.kan.log.logd
 import dev.entao.kan.log.loge
@@ -190,14 +199,25 @@ fun Fragment.toast(vararg texts: String) {
 }
 
 fun Context.toast(vararg texts: String) {
-    logd("ThreadID = ", Thread.currentThread().id)
-    logd("ISMain Thread: ", InMainThread)
     if (InMainThread) {
-        val s = texts.joinToString("")
-        val t = Toast.makeText(this, s, Toast.LENGTH_LONG)
+        val t = Toast(this)
+        val tv = this.createTextView()
+        tv.textSizeB()
+        tv.padding(20, 10, 20, 10)
+        tv.isSingleLine = false
+        tv.style {
+            fill(0x88000000L.argb)
+            corners(4)
+            text(Color.WHITE)
+        }
+        tv.elevation = 6.dpf
+        tv.text = texts.joinToString("")
+        t.view = tv
         t.setGravity(Gravity.CENTER, 0, 0)
-        logd(t.view)
+        t.duration = Toast.LENGTH_LONG
         t.show()
+
+
     } else {
         Task.fore {
             this.toast(*texts)
