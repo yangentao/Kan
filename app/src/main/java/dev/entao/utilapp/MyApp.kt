@@ -1,8 +1,8 @@
 package dev.entao.utilapp
 
-import android.app.Application
+import dev.entao.kan.util.app.YetApp
 
-class MyApp : Application() {
+class MyApp : YetApp() {
 
     override fun onCreate() {
         super.onCreate()

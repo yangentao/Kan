@@ -11,6 +11,7 @@ import dev.entao.kan.appbase.ex.VState
 import dev.entao.kan.base.BasePage
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.hideInputMethod
+import dev.entao.kan.base.toast
 import dev.entao.kan.creator.*
 import dev.entao.kan.ext.*
 import dev.entao.kan.res.D
@@ -18,7 +19,6 @@ import dev.entao.kan.res.Res
 import dev.entao.kan.theme.ViewSize
 import dev.entao.kan.ui.R
 import dev.entao.kan.util.TimeDown
-import dev.entao.kan.util.ToastUtil
 import dev.entao.kan.util.app.SmsCodeFill
 import java.util.*
 
@@ -26,7 +26,8 @@ import java.util.*
  * Created by entaoyang@163.com on 2016-07-28.
  */
 
-class InputPanel constructor(context: Context, private val fragment: BasePage? = null) : LinearLayout(context) {
+class InputPanel constructor(context: Context, private val fragment: BasePage? = null) :
+    LinearLayout(context) {
     var INPUT_HEIGHT = 45
     private val editMap = HashMap<String, EditText>()
     private val checkMap = HashMap<String, CheckBox>()
@@ -111,7 +112,11 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
         return ed
     }
 
-    fun addPhone(key: String, hint: String = Res.str(R.string.yet_phone_input), marginTop: Int = inputMarginTop): EditText {
+    fun addPhone(
+        key: String,
+        hint: String = Res.str(R.string.yet_phone_input),
+        marginTop: Int = inputMarginTop
+    ): EditText {
         val ed = makeEdit(hint, marginTop)
         ed.inputTypePhone()
         addView(ed)
@@ -132,7 +137,11 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
         return addPassword(key, Res.str(R.string.yet_pwd_again), inputMarginTop)
     }
 
-    fun addPassword(key: String, hint: String = Res.str(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
+    fun addPassword(
+        key: String,
+        hint: String = Res.str(R.string.yet_pwd_input),
+        marginTop: Int = inputMarginTop
+    ): EditText {
         val ed = makeEdit(hint, marginTop)
         ed.inputTypePassword()
         addView(ed)
@@ -140,7 +149,11 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
         return ed
     }
 
-    fun addPasswordNumber(key: String, hint: String = Res.str(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
+    fun addPasswordNumber(
+        key: String,
+        hint: String = Res.str(R.string.yet_pwd_input),
+        marginTop: Int = inputMarginTop
+    ): EditText {
         val ed = makeEdit(hint, marginTop)
         ed.inputTypePasswordNumber()
         addView(ed)
@@ -164,13 +177,27 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
         addVerifyCode(timeDownKey, phoneEditKey, inputMarginTop, block)
     }
 
-    fun addVerifyCode(timeDownKey: String, phoneEditKey: String, marginTop: Int, block: (String) -> Unit) {
+    fun addVerifyCode(
+        timeDownKey: String,
+        phoneEditKey: String,
+        marginTop: Int,
+        block: (String) -> Unit
+    ) {
         val llDraw = ShapeRect(ColorX.TRANS, ViewSize.EditCorner).stroke(1, ColorX.EditFocus).value
-        val editDraw = ShapeRect(Color.WHITE).corners(ViewSize.EditCorner, 0, 0, ViewSize.EditCorner).value
-        val btnNormalDraw = ShapeRect(ColorX.theme).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0).value
-        val btnPressDraw = ShapeRect(ColorX.fade).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0).value
-        val btnDisableDraw = ShapeRect(ColorX.backDisabled).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0).value
-        val btnDraw = StateList.drawable(btnNormalDraw, VState.Pressed to btnPressDraw, VState.Disabled to btnDisableDraw)
+        val editDraw =
+            ShapeRect(Color.WHITE).corners(ViewSize.EditCorner, 0, 0, ViewSize.EditCorner).value
+        val btnNormalDraw =
+            ShapeRect(ColorX.theme).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0).value
+        val btnPressDraw =
+            ShapeRect(ColorX.fade).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0).value
+        val btnDisableDraw =
+            ShapeRect(ColorX.backDisabled).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0)
+                .value
+        val btnDraw = StateList.drawable(
+            btnNormalDraw,
+            VState.Pressed to btnPressDraw,
+            VState.Disabled to btnDisableDraw
+        )
 
         linearHor(lParam().widthFill().height(ViewSize.EditHeight).margins(0, marginTop, 0, 0)) {
             backDrawable(llDraw).padding(1)
@@ -190,7 +217,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
             codeClickTime = System.currentTimeMillis()
             val phone = getText(phoneEditKey)
             if (phone.length < 11) {
-                ToastUtil.show("请输入正确的手机号")
+                this.context.toast("请输入正确的手机号")
             } else {
                 startTimeDown(60)
                 Task.back {
@@ -201,11 +228,12 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     }
 
     fun addCheckbox(key: String, title: String, marginTop: Int = inputMarginTop) {
-        checkMap[key] = checkBox(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
-            padding(20, 5, 5, 5)
-            text = title
-            buttonDrawable = D.CheckBox
-        }
+        checkMap[key] =
+            checkBox(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+                padding(20, 5, 5, 5)
+                text = title
+                buttonDrawable = D.CheckBox
+            }
     }
 
     fun addSafeButton(key: String, title: String, marginTop: Int = buttonMarginTop) {

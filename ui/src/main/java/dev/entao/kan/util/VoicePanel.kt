@@ -9,6 +9,7 @@ import android.widget.TextView
 import dev.entao.kan.appbase.ex.ARGB
 import dev.entao.kan.appbase.ex.RGB
 import dev.entao.kan.appbase.ex.ShapeRect
+import dev.entao.kan.base.toast
 import dev.entao.kan.creator.createLinearVertical
 import dev.entao.kan.creator.createTextViewC
 import dev.entao.kan.ext.*
@@ -73,7 +74,7 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
         val file = amrRecord.file
         if (duration < 2000) {
             file?.delete()
-            ToastUtil.show("小于2秒, 取消发送")
+            this.context.toast("小于2秒, 取消发送")
         } else {
             if (file != null) {
                 if (file.exists() && callback != null) {

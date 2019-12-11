@@ -9,6 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Looper
+import android.view.Gravity
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
@@ -19,9 +21,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import dev.entao.kan.appbase.InMainThread
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.base.ex.extraString
 import dev.entao.kan.json.YsonObject
+import dev.entao.kan.log.logd
 import dev.entao.kan.log.loge
 import kotlin.reflect.KClass
 
@@ -131,8 +135,6 @@ val Fragment.stackAct: StackActivity get() = this.act as StackActivity
 val Fragment.stackActivity: StackActivity? get() = this.activity as? StackActivity
 
 
-
-
 fun BasePage.pushPage(p: BasePage, pushAnim: Boolean, popAnim: Boolean) {
     this.stackActivity?.push(p, pushAnim, popAnim)
 }
@@ -183,14 +185,23 @@ fun Fragment.showInputMethod() {
     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
 }
 
-fun Fragment.toast(vararg texts: Any) {
+fun Fragment.toast(vararg texts: String) {
     this.activity?.toast(*texts)
 }
 
-fun Activity.toast(vararg texts: Any) {
-    val s = texts.joinToString(", ") { it.toString() }
-    Task.fore {
-        Toast.makeText(this, s, Toast.LENGTH_LONG).show()
+fun Context.toast(vararg texts: String) {
+    logd("ThreadID = ", Thread.currentThread().id)
+    logd("ISMain Thread: ", InMainThread)
+    if (InMainThread) {
+        val s = texts.joinToString("")
+        val t = Toast.makeText(this, s, Toast.LENGTH_LONG)
+        t.setGravity(Gravity.CENTER, 0, 0)
+        logd(t.view)
+        t.show()
+    } else {
+        Task.fore {
+            this.toast(*texts)
+        }
     }
 }
 

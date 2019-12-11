@@ -15,7 +15,6 @@ import dev.entao.kan.log.logd
 import dev.entao.kan.res.Res
 import dev.entao.kan.theme.ViewSize
 import dev.entao.kan.util.TimeDown
-import dev.entao.kan.util.ToastUtil
 import java.util.regex.Pattern
 import kotlin.collections.component1
 import kotlin.collections.component2
@@ -81,7 +80,14 @@ abstract class InputPage : TitlePage() {
         if (io.inputValid.label.isEmpty()) {
             io.inputValid.label(io.hint)
         }
-        val ed = inputLayout.editX(LParam.WidthFill.height(io.height).margins(io.marginLeft, io.marginTop, io.marginRight, io.marginBottom)) {
+        val ed = inputLayout.editX(
+            LParam.WidthFill.height(io.height).margins(
+                io.marginLeft,
+                io.marginTop,
+                io.marginRight,
+                io.marginBottom
+            )
+        ) {
             padding(5, 2, 5, 2)
             var hintStr = io.hint
             if (io.inputValid.require) {
@@ -190,7 +196,14 @@ abstract class InputPage : TitlePage() {
             io.inputValid.label(io.hint)
         }
         io.inputValid.label(io.hint)
-        val cb = inputLayout.checkBox(LParam.WidthFill.height(io.height).margins(io.marginLeft, io.marginTop, io.marginRight, io.marginBottom)) {
+        val cb = inputLayout.checkBox(
+            LParam.WidthFill.height(io.height).margins(
+                io.marginLeft,
+                io.marginTop,
+                io.marginRight,
+                io.marginBottom
+            )
+        ) {
             padding(10, 5, 5, 5)
             this.hint = io.hint
             if (io.value.isEmpty()) {
@@ -205,7 +218,14 @@ abstract class InputPage : TitlePage() {
     }
 
     fun static(label: String, marginTop: Int = inputMarginTop): TextView {
-        return inputLayout.textView(lParam().widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)) {
+        return inputLayout.textView(
+            lParam().widthFill().height(INPUT_HEIGHT).margins(
+                0,
+                marginTop,
+                0,
+                0
+            )
+        ) {
             text = label
         }
     }
@@ -216,8 +236,19 @@ abstract class InputPage : TitlePage() {
         }
     }
 
-    fun image(label: String, imgHeight: Int = INPUT_HEIGHT, marginTop: Int = inputMarginTop): TextView {
-        return inputLayout.textView(lParam().widthFill().height(imgHeight).margins(0, marginTop, 0, 0)) {
+    fun image(
+        label: String,
+        imgHeight: Int = INPUT_HEIGHT,
+        marginTop: Int = inputMarginTop
+    ): TextView {
+        return inputLayout.textView(
+            lParam().widthFill().height(imgHeight).margins(
+                0,
+                marginTop,
+                0,
+                0
+            )
+        ) {
             text = label
             rightImage(Res.imageMiss, imgHeight)
         }
@@ -244,7 +275,14 @@ abstract class InputPage : TitlePage() {
     }
 
     fun textDetail(title: String, marginTop: Int = inputMarginTop): TextDetailView {
-        return inputLayout.textDetail(LParam.WidthFill.height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)) {
+        return inputLayout.textDetail(
+            LParam.WidthFill.height(INPUT_HEIGHT).margins(
+                0,
+                marginTop,
+                0,
+                0
+            )
+        ) {
             padding(0, 0, 0, 0)
             detailView.textSizeB().gravityCenter().padding(10, 5, 10, 5)
             detailView.miniWidthDp(100)
@@ -253,7 +291,12 @@ abstract class InputPage : TitlePage() {
         }
     }
 
-    fun date(key: String, title: String, format: String = MyDate.FORMAT_DATE, marginTop: Int = inputMarginTop): TextDetailView {
+    fun date(
+        key: String,
+        title: String,
+        format: String = MyDate.FORMAT_DATE,
+        marginTop: Int = inputMarginTop
+    ): TextDetailView {
         val v = textDetail(title, marginTop)
         v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
         dateMap[key] = v
@@ -289,7 +332,12 @@ abstract class InputPage : TitlePage() {
         return selectMap(p, p.selectOptionsStatic.mapKeys { it.key as Any })
     }
 
-    fun select(p: KProperty1<*, *>, items: Collection<Any>, displayProp: KProperty1<*, *>, idProp: KProperty1<*, *>): TextDetailView {
+    fun select(
+        p: KProperty1<*, *>,
+        items: Collection<Any>,
+        displayProp: KProperty1<*, *>,
+        idProp: KProperty1<*, *>
+    ): TextDetailView {
         val v = textDetail(p.userLabel)
         if (p.hasAnnotation<Required>()) {
             v.textView.text = p.userLabel + "*"
@@ -297,7 +345,10 @@ abstract class InputPage : TitlePage() {
         v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
         selectMap[p.userName] = v
         v.onClick {
-            this.dialogX.showListAny(items.toList(), null, { displayProp.getValue(it)?.toString() ?: "" }) {
+            this.dialogX.showListAny(
+                items.toList(),
+                null,
+                { displayProp.getValue(it)?.toString() ?: "" }) {
                 v.tag = idProp.getValue(it)
                 v.setDetail(displayProp.getValue(it)?.toString() ?: "")
             }
@@ -331,7 +382,12 @@ abstract class InputPage : TitlePage() {
         return selectPair(p.userName, lb, v, items)
     }
 
-    fun selectPair(key: String, title: String, value: String, items: List<Pair<String, String>>): TextDetailView {
+    fun selectPair(
+        key: String,
+        title: String,
+        value: String,
+        items: List<Pair<String, String>>
+    ): TextDetailView {
         val v = textDetail(title)
         v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
         selectMap[key] = v
@@ -465,7 +521,7 @@ abstract class InputPage : TitlePage() {
             codeClickTime = System.currentTimeMillis()
             val phone = getText(phoneEditKey)
             if (!isPhoneFormatCN11(phone)) {
-                ToastUtil.show("手机号格式错误")
+                toast("手机号格式错误")
             } else {
                 startTimeDown(60)
                 onCodeButtonClick(phone)

@@ -7,14 +7,10 @@ import androidx.annotation.Keep
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.sql.MapTable
-import dev.entao.kan.base.BasePage
-import dev.entao.kan.base.Progress
-import dev.entao.kan.base.act
-import dev.entao.kan.base.openActivity
+import dev.entao.kan.base.*
 import dev.entao.kan.dialogs.DialogX
 import dev.entao.kan.http.Http
 import dev.entao.kan.json.YsonObject
-import dev.entao.kan.util.ToastUtil
 import java.io.File
 
 /**
@@ -82,7 +78,7 @@ class YetVersion(val jo: YsonObject) {
             if (!v.great()) {
                 try {
                     if (!quiet) {
-                        ToastUtil.showLong(act, "已经是最新版本")
+                        act.toast( "已经是最新版本")
                     }
                 } catch (ex: Exception) {
                 }
