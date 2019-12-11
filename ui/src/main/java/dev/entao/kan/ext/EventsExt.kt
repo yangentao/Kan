@@ -12,16 +12,24 @@ import android.widget.Switch
  */
 
 @Suppress("UNCHECKED_CAST")
+fun <T : View> T.click(block: () -> Unit): T {
+    this.setOnClickListener {
+        block()
+    }
+    return this
+}
+
+@Suppress("UNCHECKED_CAST")
 fun <T : View> T.onClick(block: (view: T) -> Unit): T {
-	this.setOnClickListener {
-		block.invoke(it as T)
-	};
-	return this
+    this.setOnClickListener {
+        block.invoke(it as T)
+    }
+    return this
 }
 
 fun <T : Switch> T.onCheckChanged(block: (Switch, Boolean) -> Unit): T {
-	this.setOnCheckedChangeListener { view, check ->
-		block.invoke(view as Switch, check)
-	}
-	return this
+    this.setOnCheckedChangeListener { view, check ->
+        block.invoke(view as Switch, check)
+    }
+    return this
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.base.BlockUnit
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.act
 import dev.entao.kan.creator.*
@@ -334,7 +335,12 @@ class DialogX(val context: Context) {
         this.showInput(title, value, {}, onOK)
     }
 
-    fun showInput(title: String?, value: String, configBlock: (EditText) -> Unit, onOK: (String) -> Unit) {
+    fun showInput(
+        title: String?,
+        value: String,
+        configBlock: (EditText) -> Unit,
+        onOK: (String) -> Unit
+    ) {
         val d = this
         d.title(title)
         d.bodyInput {
@@ -394,7 +400,12 @@ class DialogX(val context: Context) {
         this.showListAny(items, title, { it.toString() }, onResult)
     }
 
-    fun showListAny(items: List<Any>, title: String?, textBlock: (Any) -> String, onResult: (Any) -> Unit) {
+    fun showListAny(
+        items: List<Any>,
+        title: String?,
+        textBlock: (Any) -> String,
+        onResult: (Any) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyListString(textBlock)
@@ -406,7 +417,12 @@ class DialogX(val context: Context) {
         d.show()
     }
 
-    fun showListAnyN(items: List<Any>, title: String?, textBlock: (Any) -> String, onResult: (Int) -> Unit) {
+    fun showListAnyN(
+        items: List<Any>,
+        title: String?,
+        textBlock: (Any) -> String,
+        onResult: (Int) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyListString(textBlock)
@@ -423,7 +439,12 @@ class DialogX(val context: Context) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showListItem(items: List<T>, title: String?, textBlock: (T) -> String, onResult: (T) -> Unit) {
+    fun <T : Any> showListItem(
+        items: List<T>,
+        title: String?,
+        textBlock: (T) -> String,
+        onResult: (T) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyListString {
@@ -443,7 +464,12 @@ class DialogX(val context: Context) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showListItemN(items: List<T>, title: String?, textBlock: (T) -> String, onResult: (Int) -> Unit) {
+    fun <T : Any> showListItemN(
+        items: List<T>,
+        title: String?,
+        textBlock: (T) -> String,
+        onResult: (Int) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyListString {
@@ -457,11 +483,22 @@ class DialogX(val context: Context) {
         d.show()
     }
 
-    fun showCheckAny(items: List<Any>, checkedItems: List<Any>, title: String, onResult: (List<Any>) -> Unit) {
+    fun showCheckAny(
+        items: List<Any>,
+        checkedItems: List<Any>,
+        title: String,
+        onResult: (List<Any>) -> Unit
+    ) {
         this.showCheckAny(items, checkedItems, title, { it.toString() }, onResult)
     }
 
-    fun showCheckAny(items: List<Any>, checkedItems: List<Any>, title: String, textBlock: (Any) -> String, onResult: (List<Any>) -> Unit) {
+    fun showCheckAny(
+        items: List<Any>,
+        checkedItems: List<Any>,
+        title: String,
+        textBlock: (Any) -> String,
+        onResult: (List<Any>) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyCheckString(textBlock)
@@ -476,11 +513,22 @@ class DialogX(val context: Context) {
         d.show()
     }
 
-    fun showCheckAnyN(items: List<Any>, checkedItems: List<Any>, title: String, onResult: (Set<Int>) -> Unit) {
+    fun showCheckAnyN(
+        items: List<Any>,
+        checkedItems: List<Any>,
+        title: String,
+        onResult: (Set<Int>) -> Unit
+    ) {
         this.showCheckAnyN(items, checkedItems, title, { it.toString() }, onResult)
     }
 
-    fun showCheckAnyN(items: List<Any>, checkedItems: List<Any>, title: String, textBlock: (Any) -> String, onResult: (Set<Int>) -> Unit) {
+    fun showCheckAnyN(
+        items: List<Any>,
+        checkedItems: List<Any>,
+        title: String,
+        textBlock: (Any) -> String,
+        onResult: (Set<Int>) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyCheckString(textBlock)
@@ -496,12 +544,23 @@ class DialogX(val context: Context) {
     }
 
 
-    fun <T : Any> showCheckItem(items: List<T>, checkedItems: List<T>, title: String, onResult: (List<T>) -> Unit) {
+    fun <T : Any> showCheckItem(
+        items: List<T>,
+        checkedItems: List<T>,
+        title: String,
+        onResult: (List<T>) -> Unit
+    ) {
         this.showCheckItem(items, checkedItems, title, { it.toString() }, onResult)
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showCheckItem(items: List<T>, checkedItems: List<T>, title: String, textBlock: (T) -> String, onResult: (List<T>) -> Unit) {
+    fun <T : Any> showCheckItem(
+        items: List<T>,
+        checkedItems: List<T>,
+        title: String,
+        textBlock: (T) -> String,
+        onResult: (List<T>) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyCheckString {
@@ -518,12 +577,23 @@ class DialogX(val context: Context) {
         d.show()
     }
 
-    fun <T : Any> showCheckItemN(items: List<T>, checkedItems: List<T>, title: String, onResult: (Set<Int>) -> Unit) {
+    fun <T : Any> showCheckItemN(
+        items: List<T>,
+        checkedItems: List<T>,
+        title: String,
+        onResult: (Set<Int>) -> Unit
+    ) {
         this.showCheckItemN(items, checkedItems, title, { it.toString() }, onResult)
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showCheckItemN(items: List<T>, checkedItems: List<T>, title: String, textBlock: (T) -> String, onResult: (Set<Int>) -> Unit) {
+    fun <T : Any> showCheckItemN(
+        items: List<T>,
+        checkedItems: List<T>,
+        title: String,
+        textBlock: (T) -> String,
+        onResult: (Set<Int>) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = d.bodyCheckString {
@@ -540,7 +610,11 @@ class DialogX(val context: Context) {
         d.show()
     }
 
-    fun showGridAny(items: List<Any>, configBlock: (DialogX, SimpleGridView) -> Unit, onResult: (Any) -> Unit) {
+    fun showGridAny(
+        items: List<Any>,
+        configBlock: (DialogX, SimpleGridView) -> Unit,
+        onResult: (Any) -> Unit
+    ) {
         val d = this
         d.bodyGrid {
             configBlock(d, this)
@@ -554,7 +628,11 @@ class DialogX(val context: Context) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showGridItem(items: List<T>, configBlock: (DialogX, SimpleGridView) -> Unit, onResult: (T) -> Unit) {
+    fun <T : Any> showGridItem(
+        items: List<T>,
+        configBlock: (DialogX, SimpleGridView) -> Unit,
+        onResult: (T) -> Unit
+    ) {
         val d = this
         d.bodyGrid {
             configBlock(d, this)
@@ -569,7 +647,12 @@ class DialogX(val context: Context) {
 
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showListDetail(items: List<T>, title: String?, textBlock: (T) -> Pair<String, String>, onResult: (T) -> Unit) {
+    fun <T : Any> showListDetail(
+        items: List<T>,
+        title: String?,
+        textBlock: (T) -> Pair<String, String>,
+        onResult: (T) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = bodyList {
@@ -591,7 +674,12 @@ class DialogX(val context: Context) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> showListDetailN(items: List<T>, title: String?, textBlock: (T) -> Pair<String, String>, onResult: (Int) -> Unit) {
+    fun <T : Any> showListDetailN(
+        items: List<T>,
+        title: String?,
+        textBlock: (T) -> Pair<String, String>,
+        onResult: (Int) -> Unit
+    ) {
         val d = this
         d.title(title)
         val lv = bodyList {
@@ -623,4 +711,30 @@ val Activity.dialogX: DialogX
     get() {
         return DialogX(this)
     }
+
+
+fun Fragment.alert(msg: String) {
+    this.dialogX.showAlert(msg)
+}
+
+fun Fragment.alert(msg: String, block: BlockUnit) {
+    this.dialogX.showAlert(msg, null, block)
+}
+
+fun Fragment.confirm(msg: String, block: BlockUnit) {
+    this.dialogX.showConfirm(msg, null, block)
+}
+
+
+fun Activity.alert(msg: String) {
+    this.dialogX.showAlert(msg)
+}
+
+fun Activity.alert(msg: String, block: BlockUnit) {
+    this.dialogX.showAlert(msg, null, block)
+}
+
+fun Activity.confirm(msg: String, block: BlockUnit) {
+    this.dialogX.showConfirm(msg, null, block)
+}
 
