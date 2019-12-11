@@ -14,7 +14,7 @@
 
     <application>
         <activity
-            android:name="dev.entao.kan.base.PageActivity"
+            android:name="dev.entao.kan.base.StackActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|locale|fontScale|layoutDirection|screenLayout"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

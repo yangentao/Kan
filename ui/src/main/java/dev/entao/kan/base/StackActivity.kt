@@ -2,19 +2,18 @@
 
 package dev.entao.kan.base
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import android.view.Window
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import dev.entao.kan.creator.createFrame
-import dev.entao.kan.log.logd
 import dev.entao.kan.ui.R
 
 
-open class PageStack : StackActivity()
-
 open class StackActivity : BaseActivity() {
-
 
     protected lateinit var containerView: FrameLayout
         private set
@@ -32,6 +31,12 @@ open class StackActivity : BaseActivity() {
         window.requestFeature(Window.FEATURE_NO_TITLE)
         containerView = this.createFrame()
         setContentView(containerView)
+
+        val pg = this.intent.getIntExtra(PAGE_IDENT_, 0)
+        val p = pageMap_.remove(pg)
+        if (p != null) {
+            setContentPage(p)
+        }
     }
 
 
@@ -112,4 +117,32 @@ open class StackActivity : BaseActivity() {
     }
 }
 
+private const val PAGE_IDENT_ = "_page_ident_"
+private var pageId_: Int = 1
+@SuppressLint("UseSparseArrays")
+private val pageMap_ = HashMap<Int, BasePage>()
+
+
+fun <T : BasePage> Activity.newStack(page: T) {
+    val a = pageId_++
+    pageMap_[a] = page
+    this.openActivity(StackActivity::class) {
+        putExtra(PAGE_IDENT_, a)
+    }
+}
+
+fun <T : BasePage> Activity.newStack(page: T, block: T.() -> Unit) {
+    page.block()
+    this.newStack(page)
+}
+
+fun <T : BasePage> Fragment.newStack(page: T) {
+    this.activity?.newStack(page)
+}
+
+
+fun <T : BasePage> Fragment.newStack(page: T, block: T.() -> Unit) {
+    page.block()
+    this.newStack(page)
+}
 
