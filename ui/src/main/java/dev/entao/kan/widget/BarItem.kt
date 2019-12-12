@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 
-class BarItem(val cmd: String) {
+class BarItem(var cmd: String) {
     var text: String = cmd
     var resIcon: Int = 0
     var drawable: Drawable? = null

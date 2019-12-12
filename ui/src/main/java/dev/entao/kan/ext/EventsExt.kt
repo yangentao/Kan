@@ -11,7 +11,13 @@ import android.widget.Switch
  * entaoyang@163.com
  */
 
-@Suppress("UNCHECKED_CAST")
+fun <T : View> T.clickView(block: (T) -> Unit): T {
+    this.setOnClickListener {
+        block(this)
+    }
+    return this
+}
+
 fun <T : View> T.click(block: () -> Unit): T {
     this.setOnClickListener {
         block()

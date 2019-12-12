@@ -317,6 +317,14 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         return c
     }
 
+    fun leftItem(item: BarItem) {
+        leftCmds.add(item)
+    }
+
+    fun rightItem(item: BarItem) {
+        rightCmds.add(item)
+    }
+
     private fun popMenu(item: BarItem) {
         val p = PopupWindow(context)
         p.width = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -406,6 +414,32 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         val a = TitleBarMenuItemBuilder(m)
         a.block()
     }
+
+
+    infix fun String.left(block: () -> Unit) {
+        leftText(this).onClick = {
+            block()
+        }
+    }
+
+    infix fun Int.left(block: () -> Unit) {
+        leftImage(this).onClick = {
+            block()
+        }
+    }
+
+    infix fun String.right(block: () -> Unit) {
+        rightText(this).onClick = {
+            block()
+        }
+    }
+
+    infix fun Int.right(block: () -> Unit) {
+        rightImage(this).onClick = {
+            block()
+        }
+    }
+
 
     companion object {
         const val BACK = "back"
