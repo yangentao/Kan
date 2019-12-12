@@ -27,7 +27,7 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 
     init {
         padding(Space.X, 15, Space.X, 15).gravityCenterVertical()
-        textView = textView(LParam.WidthWrap.HeightWrap.LeftCenter) {
+        textView = textView(LParam.WrapW.WrapH.LeftCenter) {
             textSizeB().textColorMajor().singleLine()
         }
         addFlex()

@@ -53,24 +53,24 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
         padding(10, 0, 0, 0)
         addView(iconView, LParam.size(IconSize.Small).Center.margins(0, 0, 5, 0))
         topView.gravityCenterVertical().apply {
-            addView(titleView, LParam.width(0).heightWrap().weight(1f))
-            addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
+            addView(titleView, LParam.width(0).WrapH.weight(1f))
+            addView(dateView, LParam.Wrap.margins(5, 0, 0, 0))
         }
         bottomView.gravityCenterVertical().apply {
-            addView(msgView, LParam.width(0).heightWrap().weight(1f))
-            addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
+            addView(msgView, LParam.width(0).WrapH.weight(1f))
+            addView(statusView, LParam.Wrap.margins(5, 0, 0, 0))
         }
         val ll = createLinearVertical().apply {
-            addView(topView, LParam.WidthFill.HeightWrap)
-            addView(bottomView, LParam.WidthFill.HeightWrap)
+            addView(topView, LParam.FillW.WrapH)
+            addView(bottomView, LParam.FillW.WrapH)
         }
 
-        this.addView(ll, LParam.WidthFlex.HeightWrap.margins(5, 10, 5, 5))
+        this.addView(ll, LParam.WidthFlex.WrapH.margins(5, 10, 5, 5))
 
         subIconView = createImageView().backColor(Color.TRANSPARENT, ColorX.fade).padding(16)
         subIconView.setImageDrawable(arrowRight)
         subIconView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        addView(subIconView, LParam.heightFill().width(45).Center )
+        addView(subIconView, LParam.FillH.width(45).Center )
         subIconView.setOnClickListener(clickListener)
     }
 

@@ -31,7 +31,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 
 	var onItemClick: (Int) -> Unit = { _ -> }
 
-	var cellLayoutParam: RelativeLayout.LayoutParams = RParam.wrap().Center
+	var cellLayoutParam: RelativeLayout.LayoutParams = RParam.Wrap.Center
 
 	private val onClickListener = View.OnClickListener { v ->
 		val pos = v.tag as Int
@@ -74,7 +74,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 		var i = 0
 		while (i < viewList.size) {
 			val row = TableRow(context).needId()
-			addView(row, TParam.widthFill().height(0).weight(1f))
+			addView(row, TParam.FillW.height(0).weight(1f))
 			if (verDivider != null) {
 				row.divider(verDivider!!)
 			} else {
@@ -88,7 +88,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 				rl.backColor(colorNormal, colorPressed)
 				rl.tag = n
 				rl.setOnClickListener(this.onClickListener)
-				row.addView(rl, RowParam.width(0).weight(1f).heightFill().Center)
+				row.addView(rl, RowParam.FlexX.FillH.Center)
 				if (n < viewList.size) {
 					val view = viewList[n]
 					rl.addView(view, cellLayoutParam)

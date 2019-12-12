@@ -92,7 +92,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
     fun commit() {
         removeAllViews()
         for (cmd in cmdList) {
-            this.addView(cmd.view, LParam.WidthFlex.HeightFill)
+            this.addView(cmd.view, LParam.WidthFlex.FillH)
             if (cmd.items.isEmpty()) {
                 cmd.view.setOnClickListener {
                     cmd.onClick(cmd)
@@ -154,7 +154,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
         val itemList = ArrayList<ActionMenuItemInfo>(cmd.items.filter { !it.hidden })
         for (c in itemList) {
             val v = menuItemView(c)
-            popRootView.addView(v, LParam.WidthFill.height(45))
+            popRootView.addView(v, LParam.FillW.height(45))
             v.setOnClickListener {
                 popWindow?.dismiss()
                 Task.fore {

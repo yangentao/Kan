@@ -26,12 +26,12 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 
 	init {
 		padding(10)
-		val ll = linearVer(RParam.wrap().Center) {}
+		val ll = linearVer(RParam.Wrap.Center) {}
 		ll.gravityCenter()
 		imageView = ll.imageView(LParam.width(IconSize.Large).height(IconSize.Large).BottomCenter) {
 			scaleCenterInside()
 		}
-		textView = ll.textView(LParam.wrap().TopCenter) {
+		textView = ll.textView(LParam.Wrap.TopCenter) {
 			textSizeTiny()
 			textColorMinor()
 		}
@@ -40,7 +40,7 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 
 	fun imageSizeWrap() {
 		val p = imageView.layoutParams as LinearLayout.LayoutParams
-		p.WidthWrap.heightWrap()
+		p.WrapW.WrapH
 	}
 
 	fun imageSize(w: Int, h: Int = w) {

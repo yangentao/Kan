@@ -107,35 +107,35 @@ val <T : LinearLayout.LayoutParams> T.RightCenter: T
     }
 
 
-val <T : LinearLayout.LayoutParams> T.GravityFill: T
+val <T : LinearLayout.LayoutParams> T.FillXY: T
     get() {
         gravity = Gravity.FILL
         return this
     }
 
 
-val <T : LinearLayout.LayoutParams> T.FillVertical: T
+val <T : LinearLayout.LayoutParams> T.FillY: T
     get() {
         gravity = Gravity.FILL_VERTICAL
         return this
     }
 
 
-val <T : LinearLayout.LayoutParams> T.FillHorizontal: T
+val <T : LinearLayout.LayoutParams> T.FillX: T
     get() {
         gravity = Gravity.FILL_HORIZONTAL
         return this
     }
 
 
-val <T : LinearLayout.LayoutParams> T.CenterVertical: T
+val <T : LinearLayout.LayoutParams> T.CenterY: T
     get() {
         gravity = Gravity.CENTER_VERTICAL
         return this
     }
 
 
-val <T : LinearLayout.LayoutParams> T.CenterHorizontal: T
+val <T : LinearLayout.LayoutParams> T.CenterX: T
     get() {
         gravity = Gravity.CENTER_HORIZONTAL
         return this

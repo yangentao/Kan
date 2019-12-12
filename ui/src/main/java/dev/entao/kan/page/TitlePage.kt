@@ -46,23 +46,23 @@ open class TitlePage : BasePage(), Progress {
             rootLinearView = this
             backColorWhite()
             if (hasTopProgress) {
-                topProgress = append(TopProgressBar(act).gone(), LParam.WidthFill.height(6))
+                topProgress = append(TopProgressBar(act).gone(), LParam.FillW.height(6))
             }
-            titleBar = append(TitleBar(act), LParam.WidthFill.height(TitleBar.HEIGHT))
+            titleBar = append(TitleBar(act), LParam.FillW.height(TitleBar.HEIGHT))
             if (hasSnak) {
-                snack = append(Snack(act).gone(), LParam.WidthFill.HeightWrap.CenterVertical)
+                snack = append(Snack(act).gone(), LParam.FillW.WrapH.CenterY)
             }
-            append(FrameLayout(context).needId(), LParam.WidthFill.HeightFlex).apply {
+            append(FrameLayout(context).needId(), LParam.FillW.HeightFlex).apply {
                 if (enableContentScroll) {
                     append(NestedScrollView(context).needId(), FParam.Fill) {
-                        contentView = linearVer(LParam.WidthFill.HeightWrap) {}
+                        contentView = linearVer(LParam.FillW.WrapH) {}
                     }
                 } else {
                     contentView = linearVer(FParam.Fill) {}
                 }
             }
             if (hasBottomBar) {
-                bottomBar = append(BottomBar(act), LParam.WidthFill.height(BottomBar.HEIGHT))
+                bottomBar = append(BottomBar(act), LParam.FillW.height(BottomBar.HEIGHT))
             }
         }
 

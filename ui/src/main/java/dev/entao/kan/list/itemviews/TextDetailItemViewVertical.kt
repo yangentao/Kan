@@ -22,9 +22,9 @@ class TextDetailItemViewVertical(context: Context) : HorItemView(context) {
 
     init {
 
-        verLayout.addView(textView, LParam.widthFill().heightWrap().LeftCenter)
-        verLayout.addView(detailView, LParam.widthFill().heightWrap().LeftCenter)
-        addView(verLayout, LParam.width(0).weight(1f).heightWrap().LeftCenter)
+        verLayout.addView(textView, LParam.FillW.WrapH.LeftCenter)
+        verLayout.addView(detailView, LParam.FillW.WrapH.LeftCenter)
+        addView(verLayout, LParam.WidthFlex.WrapH.LeftCenter)
     }
 
     fun setValues(text: String, detail: String?): TextDetailItemViewVertical {

@@ -25,7 +25,7 @@ class CheckItemView(context: Context, val itemView: View, listener: CheckStatusL
     init {
         padding(0, 0, 0, 0)
         this.listener = listener
-        addView(itemView, 0, LParam.WidthFlex.heightWrap())
+        addView(itemView, 0, LParam.WidthFlex.WrapH)
 
         checkView = CheckedTextView(context).needId().gone()
         checkView.checkMarkDrawable = D.CheckBox
@@ -69,7 +69,7 @@ class CheckItemView(context: Context, val itemView: View, listener: CheckStatusL
         }
 
     override fun setCheckboxMarginRight(dp: Int) {
-        checkView.layoutParams =  LParam.wrap().RightCenter.margins(10, 0, MR + dp, 0)
+        checkView.layoutParams =  LParam.Wrap.RightCenter.margins(10, 0, MR + dp, 0)
         this.requestLayout()
     }
 

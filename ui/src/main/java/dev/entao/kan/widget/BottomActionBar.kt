@@ -30,7 +30,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
         needId()
         horizontal()
         styleWhite()
-        this.layoutParams = MParam.WidthFill.height(HEIGHT)
+        this.layoutParams = MParam.FillW.height(HEIGHT)
     }
 
     fun styleBlue() {
@@ -73,7 +73,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
 
         for (item in items) {
             val v = makeView(item)
-            this.addView(v, LParam.WidthFlex.HeightFill.Center)
+            this.addView(v, LParam.WidthFlex.FillH.Center)
             v.setOnClickListener {
                 item.onAction()
             }
@@ -169,7 +169,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
 
 val <T : ViewGroup.LayoutParams> T.HeightBottomActionBar: T
     get() {
-        return heightDp(BottomActionBar.HEIGHT)
+        return height(BottomActionBar.HEIGHT)
     }
 
 fun Drawable.sizeX(width: Int, height: Int): Bitmap {

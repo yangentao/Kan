@@ -31,7 +31,7 @@ class CheckView(context: Context) : HorItemView(context), Checkable {
 	fun bind(view: View): CheckView {
 		fatalIf(this.childCount >= 2, "已经绑定了view")
 		this.view = view
-		addView(view, 0, LParam.WidthFlex.HeightWrap)
+		addView(view, 0, LParam.WidthFlex.WrapH)
 		return this
 	}
 

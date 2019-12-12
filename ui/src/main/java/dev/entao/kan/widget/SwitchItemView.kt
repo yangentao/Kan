@@ -20,7 +20,7 @@ class SwitchItemView(context: Context) : LinearLayout(context) {
 		this.orientationVertical().backColor(Color.WHITE, ColorX.fade)
 		textView = context.createTextViewB()
 		textView.padding(20, 10, 20, 10).gravityCenter().backColor(Color.WHITE)
-		this.addView(textView, LParam.widthFill().heightFill().margins(0, 0, 0, 3) )
+		this.addView(textView, LParam.FillW.FillH.margins(0, 0, 0, 3) )
 	}
 
 	var text: String

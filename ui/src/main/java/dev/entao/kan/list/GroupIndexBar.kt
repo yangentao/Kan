@@ -101,7 +101,7 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
     private fun rebuild() {
         this.removeAllViews()
         for (s in items) {
-            this.textView(LParam.WidthFill.HeightFlex.Center) {
+            this.textView(LParam.FillW.HeightFlex.Center) {
                 this.tag = s
                 this.text(s).textSizeD().gravityCenter()
                 this.typeface = Typeface.MONOSPACE

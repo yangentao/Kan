@@ -3,10 +3,7 @@ package dev.entao.kan.base
 import android.os.Bundle
 import android.widget.LinearLayout
 import dev.entao.kan.creator.createLinearVertical
-import dev.entao.kan.ext.LParam
-import dev.entao.kan.ext.WidthFill
-import dev.entao.kan.ext.backColorWhite
-import dev.entao.kan.ext.height
+import dev.entao.kan.ext.*
 import dev.entao.kan.widget.TitleBar
 
 /**
@@ -23,7 +20,7 @@ abstract class TitledActivity : BaseActivity() {
 		rootView.backColorWhite()
 		setContentView(rootView)
 		titleBar = TitleBar(this)
-		rootView.addView(titleBar, LParam.WidthFill.height(TitleBar.HEIGHT))
+		rootView.addView(titleBar, LParam.FillW.height(TitleBar.HEIGHT))
 
 		onCreateContent(rootView)
 		titleBar.commit()

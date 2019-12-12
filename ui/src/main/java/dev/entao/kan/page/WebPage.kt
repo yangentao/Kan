@@ -8,10 +8,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
-import dev.entao.kan.ext.HeightFlex
-import dev.entao.kan.ext.LParam
-import dev.entao.kan.ext.WidthFill
-import dev.entao.kan.ext.needId
+import dev.entao.kan.ext.*
 
 open class WebPage : TitlePage() {
 
@@ -28,7 +25,7 @@ open class WebPage : TitlePage() {
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
         titleBar.title(title ?: "")
         webView = WebView(context).needId()
-        contentView.addView(webView, LParam.WidthFill.HeightFlex)
+        contentView.addView(webView, LParam.FillW.HeightFlex)
 
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true

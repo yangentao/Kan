@@ -40,7 +40,7 @@ abstract class CmdPage : TitlePage() {
     }
 
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
-        cmdPanel = contentView.linearVer(LParam.WidthFill.HeightWrap) {
+        cmdPanel = contentView.linearVer(LParam.FillW.WrapH) {
             setBackgroundColor(Color.WHITE)
             divider(divider)
         }
@@ -65,7 +65,7 @@ abstract class CmdPage : TitlePage() {
             if (c.view.layoutParams != null) {
                 cmdPanel.addView(c.view)
             } else {
-                cmdPanel.addView(c.view, LParam.WidthFill.HeightWrap)
+                cmdPanel.addView(c.view, LParam.FillW.WrapH)
             }
             c.view.tag = c
             if (c.clickable) {
@@ -215,7 +215,7 @@ abstract class CmdPage : TitlePage() {
         val a = Cmd(Cmd.Sep)
         a.clickable = false
         a.view = createView().backColor(divider.color)
-        a.view.layoutParams = LParam.WidthFill.height(sepHeight)
+        a.view.layoutParams = LParam.FillW.height(sepHeight)
         cmdList.add(a)
         return this
     }
@@ -226,7 +226,7 @@ abstract class CmdPage : TitlePage() {
         val tv = textItemView {
             text = label
             backColorPage()
-            layoutParams = LParam.WidthFill.height(height)
+            layoutParams = LParam.FillW.height(height)
         }
         a.view = tv
         cmdList.add(a)

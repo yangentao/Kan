@@ -5,9 +5,9 @@ package dev.entao.kan.grid
 import android.content.Context
 import android.widget.LinearLayout
 import dev.entao.kan.creator.simpleGridView
+import dev.entao.kan.ext.FillW
 import dev.entao.kan.ext.HeightFlex
 import dev.entao.kan.ext.LParam
-import dev.entao.kan.ext.WidthFill
 import dev.entao.kan.page.TitlePage
 
 /**
@@ -39,7 +39,7 @@ open class GridSelectPage : TitlePage() {
 
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
         titleBar.title(title)
-        gridView = contentView.simpleGridView(LParam.WidthFill.HeightFlex) {
+        gridView = contentView.simpleGridView(LParam.FillW.HeightFlex) {
 
         }
     }

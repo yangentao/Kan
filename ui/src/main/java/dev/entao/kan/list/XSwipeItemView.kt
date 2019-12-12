@@ -49,7 +49,7 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
 
     init {
         this.padding(0)
-        this.layoutParams = listParam()
+        this.layoutParams = ListParam
         leftViews = context.createLinearHorizontal()
         rightViews = context.createLinearHorizontal()
         changed = true
@@ -108,9 +108,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        leftViews.addView(v, LParam.heightFill().WidthWrap)
+                        leftViews.addView(v, LParam.FillH.WrapW)
                     } else {
-                        leftViews.addView(v, LParam.heightFill().WidthWrap.margins(1, 0, 0, 0))
+                        leftViews.addView(v, LParam.FillH.WrapW.margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -124,9 +124,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        rightViews.addView(v, LParam.heightFill().WidthWrap)
+                        rightViews.addView(v, LParam.FillH.WrapW)
                     } else {
-                        rightViews.addView(v, LParam.heightFill().WidthWrap.margins(1, 0, 0, 0))
+                        rightViews.addView(v, LParam.FillH.WrapW.margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -134,9 +134,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
             rightViews.measure(0, 0)
             rightViewWidth = rightViews.measuredWidth
         }
-        addView(leftViews, LParam.heightFill().WidthWrap)
-        addView(onAddItemView(itemView), LParam.fill())
-        addView(rightViews, LParam.heightFill().widthPx(rightViewWidth))
+        addView(leftViews, LParam.FillH.WrapW)
+        addView(onAddItemView(itemView), LParam.Fill)
+        addView(rightViews, LParam.FillH.widthPx(rightViewWidth))
         setPadding(-leftViewWidth, 0, 0, 0)
         changed = false
         return this

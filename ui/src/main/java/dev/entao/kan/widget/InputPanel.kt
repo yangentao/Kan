@@ -101,7 +101,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     private fun makeEdit(hint: String, marginTop: Int): EditText {
         val ed = context.createEdit().hint(hint)
         ed.padding(5, 2, 5, 2)
-        ed.layoutParams = LParam.widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)
+        ed.layoutParams = LParam.FillW.height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)
         return ed
     }
 
@@ -199,12 +199,12 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
             VState.Disabled to btnDisableDraw
         )
 
-        linearHor(LParam.widthFill().height(ViewSize.EditHeight).margins(0, marginTop, 0, 0)) {
+        linearHor(LParam.FillW.height(ViewSize.EditHeight).margins(0, marginTop, 0, 0)) {
             backDrawable(llDraw).padding(1)
-            codeEdit = edit(LParam.width(0).weight(1f).heightFill()) {
+            codeEdit = edit(LParam.WidthFlex.FillH) {
                 hint("输入验证码").inputTypeNumber().backDrawable(editDraw).padding(15, 0, 15, 0)
             }
-            codeButton = button(LParam.WidthWrap.heightFill()) {
+            codeButton = button(LParam.WrapW.FillH) {
                 text("获取验证码").backDrawable(btnDraw).textColorWhite()
             }
         }
@@ -229,7 +229,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
 
     fun addCheckbox(key: String, title: String, marginTop: Int = inputMarginTop) {
         checkMap[key] =
-            checkBox(LParam.widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+            checkBox(LParam.FillW.WrapH.margins(0, marginTop, 0, 0)) {
                 padding(20, 5, 5, 5)
                 text = title
                 buttonDrawable = D.CheckBox
@@ -237,7 +237,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     }
 
     fun addSafeButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-        buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
+        buttonMap[key] = button(LParam.FillW.HeightButton.margins(0, marginTop, 0, 0)) {
             text = title
             styleGreen()
             setOnClickListener { _onButtonClick(key) }
@@ -245,7 +245,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     }
 
     fun addRedButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-        buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
+        buttonMap[key] = button(LParam.FillW.HeightButton.margins(0, marginTop, 0, 0)) {
             text = title
             styleRed()
             setOnClickListener { _onButtonClick(key) }
@@ -253,7 +253,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     }
 
     fun addWhiteButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-        buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
+        buttonMap[key] = button(LParam.FillW.HeightButton.margins(0, marginTop, 0, 0)) {
             text = title
             styleWhite()
             setOnClickListener { _onButtonClick(key) }

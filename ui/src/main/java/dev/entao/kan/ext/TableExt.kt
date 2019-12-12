@@ -25,15 +25,15 @@ import kotlin.reflect.KProperty0
 
 class FormView(val tableLayout: TableLayout) {
     fun header(label: String, label2: String) {
-        tableLayout.tableRow(TParam.WidthFill.HeightWrap.marginBottom(5)) {
+        tableLayout.tableRow(TParam.FillW.WrapH.marginBottom(5)) {
             setBackgroundColor(ColorX.theme)
-            textView(RowParam.WidthWrap.HeightEditSmall) {
+            textView(RowParam.WrapW.HeightEditSmall) {
                 text = label
                 minimumWidth = dp(80)
                 textColorWhite()
                 gravityCenter()
             }
-            textView(RowParam.WidthWrap.HeightEditSmall) {
+            textView(RowParam.WrapW.HeightEditSmall) {
                 text = label2
                 textColorWhite()
                 gravityCenter()
@@ -42,14 +42,14 @@ class FormView(val tableLayout: TableLayout) {
     }
 
     fun row(label: String, block: (Context) -> View) {
-        tableLayout.tableRow(TParam.WidthFill.HeightWrap.marginBottom(5)) {
-            textView(RowParam.WidthWrap.HeightEditSmall) {
+        tableLayout.tableRow(TParam.FillW.WrapH.marginBottom(5)) {
+            textView(RowParam.WrapW.HeightEditSmall) {
                 text = label
                 textColorMajor()
                 gravityLeftCenter()
             }
             val v = block(context)
-            val p = v.layoutParams ?: RowParam.WidthWrap.HeightWrap.margins(10, 0, 0, 0).CenterVertical
+            val p = v.layoutParams ?: RowParam.WrapW.WrapH.margins(10, 0, 0, 0).CenterY
             v.minimumHeight = dp(ViewSize.EditHeightSmall)
             addView(v, p)
         }
@@ -138,7 +138,7 @@ fun TableLayout.stretch(vararg cols: Int) {
 }
 
 fun TableLayout.header(block: TableRow.() -> Unit): TableRow {
-    return tableRow(TParam.WidthFill.HeightWrap.marginBottom(5)) {
+    return tableRow(TParam.FillW.WrapH.marginBottom(5)) {
         setBackgroundColor(ColorX.theme)
         this.tag = "header"
         this.block()
@@ -147,14 +147,14 @@ fun TableLayout.header(block: TableRow.() -> Unit): TableRow {
 }
 
 fun TableLayout.row(block: TableRow.() -> Unit): TableRow {
-    return tableRow(TParam.WidthFill.HeightWrap.marginBottom(5)) {
+    return tableRow(TParam.FillW.WrapH.marginBottom(5)) {
         this.block()
     }
 }
 
 private val colParam: TableRow.LayoutParams
     get() {
-        return RowParam.WidthWrap.HeightEditSmall.margins(3, 0, 3, 0)
+        return RowParam.WrapW.HeightEditSmall.margins(3, 0, 3, 0)
     }
 
 fun TableRow.label(label: String): TextView {

@@ -41,11 +41,11 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
         waveView = WaveView(context)
         waveView.setColor(Color.WHITE)
         waveView.setMaxValue(MAX)
-        infoPanel.addView(waveView, LParam.widthFill().height(100))
+        infoPanel.addView(waveView, LParam.FillW.height(100))
 
         textView = context.createTextViewC().gravityCenterHorizontal().textColorWhite()
-        infoPanel.addView(textView, LParam.widthFill().heightWrap())
-        parent.addView(infoPanel, RParam.Center.width(200).heightWrap())
+        infoPanel.addView(textView, LParam.FillW.WrapH)
+        parent.addView(infoPanel, RParam.Center.width(200).WrapH)
     }
 
     fun setCallback(callback: VoicePanelCallback) {

@@ -147,7 +147,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
             iv.padding(0, 10, 0, 10)
             iv.setImageDrawable(d)
             item.view = iv
-            item.param = LParam.width(HEIGHT).heightFill()
+            item.param = LParam.width(HEIGHT).FillH
             return
         }
         val tv = createTextViewB()
@@ -158,7 +158,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         tv.padding(5, 0, 5, 0)
         tv.text = item.text
         item.view = tv
-        item.param = LParam.WidthWrap.HeightFill.Center
+        item.param = LParam.WrapW.FillH.Center
     }
 
     fun commit() {
@@ -181,7 +181,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
                     }
                 }
             }
-            addView(ll, RParam.Left.HeightFill.WidthWrap)
+            addView(ll, RParam.Left.FillH.WrapW)
             leftLinear = ll
         }
 
@@ -200,18 +200,18 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
                     }
                 }
             }
-            addView(ll, RParam.Right.HeightFill.WidthWrap)
+            addView(ll, RParam.Right.FillH.WrapW)
             rightLinear = ll
         }
         val v = titleView
         if (v != null) {
             if (titleCenter) {
-                addView(v, RParam.Center.HeightFill.WidthWrap)
+                addView(v, RParam.Center.FillH.WrapW)
             } else {
                 if (leftLinear == null) {
-                    addView(v, RParam.CenterY.Left.HeightFill.WidthWrap.margins(15, 0, 0, 0))
+                    addView(v, RParam.CenterY.Left.FillH.WrapW.margins(15, 0, 0, 0))
                 } else {
-                    addView(v, RParam.CenterY.toRight(leftLinear!!).HeightFill.WidthWrap.margins(15, 0, 0, 0))
+                    addView(v, RParam.CenterY.toRight(leftLinear!!).FillH.WrapW.margins(15, 0, 0, 0))
                 }
             }
         }
@@ -332,7 +332,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         val itemList = ArrayList<BarItem>(item.children.filter { !it.hidden })
         for (c in itemList) {
             val v = makeSureMenuItemView(c)
-            popRootView.addView(v, LParam.WidthFill.height(45))
+            popRootView.addView(v, LParam.FillW.height(45))
             v.setOnClickListener {
                 popWindow?.dismiss()
                 Task.fore {

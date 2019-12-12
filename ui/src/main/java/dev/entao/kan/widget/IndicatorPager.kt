@@ -44,7 +44,7 @@ class IndicatorPager(context: Context) : RelativeLayout(context) {
 
     init {
         needId()
-        addView(viewPager, RParam.WidthFill.HeightWrap)
+        addView(viewPager, RParam.FillW.WrapH)
         indicatorLayout = linearHor(RParam.Wrap.CenterX.Bottom) {
             padding(10)
         }

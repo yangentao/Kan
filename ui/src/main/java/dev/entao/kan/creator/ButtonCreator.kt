@@ -17,21 +17,21 @@ import dev.entao.kan.ext.*
  */
 
 fun LinearLayout.buttonGreenRound(block: Button.() -> Unit): Button {
-    return this.button(LParam.WidthFill.HeightButton.margins(15)) {
+    return this.button(LParam.FillW.HeightButton.margins(15)) {
         styleGreenRound()
         this.block()
     }
 }
 
 fun LinearLayout.buttonRedRound(block: Button.() -> Unit): Button {
-    return this.button(LParam.WidthFill.HeightButton.margins(15)) {
+    return this.button(LParam.FillW.HeightButton.margins(15)) {
         styleRedRound()
         this.block()
     }
 }
 
 fun LinearLayout.buttonBlueRound(block: Button.() -> Unit): Button {
-    return this.button(LParam.WidthFill.HeightButton.margins(15)) {
+    return this.button(LParam.FillW.HeightButton.margins(15)) {
         styleBlueRound()
         this.block()
     }

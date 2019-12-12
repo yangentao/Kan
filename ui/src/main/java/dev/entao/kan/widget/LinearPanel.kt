@@ -58,7 +58,7 @@ open class LinearPanel(context: Context) : LinearLayout(context) {
         view.makeClickable().backColor(normalColor, pressedColor)
         view.setOnClickListener(onItemViewClickListener)
         if (view.layoutParams == null) {
-            addView(view, LParam.widthFill().heightDp(itemHeight).margins(0, marginTop, 0, marginBottom).LeftCenter )
+            addView(view, LParam.FillW.height(itemHeight).margins(0, marginTop, 0, marginBottom).LeftCenter )
         } else {
             addView(view)
         }

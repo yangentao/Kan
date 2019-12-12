@@ -37,7 +37,7 @@ class UpgradeActivity : TitledActivity(), Progress {
             finish()
         }
 
-        msgView = contentView.textView(LParam.WidthFill.height(80).margins(20)) {
+        msgView = contentView.textView(LParam.FillW.height(80).margins(20)) {
             textSizeSp(20)
             gravityCenter()
             textColorMajor()

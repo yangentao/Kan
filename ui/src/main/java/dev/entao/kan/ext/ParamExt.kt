@@ -2,10 +2,8 @@
 
 package dev.entao.kan.ext
 
-import android.view.View
 import android.view.ViewGroup
 import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.theme.Space
 import dev.entao.kan.theme.ViewSize
 
 /**
@@ -24,8 +22,47 @@ val MParam: ViewGroup.MarginLayoutParams
     }
 
 
+val <T : ViewGroup.LayoutParams> T.Wrap: T
+    get() {
+        this.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        return this
+    }
+
+val <T : ViewGroup.LayoutParams> T.WrapW: T
+    get() {
+        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        return this
+    }
+
+
+val <T : ViewGroup.LayoutParams> T.WrapH: T
+    get() {
+        this.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        return this
+    }
+
+val <T : ViewGroup.LayoutParams> T.Fill: T
+    get() {
+        this.width = ViewGroup.LayoutParams.MATCH_PARENT
+        this.height = ViewGroup.LayoutParams.MATCH_PARENT
+        return this
+    }
+
+val <T : ViewGroup.LayoutParams> T.FillW: T
+    get() {
+        this.width = ViewGroup.LayoutParams.MATCH_PARENT
+        return this
+    }
+
+val <T : ViewGroup.LayoutParams> T.FillH: T
+    get() {
+        this.height = ViewGroup.LayoutParams.MATCH_PARENT
+        return this
+    }
+
 fun <T : ViewGroup.LayoutParams> T.size(w: Int, h: Int = w): T {
-    return width(w).heightDp(h)
+    return width(w).height(h)
 }
 
 
@@ -43,37 +80,6 @@ fun <T : ViewGroup.LayoutParams> T.widthPx(w: Int): T {
     return this
 }
 
-val <T : ViewGroup.LayoutParams> T.WrapW: T
-    get() {
-        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        return this
-    }
-
-val <T : ViewGroup.LayoutParams> T.WidthWrap: T
-    get() {
-        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        return this
-    }
-
-fun <T : ViewGroup.LayoutParams> T.widthFill(): T {
-    this.width = ViewGroup.LayoutParams.MATCH_PARENT
-    return this
-}
-val <T : ViewGroup.LayoutParams> T.FillW: T
-    get() {
-        this.width = ViewGroup.LayoutParams.MATCH_PARENT
-        return this
-    }
-val <T : ViewGroup.LayoutParams> T.WidthFill: T
-    get() {
-        this.width = ViewGroup.LayoutParams.MATCH_PARENT
-        return this
-    }
-
-fun <T : ViewGroup.LayoutParams> T.heightPx(h: Int): T {
-    this.height = h
-    return this
-}
 
 fun <T : ViewGroup.LayoutParams> T.height(h: Int): T {
     if (h > 0) {
@@ -84,109 +90,43 @@ fun <T : ViewGroup.LayoutParams> T.height(h: Int): T {
     return this
 }
 
-
-fun <T : ViewGroup.LayoutParams> T.heightDp(h: Int): T {
-    if (h > 0) {
-        this.height = dp(h)
-    } else {
-        this.height = h
-    }
+fun <T : ViewGroup.LayoutParams> T.heightPx(h: Int): T {
+    this.height = h
     return this
 }
-
-fun <T : ViewGroup.LayoutParams> T.heightWrap(): T {
-    this.height = ViewGroup.LayoutParams.WRAP_CONTENT
-    return this
-}
-
-val <T : ViewGroup.LayoutParams> T.HeightWrap: T
-    get() {
-        this.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        return this
-    }
-
-fun <T : ViewGroup.LayoutParams> T.heightFill(): T {
-    this.height = ViewGroup.LayoutParams.MATCH_PARENT
-    return this
-}
-
-val <T : ViewGroup.LayoutParams> T.HeightFill: T
-    get() {
-        this.height = ViewGroup.LayoutParams.MATCH_PARENT
-        return this
-    }
-
-fun <T : ViewGroup.LayoutParams> T.wrap(): T {
-    this.height = ViewGroup.LayoutParams.WRAP_CONTENT
-    this.width = ViewGroup.LayoutParams.WRAP_CONTENT
-    return this
-}
-
-val <T : ViewGroup.LayoutParams> T.Wrap: T
-    get() {
-        this.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        return this
-    }
-
-fun <T : ViewGroup.LayoutParams> T.fill(): T {
-    this.width = ViewGroup.LayoutParams.MATCH_PARENT
-    this.height = ViewGroup.LayoutParams.MATCH_PARENT
-    return this
-}
-
-val <T : ViewGroup.LayoutParams> T.Fill: T
-    get() {
-        this.width = ViewGroup.LayoutParams.MATCH_PARENT
-        this.height = ViewGroup.LayoutParams.MATCH_PARENT
-        return this
-    }
-
 
 val <T : ViewGroup.LayoutParams> T.HeightButton: T
     get() {
-        return heightDp(ViewSize.ButtonHeight)
+        return height(ViewSize.ButtonHeight)
     }
 
 val <T : ViewGroup.LayoutParams> T.HeightBar: T
     get() {
-        return heightDp(ViewSize.BarHeight)
+        return height(ViewSize.BarHeight)
     }
 
-fun <T : ViewGroup.LayoutParams> T.heightButtonSmall(): T {
-    return heightDp(ViewSize.ButtonHeightSmall)
-}
 
 val <T : ViewGroup.LayoutParams> T.HeightButtonSmall: T
     get() {
-        return heightDp(ViewSize.ButtonHeightSmall)
+        return height(ViewSize.ButtonHeightSmall)
     }
 
-fun <T : ViewGroup.LayoutParams> T.heightEdit(): T {
-    return heightDp(ViewSize.EditHeight)
-}
 
 val <T : ViewGroup.LayoutParams> T.HeightEdit: T
     get() {
-        return heightDp(ViewSize.EditHeight)
+        return height(ViewSize.EditHeight)
     }
 
-fun <T : ViewGroup.LayoutParams> T.heightEditSmall(): T {
-    return heightDp(ViewSize.EditHeightSmall)
-}
 
 val <T : ViewGroup.LayoutParams> T.HeightEditSmall: T
     get() {
-        return heightDp(ViewSize.EditHeightSmall)
+        return height(ViewSize.EditHeightSmall)
     }
 
-fun <T : ViewGroup.LayoutParams> T.heightEditSearch(): T {
-    return heightDp(ViewSize.EditHeightSearch)
-}
 
 val <T : ViewGroup.LayoutParams> T.HeightEditSearch: T
     get() {
-        return heightDp(ViewSize.EditHeightSearch)
+        return height(ViewSize.EditHeightSearch)
     }
 
 
@@ -207,6 +147,12 @@ fun <T : ViewGroup.MarginLayoutParams> T.marginTop(v: Int): T {
 
 fun <T : ViewGroup.MarginLayoutParams> T.marginBottom(v: Int): T {
     this.bottomMargin = v.dp
+    return this
+}
+
+fun <T : ViewGroup.MarginLayoutParams> T.margins(m: Int): T {
+    val v = m.dp
+    this.setMargins(v, v, v, v)
     return this
 }
 
@@ -244,11 +190,7 @@ fun <T : ViewGroup.MarginLayoutParams> T.marginY(y: Int): T {
     return this
 }
 
-fun <T : ViewGroup.MarginLayoutParams> T.margins(m: Int): T {
-    val v = m.dp
-    this.setMargins(v, v, v, v)
-    return this
-}
+
 
 
 

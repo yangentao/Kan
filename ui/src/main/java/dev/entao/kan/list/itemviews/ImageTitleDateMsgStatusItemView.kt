@@ -47,17 +47,17 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 
         verticalLayout.apply {
             topView.apply {
-                addView(titleView, LParam.WidthFlex.HeightWrap)
+                addView(titleView, LParam.WidthFlex.WrapH)
                 addView(dateView, LParam.Wrap.margins(5, 0, 0, 0))
             }
-            addView(topView, LParam.widthFill().heightWrap() )
+            addView(topView, LParam.FillW.WrapH )
             bottomView.apply {
-                addView(msgView, LParam.HeightWrap.WidthFlex)
+                addView(msgView, LParam.WrapH.WidthFlex)
                 addView(statusView, LParam.Wrap.margins(5, 0, 0, 0))
             }
-            addView(bottomView, LParam.WidthFill.HeightWrap)
+            addView(bottomView, LParam.FillW.WrapH)
         }
-        addView(verticalLayout, LParam.WidthFlex.HeightWrap.CenterVertical.margins(5, 10, 5, 5))
+        addView(verticalLayout, LParam.WidthFlex.WrapH.CenterY.margins(5, 10, 5, 5))
     }
 
     fun setVerSpace(n: Int) {

@@ -22,11 +22,11 @@ class UserItemView(context: Context) : RelativeLayout(context) {
 			setImageResource(Res.portrait)
 		}
 
-		nameView = textView(RParam.toRight(portraitView).Top.wrap().margins(0, 20, 0, 10)) {
+		nameView = textView(RParam.toRight(portraitView).Top.Wrap.margins(0, 20, 0, 10)) {
 			textSizeA()
 			textColorMajor()
 		}
-		statusView = textView(RParam.toRight(portraitView).below(nameView).wrap()) {
+		statusView = textView(RParam.toRight(portraitView).below(nameView).Wrap) {
 			textSizeB()
 			textColorMinor()
 		}

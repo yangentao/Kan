@@ -22,7 +22,7 @@ open class TablePanel(context: Context) : LinearLayout(context) {
     init {
         vertical()
         this.setBackgroundColor(ColorX.backGray)
-       this.layoutParams =  LParam.widthFill().heightWrap()
+        this.layoutParams = LParam.FillW.WrapH
     }
 
     val itemViewCount: Int
@@ -47,7 +47,7 @@ open class TablePanel(context: Context) : LinearLayout(context) {
      * @return
      */
     fun addRow(heightDp: Int = rowHeight): LinearLayout {
-        return linearHor(LParam.widthFill().heightDp(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
+        return linearHor(LParam.FillW.height(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
             backColorPage()
         }
     }
@@ -61,7 +61,7 @@ open class TablePanel(context: Context) : LinearLayout(context) {
 
     fun addItemView(view: View, weight: Float = 1f) {
         val row = lastRow() ?: addRow()
-        row.addView(view, LParam.width(0).weight(weight).heightFill().Center.margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0))
+        row.addView(view, LParam.width(0).weight(weight).FillH.Center.margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0))
     }
 
     fun clean() {

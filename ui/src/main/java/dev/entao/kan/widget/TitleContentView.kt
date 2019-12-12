@@ -26,7 +26,7 @@ class TitleContentView(context: Context) : LinearLayout(context) {
 		backFill(defaultBackColor, defaultBackCorner)
 
 
-		titleView = textView(LParam.widthFill().heightWrap().margins(0, 0, 0, 10)) {
+		titleView = textView(LParam.FillW.WrapH.margins(0, 0, 0, 10)) {
 			textColor(defaultTitleTextColor)
 			textSizeA()
 			gravityCenter()

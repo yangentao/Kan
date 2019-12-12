@@ -81,7 +81,7 @@ abstract class InputPage : TitlePage() {
             io.inputValid.label(io.hint)
         }
         val ed = inputLayout.editX(
-            LParam.WidthFill.height(io.height).margins(
+            LParam.FillW.height(io.height).margins(
                 io.marginLeft,
                 io.marginTop,
                 io.marginRight,
@@ -197,7 +197,7 @@ abstract class InputPage : TitlePage() {
         }
         io.inputValid.label(io.hint)
         val cb = inputLayout.checkBox(
-            LParam.WidthFill.height(io.height).margins(
+            LParam.FillW.height(io.height).margins(
                 io.marginLeft,
                 io.marginTop,
                 io.marginRight,
@@ -219,7 +219,7 @@ abstract class InputPage : TitlePage() {
 
     fun static(label: String, marginTop: Int = inputMarginTop): TextView {
         return inputLayout.textView(
-            LParam.widthFill().height(INPUT_HEIGHT).margins(
+            LParam.FillW.height(INPUT_HEIGHT).margins(
                 0,
                 marginTop,
                 0,
@@ -231,7 +231,7 @@ abstract class InputPage : TitlePage() {
     }
 
     fun label(label: String, marginTop: Int = inputMarginTop): TextView {
-        return inputLayout.textView(LParam.widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+        return inputLayout.textView(LParam.FillW.WrapH.margins(0, marginTop, 0, 0)) {
             text = label
         }
     }
@@ -242,7 +242,7 @@ abstract class InputPage : TitlePage() {
         marginTop: Int = inputMarginTop
     ): TextView {
         return inputLayout.textView(
-            LParam.widthFill().height(imgHeight).margins(
+            LParam.FillW.height(imgHeight).margins(
                 0,
                 marginTop,
                 0,
@@ -255,7 +255,7 @@ abstract class InputPage : TitlePage() {
     }
 
     fun button(key: String, title: String, marginTop: Int = buttonMarginTop): Button {
-        val b = inputLayout.button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 6)) {
+        val b = inputLayout.button(LParam.FillW.HeightButton.margins(0, marginTop, 0, 6)) {
             setOnClickListener { _onButtonClick(key) }
             text = title
         }
@@ -276,7 +276,7 @@ abstract class InputPage : TitlePage() {
 
     fun textDetail(title: String, marginTop: Int = inputMarginTop): TextDetailView {
         return inputLayout.textDetail(
-            LParam.WidthFill.height(INPUT_HEIGHT).margins(
+            LParam.FillW.height(INPUT_HEIGHT).margins(
                 0,
                 marginTop,
                 0,
@@ -419,7 +419,7 @@ abstract class InputPage : TitlePage() {
 
 
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
-        inputLayout = contentView.linearVer(LParam.widthFill().heightWrap()) {
+        inputLayout = contentView.linearVer(LParam.FillW.WrapH) {
             padding(30, 25, 30, 20)
         }
     }
@@ -504,12 +504,12 @@ abstract class InputPage : TitlePage() {
 
     fun addVerifyCode(phoneEditKey: String, marginTop: Int = inputMarginTop) {
 
-        inputLayout.linearHor(LParam.WidthFill.HeightWrap.margins(0, marginTop, 0, 0)) {
-            codeEdit = edit(LParam.FlexX.heightEdit()) {
+        inputLayout.linearHor(LParam.FillW.WrapH.margins(0, marginTop, 0, 0)) {
+            codeEdit = edit(LParam.FlexX.HeightEdit) {
                 hint = "输入验证码"
                 inputTypeNumber()
             }
-            codeButton = button(LParam.WidthWrap.HeightButtonSmall.margins(3, 0, 0, 0)) {
+            codeButton = button(LParam.WrapW.HeightButtonSmall.margins(3, 0, 0, 0)) {
                 text = "获取验证码"
                 style {
                     outlineBlue()

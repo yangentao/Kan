@@ -28,10 +28,10 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 
     init {
         orientationHorizontal().gravityCenterVertical().padding(10, 5, 10, 5).backColor(Color.WHITE, ColorX.fade)
-        this.layoutParams = LParam.widthFill().height(ITEM_HEIGHT).margins(0, 0, 0, marginBottom)
+        this.layoutParams = LParam.FillW.height(ITEM_HEIGHT).margins(0, 0, 0, marginBottom)
 
         val v = View(getContext()).needId()
-        addView(v, LParam.weight(1f).heightFill())
+        addView(v, LParam.weight(1f).FillH)
     }
 
     fun findCheckBox(): CheckBox? {
@@ -48,13 +48,13 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
         if (right) {
             val tv = context.createTextViewB().textColorMinor().gravityRightCenter()
             tv.text = text
-            tv.layoutParams = LParam.heightWrap().width(width).RightCenter.margins(marginLeft, 0, 0, 0)
+            tv.layoutParams = LParam.WrapH.width(width).RightCenter.margins(marginLeft, 0, 0, 0)
             this.addView(tv)
             return tv
         } else {
             val tv = context.createTextViewA()
             tv.text = text
-            tv.layoutParams = LParam.heightWrap().width(width).LeftCenter.margins(marginLeft, 0, 0, 0)
+            tv.layoutParams = LParam.WrapH.width(width).LeftCenter.margins(marginLeft, 0, 0, 0)
             this.addView(tv, 0)
             return tv
         }

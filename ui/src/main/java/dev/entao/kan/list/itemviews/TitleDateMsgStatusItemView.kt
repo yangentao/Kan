@@ -33,18 +33,18 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         titleView = createTextViewB().singleLine().ellipsizeEnd()
         dateView = createTextViewC().singleLine()
 
-        top.addView(titleView, LParam.WidthFlex.heightWrap())
-        top.addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
+        top.addView(titleView, LParam.WidthFlex.WrapH)
+        top.addView(dateView, LParam.Wrap.margins(5, 0, 0, 0))
 
         val bottom = createLinearHorizontal().gravityCenterVertical()
         msgView = createTextViewC().singleLine().ellipsizeEnd()
         statusView = createTextViewC().singleLine()
-        bottom.addView(msgView, LParam.WidthFlex.heightWrap())
-        bottom.addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
+        bottom.addView(msgView, LParam.WidthFlex.WrapH)
+        bottom.addView(statusView, LParam.Wrap.margins(5, 0, 0, 0))
 
-        verLayout.addView(top, LParam.widthFill().heightWrap())
-        verLayout.addView(bottom, LParam.widthFill().heightWrap().margins(0, 5, 0, 0))
-        this.addView(verLayout, LParam.widthFill().heightWrap())
+        verLayout.addView(top, LParam.FillW.WrapH)
+        verLayout.addView(bottom, LParam.FillW.WrapH.margins(0, 5, 0, 0))
+        this.addView(verLayout, LParam.FillW.WrapH)
     }
 
     fun title(title: String): TitleDateMsgStatusItemView {

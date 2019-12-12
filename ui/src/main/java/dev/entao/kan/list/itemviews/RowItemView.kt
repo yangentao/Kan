@@ -24,7 +24,7 @@ class RowItemView(context: Context) : LinearLayout(context) {
         needId()
         horizontal().padding(10, 10, 10, 10).gravityCenterVertical()
         mid = View(context)
-        addView(mid, LParam.width(0).weight(1f).heightDp(10) )
+        addView(mid, LParam.width(0).weight(1f).height(10) )
     }
 
     fun space(spaceDp: Int): RowItemView {
@@ -68,14 +68,14 @@ class RowItemView(context: Context) : LinearLayout(context) {
     @JvmOverloads fun addLeft(text: String? = null, textSizeSp: Int = textSize, textColor: Int = this.textColor, minWidth: Int = this.minWidth, marginRight: Int = space): RowItemView {
         val tv = TextView(context)
         tv.textSizeSp(textSizeSp).textColor(textColor).miniWidthDp(minWidth).gravityLeftCenter().text(text)
-        addView(tv, indexOfChild(mid), LParam.wrap().margins(0, 0, marginRight, 0))
+        addView(tv, indexOfChild(mid), LParam.Wrap.margins(0, 0, marginRight, 0))
         return this
     }
 
     @JvmOverloads fun addRight(text: String? = null, textSizeSp: Int = textSize, textColor: Int = this.textColor, minWidth: Int = this.minWidth, marginLeft: Int = space): RowItemView {
         val tv = TextView(context)
         tv.textSizeSp(textSizeSp).textColor(textColor).miniWidthDp(minWidth).gravityRightCenter().text(text)
-        addView(tv, LParam.wrap().margins(marginLeft, 0, 0, 0))
+        addView(tv, LParam.Wrap.margins(marginLeft, 0, 0, 0))
         return this
     }
 

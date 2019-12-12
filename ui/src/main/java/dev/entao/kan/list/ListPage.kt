@@ -46,13 +46,13 @@ abstract class ListPage : TitlePage() {
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
 
         if (withSearchEdit) {
-            searchEdit = contentView.editX(LParam.WidthFill.HeightEditSearch.margins(15, 5, 15, 5)) {
+            searchEdit = contentView.editX(LParam.FillW.HeightEditSearch.margins(15, 5, 15, 5)) {
                 styleSearch()
                 singleLine()
             }
         }
 
-        listViewParent = contentView.relative(LParam.WidthFill.HeightFlex) {
+        listViewParent = contentView.relative(LParam.FillW.HeightFlex) {
             refreshLayout = swipeRefresh(RParam.Fill) {
                 setOnRefreshListener {
                     onPullRefresh()

@@ -39,7 +39,7 @@ class DialogX(val context: Context) {
     val cardView: CardView = CardView(context)
     private val rootLayout = context.createLinearVertical()
     var bodyView: View = context.createTextViewB().textColorMajor()
-    var bodyViewParam: LinearLayout.LayoutParams = LParam.WidthFill.HeightWrap
+    var bodyViewParam: LinearLayout.LayoutParams = LParam.FillW.WrapH
     var onDismiss: (DialogX) -> Unit = {}
     var beforeDismiss: (DialogX) -> Unit = {}
 
@@ -70,7 +70,7 @@ class DialogX(val context: Context) {
         cardView.radius = ViewSize.DialogCorner.dp.toFloat()
 
 
-        cardView.addView(rootLayout, FParam.WidthFill.HeightWrap)
+        cardView.addView(rootLayout, FParam.FillW.WrapH)
         rootLayout.divider()
 
         cardView.minimumHeight = dp(80)
@@ -135,7 +135,7 @@ class DialogX(val context: Context) {
 
     fun bodyInput(block: EditText.() -> Unit) {
         val rl = context.createRelative()
-        val ed = rl.editX(RParam.Center.WidthFill.HeightWrap.margins(15)) {
+        val ed = rl.editX(RParam.Center.FillW.WrapH.margins(15)) {
             minimumWidth = dp(200)
             minimumHeight = dp(ViewSize.EditHeight)
             this.block()
@@ -148,7 +148,7 @@ class DialogX(val context: Context) {
 
     fun bodyInputLines(block: EditText.() -> Unit) {
         val rl = context.createRelative()
-        val ed = rl.edit(RParam.Center.WidthFill.HeightWrap.margins(15)) {
+        val ed = rl.edit(RParam.Center.FillW.WrapH.margins(15)) {
             minimumWidth = dp(200)
             minimumHeight = dp(ViewSize.EditHeight * 5)
             this.multiLine()
@@ -164,7 +164,7 @@ class DialogX(val context: Context) {
     }
 
     fun bodyList(block: SimpleListView.() -> Unit): SimpleListView {
-        bodyViewParam = LParam.WidthFill.HeightFlex
+        bodyViewParam = LParam.FillW.HeightFlex
         val lv = SimpleListView(context)
         body(lv)
         lv.block()
@@ -185,7 +185,7 @@ class DialogX(val context: Context) {
     }
 
     fun bodyListCheck(block: CheckListView.() -> Unit): CheckListView {
-        bodyViewParam = LParam.WidthFill.HeightFlex
+        bodyViewParam = LParam.FillW.HeightFlex
         val lv = CheckListView(context)
         body(lv)
         lv.block()
@@ -201,7 +201,7 @@ class DialogX(val context: Context) {
     }
 
     fun bodyGrid(block: SimpleGridView.() -> Unit): SimpleGridView {
-        bodyViewParam = LParam.WidthFill.HeightFlex
+        bodyViewParam = LParam.FillW.HeightFlex
         val lv = SimpleGridView(context)
         lv.verticalSpacing = dp(5)
         body(lv)
@@ -212,7 +212,7 @@ class DialogX(val context: Context) {
 
     private fun createView() {
         if (title.isNotEmpty()) {
-            rootLayout.textView(LParam.WidthFill.height(titleHeight)) {
+            rootLayout.textView(LParam.FillW.height(titleHeight)) {
                 textColorWhite().textSizeTitle()
                 backColorTheme()
                 if (TitleBar.TitleCenter) {
@@ -229,10 +229,10 @@ class DialogX(val context: Context) {
         rootLayout.addView(bodyView, bodyViewParam)
 
         if (buttons.isNotEmpty()) {
-            rootLayout.linearHor(LParam.WidthFill.HeightButton) {
+            rootLayout.linearHor(LParam.FillW.HeightButton) {
                 divider()
                 for (b in buttons) {
-                    textView(LParam.Center.HeightFill.WidthFlex) {
+                    textView(LParam.Center.FillH.WidthFlex) {
                         textSizeA()
                         textColor(b.color)
                         backColor(b.backColor)

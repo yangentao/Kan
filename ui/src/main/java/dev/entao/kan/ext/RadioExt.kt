@@ -46,7 +46,7 @@ fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?, rightNormal: Dr
 fun RadioGroup.addRadioButton(title: String, block: RadioGroup.LayoutParams.() -> RadioGroup.LayoutParams): RadioButton {
     val view = this.context.createRadioButton()
     view.text = title
-    val lp = RadioParam.HeightButton.WidthFill
+    val lp = RadioParam.HeightButton.FillW
     lp.block()
     this.addView(view, lp)
     return view

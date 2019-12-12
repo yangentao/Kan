@@ -73,13 +73,13 @@ open class BottomNavPage : BasePage() {
     override fun onCreatePage(context: Context, pageView: RelativeLayout, savedInstanceState: Bundle?) {
         super.onCreatePage(context, pageView, savedInstanceState)
         pageView.linearVer(RParam.Fill) {
-            pager = addViewX(ViewPager2(context), LParam.WidthFill.HeightFlex)
-            val lineView = addViewX(View(context), LParam.WidthFill.height(1))
+            pager = addViewX(ViewPager2(context), LParam.FillW.HeightFlex)
+            val lineView = addViewX(View(context), LParam.FillW.height(1))
             lineView.backColor(0x44cccccc.argb)
 
             bottomNav = addViewX(
                 BottomNavigationView(context, null, bottomNavStyle),
-                LParam.WidthFill.HeightWrap
+                LParam.FillW.WrapH
             )
         }
         onPrepareTabs()

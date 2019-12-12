@@ -29,11 +29,11 @@ open class TabLayoutPage : TitlePage() {
         }
         contentView.apply {
             if (tabLayoutTop) {
-                tabLayout = addViewX(TabLayout(context, null, tabLayoutStyle).needId(), LParam.WidthFill.HeightWrap)
-                pager = addViewX(ViewPager(context).needId(), LParam.WidthFill.HeightFlex)
+                tabLayout = addViewX(TabLayout(context, null, tabLayoutStyle).needId(), LParam.FillW.WrapH)
+                pager = addViewX(ViewPager(context).needId(), LParam.FillW.HeightFlex)
             } else {
-                pager = addViewX(ViewPager(context).needId(), LParam.WidthFill.HeightFlex)
-                tabLayout = addViewX(TabLayout(context, null, tabLayoutStyle).needId(), LParam.WidthFill.HeightWrap)
+                pager = addViewX(ViewPager(context).needId(), LParam.FillW.HeightFlex)
+                tabLayout = addViewX(TabLayout(context, null, tabLayoutStyle).needId(), LParam.FillW.WrapH)
             }
         }
 

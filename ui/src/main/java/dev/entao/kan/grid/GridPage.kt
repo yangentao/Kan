@@ -52,7 +52,7 @@ abstract class GridPage : TitlePage() {
         gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ ->
             onItemClick(anyAdapter.getItem(pos))
         }
-        gridParent = contentView.relative(LParam.WidthFill.HeightFlex) {
+        gridParent = contentView.relative(LParam.FillW.HeightFlex) {
             refreshLayout = swipeRefresh(RParam.Fill) {
                 isEnabled = false
                 setOnRefreshListener {
