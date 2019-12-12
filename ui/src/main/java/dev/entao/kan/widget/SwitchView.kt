@@ -12,7 +12,7 @@ open class SwitchView(context: Context): LinearLayout(context) {
 
 	init {
 		horizontal().backColorWhite()
-		setLinearParam { widthFill().heightWrap().margins(0, 1, 0, 1) }
+		this.layoutParams = LParam.widthFill().heightWrap().margins(0, 1, 0, 1)
 		this.divider(Divider().pad(3))
 	}
 
@@ -47,7 +47,7 @@ open class SwitchView(context: Context): LinearLayout(context) {
 		val itemView = SwitchItemView(context)
 		itemView.text = itemName
 		onConfigItem(itemView)
-		addViewParam(itemView) { width(0).weight(1f).heightFill() }
+		addView(itemView, LParam.width(0).weight(1f).heightFill() )
 		itemView.onClick { v->
 			val s = v.text
 			Task.fore {

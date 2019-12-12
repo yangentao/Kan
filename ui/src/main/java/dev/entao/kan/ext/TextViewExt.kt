@@ -405,56 +405,56 @@ fun <T : TextView> T.linkifyAll(): T {
     return this
 }
 
-fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(D.res(resId).sized(size), old[1], old[2], old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.leftImage(d: Drawable?, margin: Int = Space.Small): T {
+fun <T : TextView> T.leftImage(d: Drawable?, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(d, old[1], old[2], old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], D.res(resId).sized(size), old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.rightImage(d: Drawable?, margin: Int = Space.Small): T {
+fun <T : TextView> T.rightImage(d: Drawable?, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], d, old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], D.res(resId).sized(size), old[2], old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.topImage(d: Drawable?, margin: Int = Space.Small): T {
+fun <T : TextView> T.topImage(d: Drawable?, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], d, old[2], old[3])
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], old[2], D.res(resId).sized(size))
     this.compoundDrawablePadding = dp(margin)
     return this
 }
 
-fun <T : TextView> T.bottomImage(d: Drawable?, margin: Int = Space.Small): T {
+fun <T : TextView> T.bottomImage(d: Drawable?, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], old[2], d)
     this.compoundDrawablePadding = dp(margin)
@@ -478,5 +478,5 @@ fun <T : TextView> T.onTextChanged(block: (String) -> Unit): T {
 }
 
 fun TextView.moreArrow() {
-    this.rightImage(R.drawable.yet_arrow_right, 16, 10)
+    this.rightImage(R.drawable.yet_arrow_right, 16, Space.X0)
 }

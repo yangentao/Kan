@@ -16,7 +16,7 @@ import dev.entao.kan.theme.Space
 class TextItemView(context: Context) : TextView(context) {
     init {
         needId()
-        padding(Space.Normal, 12, Space.Normal, 12).gravityLeftCenter().textSizeA().textColorMajor()
+        padding(Space.X, Space.Y, Space.X, Space.Y).gravityLeftCenter().textSizeA().textColorMajor()
     }
 
     fun icon(d: Drawable?) {

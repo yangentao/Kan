@@ -232,7 +232,7 @@ class DialogX(val context: Context) {
             rootLayout.linearHor(LParam.WidthFill.HeightButton) {
                 divider()
                 for (b in buttons) {
-                    textView(LParam.gravityCenter().HeightFill.WidthFlex) {
+                    textView(LParam.Center.HeightFill.WidthFlex) {
                         textSizeA()
                         textColor(b.color)
                         backColor(b.backColor)

@@ -5,9 +5,16 @@ package dev.entao.kan.theme
  */
 
 object Space {
-    val Large = 45
-    val Big = 30
-    val Normal = 16
-    val Small = 10
-    val Tiny = 5
+    const val X = 16
+    const val XX = 32
+    const val XXX = 48
+    const val X0 = 10
+    const val X00 = 5
+
+    const val Y = 10
+    const val YY = 20
+    const val YYY = 20
+    const val Y0 = 5
+
+
 }

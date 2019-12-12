@@ -28,10 +28,10 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 		padding(10)
 		val ll = linearVer(RParam.wrap().centerInParent()) {}
 		ll.gravityCenter()
-		imageView = ll.imageView(lParam().width(IconSize.Large).height(IconSize.Large).gravityBottomCenter()) {
+		imageView = ll.imageView(LParam.width(IconSize.Large).height(IconSize.Large).BottomCenter) {
 			scaleCenterInside()
 		}
-		textView = ll.textView(lParam().wrap().gravityTopCenter()) {
+		textView = ll.textView(LParam.wrap().TopCenter) {
 			textSizeTiny()
 			textColorMinor()
 		}

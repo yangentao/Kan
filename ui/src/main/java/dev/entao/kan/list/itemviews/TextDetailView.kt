@@ -12,82 +12,84 @@ import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*
 import dev.entao.kan.res.D
 import dev.entao.kan.res.Res
+import dev.entao.kan.theme.Space
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
  */
 
-
 open class TextDetailView(context: Context) : HorItemView(context) {
-	var textView: TextView
-	var detailView: TextView
+    val textView: TextView
+    val detailView: TextView
 
-	var argS: String = ""
-	var argN: Int = 0
+    var argS: String = ""
+    var argN: Int = 0
 
-	init {
-		padding(20, 15, 20, 15).gravityCenterVertical()
+    init {
+        padding(Space.X, 15, Space.X, 15).gravityCenterVertical()
+        textView = textView(LParam.WidthWrap.HeightWrap.LeftCenter) {
+            textSizeB().textColorMajor().singleLine()
+        }
+        addFlex()
+        detailView = textView(LParam.Wrap.RightCenter) {
+            textSizeC().textColorMinor().gravityRightCenter().multiLine()
+            maxLines(2)
+        }
+    }
 
-		textView = textView(lParam().widthWrap().heightWrap().gravityLeftCenter()) {
-			textSizeB().textColorMajor().singleLine()
-		}
-		addFlex()
-		detailView = textView(lParam().wrap().gravityRightCenter()) {
-			textSizeC().textColorMinor().gravityRightCenter().multiLine()
-			maxLines(2)
-		}
-	}
+    var textValue: String?
+        get() = this.textView.text?.toString()
+        set(value) {
+            this.textView.text = value ?: ""
+        }
 
-	fun setText(text: String?) {
-		textView.text = text
-	}
-
-	fun setDetail(detail: String?) {
-		detailView.text = detail
-	}
-
-	fun setValues(text: String?, detail: String?): TextDetailView {
-		textView.text = text
-		detailView.text = detail
-		return this
-	}
-
-	fun setTextSize(sp1: Int, sp2: Int): TextDetailView {
-		textView.textSizeSp(sp1)
-		detailView.textSizeSp(sp2)
-		return this
-	}
-
-	fun setLeftImage(d: Drawable) {
-		textView.setCompoundDrawables(d, null, null, null)
-		textView.compoundDrawablePadding = dp(10)
-	}
+    var detailValue: String?
+        get() = this.detailView.text?.toString()
+        set(value) {
+            this.detailView.text = value ?: ""
+        }
 
 
-	fun setRightImage(d: Drawable) {
-		detailView.setCompoundDrawables(null, null, d, null)
-		detailView.compoundDrawablePadding = dp(10)
-	}
+    fun setValues(text: String?, detail: String?): TextDetailView {
+        textView.text = text
+        detailView.text = detail
+        return this
+    }
 
-	fun rightImageMore() {
-		val d = D.res(Res.more).sized(12)
-		setRightImage(d)
-	}
+
+    fun setLeftImage(d: Drawable): TextDetailView {
+        textView.setCompoundDrawables(d, null, null, null)
+        textView.compoundDrawablePadding = dp(10)
+        return this
+    }
+
+
+    fun setRightImage(d: Drawable): TextDetailView {
+        detailView.setCompoundDrawables(null, null, d, null)
+        detailView.compoundDrawablePadding = dp(10)
+        return this
+    }
+
+    fun rightImageMore(): TextDetailView {
+        val d = D.res(Res.more).sized(12)
+        setRightImage(d)
+        return this
+    }
 }
 
 fun ViewGroup.textDetail(param: ViewGroup.LayoutParams, block: TextDetailView.() -> Unit): TextDetailView {
-	val v = TextDetailView(this.context)
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = TextDetailView(this.context)
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
 fun ViewGroup.textDetailViewTrans(param: ViewGroup.LayoutParams, block: TextDetailView.() -> Unit): TextDetailView {
-	val v = TextDetailView(this.context)
-	this.addView(v, param)
-	v.backColorTrans()
-	v.textView.textColorWhite()
-	v.detailView.textColorWhite()
-	v.block()
-	return v
+    val v = TextDetailView(this.context)
+    this.addView(v, param)
+    v.backColorTrans()
+    v.textView.textColorWhite()
+    v.detailView.textColorWhite()
+    v.block()
+    return v
 }

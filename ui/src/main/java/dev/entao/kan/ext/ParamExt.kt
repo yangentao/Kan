@@ -268,18 +268,6 @@ fun <T : ViewGroup.MarginLayoutParams> T.margins(m: Int): T {
     return this
 }
 
-fun <T : ViewGroup.MarginLayoutParams> T.marginNormal(): T {
-    this.margins(Space.Normal)
-    return this
-}
 
-fun <T : ViewGroup.MarginLayoutParams> T.marginNormalTiny(): T {
-    this.margins(Space.Normal, Space.Tiny, Space.Normal, Space.Tiny)
-    return this
-}
 
-fun <T : ViewGroup.MarginLayoutParams> T.marginNormalSmall(): T {
-    this.margins(Space.Normal, Space.Small, Space.Normal, Space.Small)
-    return this
-}
 

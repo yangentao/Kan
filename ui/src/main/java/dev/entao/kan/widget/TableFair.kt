@@ -88,7 +88,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 				rl.backColor(colorNormal, colorPressed)
 				rl.tag = n
 				rl.setOnClickListener(this.onClickListener)
-				row.addView(rl, RowParam.width(0).weight(1f).heightFill().gravityCenter())
+				row.addView(rl, RowParam.width(0).weight(1f).heightFill().Center)
 				if (n < viewList.size) {
 					val view = viewList[n]
 					rl.addView(view, cellLayoutParam)

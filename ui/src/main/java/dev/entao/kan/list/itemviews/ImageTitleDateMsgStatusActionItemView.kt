@@ -51,26 +51,26 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 
     init {
         padding(10, 0, 0, 0)
-        addViewParam(iconView) { size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0) }
+        addView(iconView, LParam.size(IconSize.Small).Center.margins(0, 0, 5, 0))
         topView.gravityCenterVertical().apply {
-            addViewParam(titleView) { widthDp(0).heightWrap().weight(1f) }
-            addViewParam(dateView) { wrap().margins(5, 0, 0, 0) }
+            addView(titleView, LParam.widthDp(0).heightWrap().weight(1f))
+            addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
         }
         bottomView.gravityCenterVertical().apply {
-            addViewParam(msgView) { widthDp(0).heightWrap().weight(1f) }
-            addViewParam(statusView) { wrap().margins(5, 0, 0, 0) }
+            addView(msgView, LParam.widthDp(0).heightWrap().weight(1f))
+            addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
         }
         val ll = createLinearVertical().apply {
-            addViewParam(topView) { widthFill().heightWrap() }
-            addViewParam(bottomView) { widthFill().heightWrap() }
+            addView(topView, LParam.WidthFill.HeightWrap)
+            addView(bottomView, LParam.WidthFill.HeightWrap)
         }
 
-        this.addViewParam(ll) { widthDp(0).weight(1f).heightWrap().margins(5, 10, 5, 5) }
+        this.addView(ll, LParam.WidthFlex.HeightWrap.margins(5, 10, 5, 5))
 
         subIconView = createImageView().backColor(Color.TRANSPARENT, ColorX.fade).padding(16)
         subIconView.setImageDrawable(arrowRight)
         subIconView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        addViewParam(subIconView) { heightFill().widthDp(45).gravityCenter() }
+        addView(subIconView, LParam.heightFill().widthDp(45).Center )
         subIconView.setOnClickListener(clickListener)
     }
 

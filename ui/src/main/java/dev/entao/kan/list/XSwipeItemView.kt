@@ -108,9 +108,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        leftViews.addView(v, linearParam().heightFill().widthWrap())
+                        leftViews.addView(v, LParam.heightFill().widthWrap())
                     } else {
-                        leftViews.addView(v, linearParam().heightFill().widthWrap().margins(1, 0, 0, 0))
+                        leftViews.addView(v, LParam.heightFill().widthWrap().margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -124,9 +124,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        rightViews.addView(v, linearParam().heightFill().widthWrap())
+                        rightViews.addView(v, LParam.heightFill().widthWrap())
                     } else {
-                        rightViews.addView(v, linearParam().heightFill().widthWrap().margins(1, 0, 0, 0))
+                        rightViews.addView(v, LParam.heightFill().widthWrap().margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -134,9 +134,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
             rightViews.measure(0, 0)
             rightViewWidth = rightViews.measuredWidth
         }
-        addView(leftViews, linearParam().heightFill().widthWrap())
-        addView(onAddItemView(itemView), linearParam().fill())
-        addView(rightViews, linearParam().heightFill().widthPx(rightViewWidth))
+        addView(leftViews, LParam.heightFill().widthWrap())
+        addView(onAddItemView(itemView), LParam.fill())
+        addView(rightViews, LParam.heightFill().widthPx(rightViewWidth))
         setPadding(-leftViewWidth, 0, 0, 0)
         changed = false
         return this

@@ -33,18 +33,18 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         titleView = createTextViewB().singleLine().ellipsizeEnd()
         dateView = createTextViewC().singleLine()
 
-        top.addViewParam(titleView) { widthDp(0).heightWrap().weight(1f) }
-        top.addViewParam(dateView) { wrap().margins(5, 0, 0, 0) }
+        top.addView(titleView, LParam.widthDp(0).heightWrap().weight(1f))
+        top.addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
 
         val bottom = createLinearHorizontal().gravityCenterVertical()
         msgView = createTextViewC().singleLine().ellipsizeEnd()
         statusView = createTextViewC().singleLine()
-        bottom.addViewParam(msgView) { widthDp(0).heightWrap().weight(1f) }
-        bottom.addViewParam(statusView) { wrap().margins(5, 0, 0, 0) }
+        bottom.addView(msgView, LParam.widthDp(0).heightWrap().weight(1f))
+        bottom.addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
 
-        verLayout.addViewParam(top) { widthFill().heightWrap() }
-        verLayout.addViewParam(bottom) { widthFill().heightWrap().margins(0, 5, 0, 0) }
-        this.addViewParam(verLayout) { widthFill().heightWrap() }
+        verLayout.addView(top, LParam.widthFill().heightWrap())
+        verLayout.addView(bottom, LParam.widthFill().heightWrap().margins(0, 5, 0, 0))
+        this.addView(verLayout, LParam.widthFill().heightWrap())
     }
 
     fun title(title: String): TitleDateMsgStatusItemView {

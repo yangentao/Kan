@@ -114,7 +114,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
         this.tagPosMap = tagPosMap
         removeAllViews()
         for (s in tagList) {
-            textView(lParam().width(40).height(0).weight(1).gravityCenter()) {
+            textView(LParam.width(40).height(0).weight(1).Center) {
                 this.tag = s
                 text(s.toString()).textSizeD().textColor(Color.BLACK).gravityCenter()
             }

@@ -158,7 +158,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         tv.padding(5, 0, 5, 0)
         tv.text = item.text
         item.view = tv
-        item.param = LParam.WidthWrap.HeightFill.gravityCenter()
+        item.param = LParam.WidthWrap.HeightFill.Center
     }
 
     fun commit() {

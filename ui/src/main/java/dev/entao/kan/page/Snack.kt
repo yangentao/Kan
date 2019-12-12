@@ -29,11 +29,11 @@ class Snack(context: Context) : LinearLayout(context) {
 		padding(10, 5, 10, 5)
 		backColor(Color.DKGRAY)
 		gravityCenterVertical()
-		textView = textView(LParam.WidthFlex.HeightWrap.GravityCenterVertical) {
+		textView = textView(LParam.WidthFlex.HeightWrap.CenterVertical) {
 			textColorWhite()
 			padding(10)
 		}
-		cancelButton = textView(LParam.HeightButton.WidthWrap.GravityCenterVertical) {
+		cancelButton = textView(LParam.HeightButton.WidthWrap.CenterVertical) {
 			gone()
 			padding(15, 0, 15, 0)
 			textSizeA()
@@ -45,7 +45,7 @@ class Snack(context: Context) : LinearLayout(context) {
 				hide()
 			}
 		}
-		okButton = textView(LParam.HeightButton.WidthWrap.GravityCenterVertical) {
+		okButton = textView(LParam.HeightButton.WidthWrap.CenterVertical) {
 			gone()
 			padding(15, 0, 15, 0)
 			textSizeA()

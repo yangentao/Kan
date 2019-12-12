@@ -114,27 +114,27 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
     private fun addItemMid(index: Int): SwitchPanelItem {
         val v = SwitchPanelItem(context).text(items[index]).styleMid()
         v.isSelected = selectIndex == index
-        addView(v, linearParam().width(0).weight(1f).heightFill().gravityCenter().margins(1))
+        addView(v, LParam.width(0).weight(1f).heightFill().Center.margins(1))
         return v
     }
 
     private fun addItemRight(text: String): SwitchPanelItem {
         val v = SwitchPanelItem(context).text(text).styleRight()
         v.isSelected = selectIndex == items.size - 1
-        addView(v, linearParam().width_(0).weight(1f).heightFill().gravityCenter().margins(1))
+        addView(v, LParam.width_(0).weight(1f).heightFill().Center.margins(1))
         return v
     }
 
     private fun addItemLeft(text: String): SwitchPanelItem {
         val v = SwitchPanelItem(context).text(text).styleLeft()
         v.isSelected = selectIndex == 0
-        addView(v, linearParam().width(0).weight(1f).heightFill().gravityCenter().margins(1))
+        addView(v, LParam.width(0).weight(1f).heightFill().Center.margins(1))
         return v
     }
 
     private fun addItemOne(text: String): SwitchPanelItem {
         val v = SwitchPanelItem(context).text(text).styleOne()
-        addView(v, linearParam().widthFill().heightFill().gravityCenter().margins(1))
+        addView(v, LParam.widthFill().heightFill().Center.margins(1))
         v.isSelected = true
         return v
     }

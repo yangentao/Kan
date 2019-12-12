@@ -41,23 +41,23 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 
     init {
         padding(10, 0, 10, 0)
-        iconView = imageView(lParam().size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0)) {
+        iconView = imageView(LParam.size(IconSize.Small).Center.margins(0, 0, 5, 0)) {
             scaleCenterCrop()
         }
 
         verticalLayout.apply {
             topView.apply {
-                addViewParam(titleView) { widthDp(0).heightWrap().weight(1f) }
-                addView(dateView, linearParam().wrap().margins(5, 0, 0, 0))
+                addView(titleView, LParam.WidthFlex.HeightWrap)
+                addView(dateView, LParam.Wrap.margins(5, 0, 0, 0))
             }
-            addViewParam(topView) { widthFill().heightWrap() }
+            addView(topView, LParam.widthFill().heightWrap() )
             bottomView.apply {
-                addViewParam(msgView) { widthDp(0).heightWrap().weight(1f) }
-                addViewParam(statusView) { wrap().margins(5, 0, 0, 0) }
+                addView(msgView, LParam.HeightWrap.WidthFlex)
+                addView(statusView, LParam.Wrap.margins(5, 0, 0, 0))
             }
-            addViewParam(bottomView) { widthFill().heightWrap() }
+            addView(bottomView, LParam.WidthFill.HeightWrap)
         }
-        addViewParam(verticalLayout) { widthDp(0).weight(1f).heightWrap().margins(5, 10, 5, 5).gravityCenterVertical() }
+        addView(verticalLayout, LParam.WidthFlex.HeightWrap.CenterVertical.margins(5, 10, 5, 5))
     }
 
     fun setVerSpace(n: Int) {

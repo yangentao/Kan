@@ -73,7 +73,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
 
         for (item in items) {
             val v = makeView(item)
-            this.addView(v, LParam.WidthFlex.HeightFill.gravityCenter())
+            this.addView(v, LParam.WidthFlex.HeightFill.Center)
             v.setOnClickListener {
                 item.onAction()
             }

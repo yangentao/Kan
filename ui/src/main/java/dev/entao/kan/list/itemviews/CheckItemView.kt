@@ -15,7 +15,7 @@ import dev.entao.kan.res.D
 
 
 @SuppressLint("ViewConstructor")
-open class CheckItemView(context: Context, val itemView: View, listener: CheckStatusListener? = null) : HorItemView(context), ItemViewCheckable {
+class CheckItemView(context: Context, val itemView: View, listener: CheckStatusListener? = null) : HorItemView(context), ItemViewCheckable {
     var checkView: CheckedTextView
         private set
     private var listener: CheckStatusListener? = null
@@ -25,11 +25,11 @@ open class CheckItemView(context: Context, val itemView: View, listener: CheckSt
     init {
         padding(0, 0, 0, 0)
         this.listener = listener
-        addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
+        addView(itemView, 0, LParam.WidthFlex.heightWrap())
 
         checkView = CheckedTextView(context).needId().gone()
         checkView.checkMarkDrawable = D.CheckBox
-        addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
+        addView(checkView, LParam.Wrap.RightCenter.margins(10, 0, MR, 0))
 
         if (this.listener == null && itemView is CheckStatusListener) {
             this.listener = itemView
@@ -69,7 +69,7 @@ open class CheckItemView(context: Context, val itemView: View, listener: CheckSt
         }
 
     override fun setCheckboxMarginRight(dp: Int) {
-        linearParam().wrap().gravityRightCenter().margins(10, 0, MR + dp, 0).set(checkView)
+        checkView.layoutParams =  LParam.wrap().RightCenter.margins(10, 0, MR + dp, 0)
         this.requestLayout()
     }
 

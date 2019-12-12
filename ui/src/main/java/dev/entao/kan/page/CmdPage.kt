@@ -116,8 +116,8 @@ abstract class CmdPage : TitlePage() {
     fun cmdTextDetail(label: String, value: String, cmd: String = label): Cmd {
         return cmd(cmd) {
             view = textDetailItemView {
-                this.setText(label)
-                this.setDetail(value)
+                textValue = label
+                detailValue = value
             }
         }
     }
@@ -133,7 +133,7 @@ abstract class CmdPage : TitlePage() {
     }
 
     fun defaultBind(view: TextDetailView, value: Any?) {
-        view.setDetail(value?.toString())
+        view.detailValue = value?.toString()
     }
 
     fun bind(model: Any) {
@@ -180,7 +180,7 @@ abstract class CmdPage : TitlePage() {
     fun cmdButtonRed(text: String): Cmd {
         return cmd(text) {
             view = buttonItemView {
-                layoutParams = LParam.width(280).HeightButton.gravityCenter().margins(20)
+                layoutParams = LParam.width(280).HeightButton.Center.margins(20)
                 styleRedRound()
                 textS = text
             }
@@ -191,7 +191,7 @@ abstract class CmdPage : TitlePage() {
     fun cmdButtonGreen(text: String): Cmd {
         return cmd(text) {
             view = buttonItemView {
-                layoutParams = LParam.width(280).HeightButton.gravityCenter().margins(20)
+                layoutParams = LParam.width(280).HeightButton.Center.margins(20)
                 styleGreenRound()
                 textS = text
             }
@@ -201,7 +201,7 @@ abstract class CmdPage : TitlePage() {
     fun cmdButtonWhite(text: String): Cmd {
         return cmd(text) {
             view = buttonItemView {
-                layoutParams = LParam.width(280).HeightButton.gravityCenter().margins(20)
+                layoutParams = LParam.width(280).HeightButton.Center.margins(20)
                 style {
                     outlineBlue()
                     cornersRound()

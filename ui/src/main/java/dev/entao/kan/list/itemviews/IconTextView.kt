@@ -23,43 +23,39 @@ import dev.entao.kan.theme.IconSize
 
 @SuppressLint("ViewConstructor")
 class IconTextView(context: Context, iconSize: Int = IconSize.Big) : LinearLayout(context) {
-	val iconView: ImageView
-	val textView: TextView
+    val iconView: ImageView
+    val textView: TextView
 
-	init {
-		needId().horizontal().padding(15, 7, 15, 7).backColor(Color.WHITE)
-		iconView = context.createImageView().scaleCenterInside()
-		addView(iconView){
-			size(iconSize).gravityCenter()
-		}
-		textView = context.createTextViewA()
-		addView(textView){
-			wrap().gravityCenter().margins(10, 7, 15, 7)
-		}
-	}
+    init {
+        needId().horizontal().padding(15, 7, 15, 7).backColor(Color.WHITE)
+        iconView = context.createImageView().scaleCenterInside()
+        addView(iconView, LParam.size(iconSize).Center)
+        textView = context.createTextViewA()
+        addView(textView, LParam.Wrap.Center.margins(10, 7, 15, 7))
+    }
 
-	fun setValues(@DrawableRes icon: Int, text: String): IconTextView {
-		iconView.setImageResource(icon)
-		textView.text = text
-		return this
-	}
+    fun setValues(@DrawableRes icon: Int, text: String): IconTextView {
+        iconView.setImageResource(icon)
+        textView.text = text
+        return this
+    }
 
-	fun setValues(d: Drawable, text: String): IconTextView {
-		iconView.setImageDrawable(d)
-		textView.text = text
-		return this
-	}
+    fun setValues(d: Drawable, text: String): IconTextView {
+        iconView.setImageDrawable(d)
+        textView.text = text
+        return this
+    }
 
-	fun setTextSize(sp: Int): IconTextView {
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp.toFloat())
-		return this
-	}
+    fun setTextSize(sp: Int): IconTextView {
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp.toFloat())
+        return this
+    }
 
-	fun setIconSize(n: Int): IconTextView {
-		val p = iconView.layoutParams as LinearLayout.LayoutParams
-		p.width = dp(n)
-		p.height = dp(n)
-		iconView.layoutParams = p
-		return this
-	}
+    fun setIconSize(n: Int): IconTextView {
+        val p = iconView.layoutParams as LinearLayout.LayoutParams
+        p.width = dp(n)
+        p.height = dp(n)
+        iconView.layoutParams = p
+        return this
+    }
 }

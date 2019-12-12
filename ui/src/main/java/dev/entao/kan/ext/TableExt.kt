@@ -49,7 +49,7 @@ class FormView(val tableLayout: TableLayout) {
                 gravityLeftCenter()
             }
             val v = block(context)
-            val p = v.layoutParams ?: RowParam.WidthWrap.HeightWrap.margins(10, 0, 0, 0).gravityCenterVertical()
+            val p = v.layoutParams ?: RowParam.WidthWrap.HeightWrap.margins(10, 0, 0, 0).CenterVertical
             v.minimumHeight = dp(ViewSize.EditHeightSmall)
             addView(v, p)
         }

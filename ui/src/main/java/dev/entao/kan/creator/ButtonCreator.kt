@@ -60,11 +60,7 @@ fun ViewGroup.button(index: Int, param: ViewGroup.LayoutParams, block: Button.()
     return v
 }
 
-fun ViewGroup.buttonBefore(
-    ankor: View,
-    param: ViewGroup.LayoutParams,
-    block: Button.() -> Unit
-): Button {
+fun ViewGroup.buttonBefore(ankor: View, param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
     return this.button(this.indexOfChild(ankor), param, block)
 }
 
@@ -77,8 +73,9 @@ fun Fragment.createButton(text: String = ""): Button {
 }
 
 fun Context.createButton(text: String = ""): Button {
-    val b = Button(this).needId().text(text).textSizeB().padding(3)
+    val b = Button(this).needId().text(text).padding(3)
+    b.textSizeB()
     b.stateListAnimator = null
-    b.elevation = 6.dpf
+    b.elevation = 4.dpf
     return b
 }

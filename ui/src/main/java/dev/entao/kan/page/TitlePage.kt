@@ -50,7 +50,7 @@ open class TitlePage : BasePage(), Progress {
             }
             titleBar = append(TitleBar(act), LParam.WidthFill.height(TitleBar.HEIGHT))
             if (hasSnak) {
-                snack = append(Snack(act).gone(), LParam.WidthFill.HeightWrap.GravityCenterVertical)
+                snack = append(Snack(act).gone(), LParam.WidthFill.HeightWrap.CenterVertical)
             }
             append(FrameLayout(context).needId(), LParam.WidthFill.HeightFlex).apply {
                 if (enableContentScroll) {

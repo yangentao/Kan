@@ -219,7 +219,7 @@ abstract class InputPage : TitlePage() {
 
     fun static(label: String, marginTop: Int = inputMarginTop): TextView {
         return inputLayout.textView(
-            lParam().widthFill().height(INPUT_HEIGHT).margins(
+            LParam.widthFill().height(INPUT_HEIGHT).margins(
                 0,
                 marginTop,
                 0,
@@ -231,7 +231,7 @@ abstract class InputPage : TitlePage() {
     }
 
     fun label(label: String, marginTop: Int = inputMarginTop): TextView {
-        return inputLayout.textView(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+        return inputLayout.textView(LParam.widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
             text = label
         }
     }
@@ -242,7 +242,7 @@ abstract class InputPage : TitlePage() {
         marginTop: Int = inputMarginTop
     ): TextView {
         return inputLayout.textView(
-            lParam().widthFill().height(imgHeight).margins(
+            LParam.widthFill().height(imgHeight).margins(
                 0,
                 marginTop,
                 0,
@@ -321,7 +321,7 @@ abstract class InputPage : TitlePage() {
         v.onClick {
             this.dialogX.showListItem(optMap.keys.toList(), null, { optMap[it] ?: "" }) {
                 v.tag = it
-                v.setDetail(optMap[it] ?: "")
+                v.detailValue = optMap[it]
                 logd("SelectItem: tag = ", v.tag, " val=", optMap[it])
             }
         }
@@ -350,7 +350,7 @@ abstract class InputPage : TitlePage() {
                 null,
                 { displayProp.getValue(it)?.toString() ?: "" }) {
                 v.tag = idProp.getValue(it)
-                v.setDetail(displayProp.getValue(it)?.toString() ?: "")
+                v.detailValue = displayProp.getValue(it)?.toString()
             }
         }
         return v
@@ -360,12 +360,12 @@ abstract class InputPage : TitlePage() {
         val v = textDetail(title)
         v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
         selectMap[key] = v
-        v.setDetail(value)
+        v.detailValue = value
         v.tag = value
         v.onClick {
             this.dialogX.showListItem(items, null) { item ->
                 v.tag = item
-                v.setDetail(item)
+                v.detailValue = item
             }
 
         }
@@ -392,12 +392,12 @@ abstract class InputPage : TitlePage() {
         v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
         selectMap[key] = v
         val item = items.find { it.first == value }
-        v.setDetail(item?.second)
+        v.detailValue = item?.second
         v.tag = item?.first
         v.onClick {
             this.dialogX.showListItemN(items.map { it.second }, null) {
                 v.tag = items[it].first
-                v.setDetail(items[it].second)
+                v.detailValue = items[it].second
             }
 
         }
@@ -419,7 +419,7 @@ abstract class InputPage : TitlePage() {
 
 
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
-        inputLayout = contentView.linearVer(lParam().widthFill().heightWrap()) {
+        inputLayout = contentView.linearVer(LParam.widthFill().heightWrap()) {
             padding(30, 25, 30, 20)
         }
     }
@@ -487,7 +487,7 @@ abstract class InputPage : TitlePage() {
     }
 
     fun setDate(key: String, date: Long) {
-        dateMap[key]?.setDetail(MyDate(date).format(dateFormatMap[key] ?: MyDate.FORMAT_DATE))
+        dateMap[key]?.detailValue = MyDate(date).format(dateFormatMap[key] ?: MyDate.FORMAT_DATE)
     }
 
 
@@ -505,7 +505,7 @@ abstract class InputPage : TitlePage() {
     fun addVerifyCode(phoneEditKey: String, marginTop: Int = inputMarginTop) {
 
         inputLayout.linearHor(LParam.WidthFill.HeightWrap.margins(0, marginTop, 0, 0)) {
-            codeEdit = edit(LParam.FlexHor.heightEdit()) {
+            codeEdit = edit(LParam.FlexX.heightEdit()) {
                 hint = "输入验证码"
                 inputTypeNumber()
             }

@@ -24,7 +24,7 @@ class CheckView(context: Context) : HorItemView(context), Checkable {
 		checkView = CheckedTextView(context).needId()
 //		checkView.checkMarkDrawable = D.CheckBox.mutate().sized(16)
 		checkView.rightImage(D.CheckBox.mutate().sized(20), 0)
-		addView(checkView, LParam.Wrap.GravityRightCenter.margins(10, 0, 10, 0))
+		addView(checkView, LParam.Wrap.RightCenter.margins(10, 0, 10, 0))
 
 	}
 

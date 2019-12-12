@@ -15,77 +15,74 @@ import dev.entao.kan.ext.*
  * 跟TableLayout类似, TableLayout对固定高度的计算和LinearLayout有区别
  */
 open class TablePanel(context: Context) : LinearLayout(context) {
-	private var rowHeight = 50
-	private var horSpace = 1
-	private var verSpace = 1
+    private var rowHeight = 50
+    private var horSpace = 1
+    private var verSpace = 1
 
-	init {
-		vertical()
-		this.setBackgroundColor(ColorX.backGray)
-		linearParam().widthFill().heightWrap().set(this)
-	}
+    init {
+        vertical()
+        this.setBackgroundColor(ColorX.backGray)
+       this.layoutParams =  LParam.widthFill().heightWrap()
+    }
 
-	val itemViewCount: Int
-		get() {
-			var count = 0
-			for (i in 0..rowCount - 1) {
-				count += getRow(i).childCount
-			}
-			return count
-		}
+    val itemViewCount: Int
+        get() {
+            var count = 0
+            for (i in 0..rowCount - 1) {
+                count += getRow(i).childCount
+            }
+            return count
+        }
 
-	val rowCount: Int
-		get() = super.getChildCount()
+    val rowCount: Int
+        get() = super.getChildCount()
 
-	fun getRow(index: Int): LinearLayout {
-		return super.getChildAt(index) as LinearLayout
-	}
+    fun getRow(index: Int): LinearLayout {
+        return super.getChildAt(index) as LinearLayout
+    }
 
-	/**
-	 * 默认的weight是1
+    /**
+     * 默认的weight是1
 
-	 * @return
-	 */
-	fun addRow(heightDp: Int = rowHeight): LinearLayout {
-		return linearHor(lParam().widthFill().heightDp(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
-			backColorPage()
-		}
-	}
+     * @return
+     */
+    fun addRow(heightDp: Int = rowHeight): LinearLayout {
+        return linearHor(LParam.widthFill().heightDp(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
+            backColorPage()
+        }
+    }
 
-	fun lastRow(): LinearLayout? {
-		if (rowCount > 0) {
-			return getRow(rowCount - 1)
-		}
-		return null
-	}
+    fun lastRow(): LinearLayout? {
+        if (rowCount > 0) {
+            return getRow(rowCount - 1)
+        }
+        return null
+    }
 
-	fun addItemView(view: View, weight: Float = 1f) {
-		var row = lastRow() ?: addRow()
-		row.addViewParam(view) {
-			widthDp(0).weight(weight).heightFill().gravityCenter().margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0)
-		}
+    fun addItemView(view: View, weight: Float = 1f) {
+        val row = lastRow() ?: addRow()
+        row.addView(view, LParam.widthDp(0).weight(weight).heightFill().Center.margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0))
+    }
 
-	}
+    fun clean() {
+        removeAllViews()
+    }
 
-	fun clean() {
-		removeAllViews()
-	}
+    fun setSpace(spaceDp: Int) {
+        setVerSpace(spaceDp)
+        setHorSpace(spaceDp)
+    }
 
-	fun setSpace(spaceDp: Int) {
-		setVerSpace(spaceDp)
-		setHorSpace(spaceDp)
-	}
+    fun setVerSpace(verSpaceDp: Int) {
+        this.verSpace = verSpaceDp
+    }
 
-	fun setVerSpace(verSpaceDp: Int) {
-		this.verSpace = verSpaceDp
-	}
+    fun setHorSpace(horSpaceDp: Int) {
+        this.horSpace = horSpaceDp
+    }
 
-	fun setHorSpace(horSpaceDp: Int) {
-		this.horSpace = horSpaceDp
-	}
-
-	fun setRowHeight(rowHeightDp: Int) {
-		this.rowHeight = rowHeightDp
-	}
+    fun setRowHeight(rowHeightDp: Int) {
+        this.rowHeight = rowHeightDp
+    }
 
 }
