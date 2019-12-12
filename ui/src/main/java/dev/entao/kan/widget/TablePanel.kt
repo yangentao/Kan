@@ -61,7 +61,7 @@ open class TablePanel(context: Context) : LinearLayout(context) {
 
     fun addItemView(view: View, weight: Float = 1f) {
         val row = lastRow() ?: addRow()
-        row.addView(view, LParam.widthDp(0).weight(weight).heightFill().Center.margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0))
+        row.addView(view, LParam.width(0).weight(weight).heightFill().Center.margins(if (row.childCount == 0) 0 else horSpace, 0, 0, 0))
     }
 
     fun clean() {

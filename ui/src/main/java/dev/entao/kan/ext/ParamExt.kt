@@ -24,36 +24,14 @@ val MParam: ViewGroup.MarginLayoutParams
     }
 
 
-fun <T : ViewGroup.LayoutParams> T.set(view: View) {
-    view.layoutParams = this
-}
-
-
 fun <T : ViewGroup.LayoutParams> T.size(w: Int, h: Int = w): T {
-    return widthDp(w).heightDp(h)
+    return width(w).heightDp(h)
 }
 
-fun <T : ViewGroup.LayoutParams> T.width_(w: Int): T {
-    if (w > 0) {
-        this.width = dp(w)
-    } else {
-        this.width = w
-    }
-    return this
-}
 
 fun <T : ViewGroup.LayoutParams> T.width(w: Int): T {
     if (w > 0) {
-        this.width = dp(w)
-    } else {
-        this.width = w
-    }
-    return this
-}
-
-fun <T : ViewGroup.LayoutParams> T.widthDp(w: Int): T {
-    if (w > 0) {
-        this.width = dp(w)
+        this.width = w.dp
     } else {
         this.width = w
     }
@@ -65,11 +43,11 @@ fun <T : ViewGroup.LayoutParams> T.widthPx(w: Int): T {
     return this
 }
 
-
-fun <T : ViewGroup.LayoutParams> T.widthWrap(): T {
-    this.width = ViewGroup.LayoutParams.WRAP_CONTENT
-    return this
-}
+val <T : ViewGroup.LayoutParams> T.WrapW: T
+    get() {
+        this.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        return this
+    }
 
 val <T : ViewGroup.LayoutParams> T.WidthWrap: T
     get() {
@@ -81,7 +59,11 @@ fun <T : ViewGroup.LayoutParams> T.widthFill(): T {
     this.width = ViewGroup.LayoutParams.MATCH_PARENT
     return this
 }
-
+val <T : ViewGroup.LayoutParams> T.FillW: T
+    get() {
+        this.width = ViewGroup.LayoutParams.MATCH_PARENT
+        return this
+    }
 val <T : ViewGroup.LayoutParams> T.WidthFill: T
     get() {
         this.width = ViewGroup.LayoutParams.MATCH_PARENT

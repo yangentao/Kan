@@ -95,7 +95,7 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
         groupIndexBar = GroupIndexBar(context)
         this.listViewParent.addView(
             this.groupIndexBar,
-            RParam.width(GroupIndexBar.WIDTH_PREFER).parentRight().parentTop().parentBottom()
+            RParam.width(GroupIndexBar.WIDTH_PREFER).Right.Top.Bottom
         )
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 

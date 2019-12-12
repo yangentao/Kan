@@ -33,13 +33,13 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         titleView = createTextViewB().singleLine().ellipsizeEnd()
         dateView = createTextViewC().singleLine()
 
-        top.addView(titleView, LParam.widthDp(0).heightWrap().weight(1f))
+        top.addView(titleView, LParam.WidthFlex.heightWrap())
         top.addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
 
         val bottom = createLinearHorizontal().gravityCenterVertical()
         msgView = createTextViewC().singleLine().ellipsizeEnd()
         statusView = createTextViewC().singleLine()
-        bottom.addView(msgView, LParam.widthDp(0).heightWrap().weight(1f))
+        bottom.addView(msgView, LParam.WidthFlex.heightWrap())
         bottom.addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
 
         verLayout.addView(top, LParam.widthFill().heightWrap())

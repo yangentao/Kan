@@ -108,9 +108,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        leftViews.addView(v, LParam.heightFill().widthWrap())
+                        leftViews.addView(v, LParam.heightFill().WidthWrap)
                     } else {
-                        leftViews.addView(v, LParam.heightFill().widthWrap().margins(1, 0, 0, 0))
+                        leftViews.addView(v, LParam.heightFill().WidthWrap.margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -124,9 +124,9 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
                 if (!action.hidden) {
                     val v = createActionView(action)
                     if (first) {
-                        rightViews.addView(v, LParam.heightFill().widthWrap())
+                        rightViews.addView(v, LParam.heightFill().WidthWrap)
                     } else {
-                        rightViews.addView(v, LParam.heightFill().widthWrap().margins(1, 0, 0, 0))
+                        rightViews.addView(v, LParam.heightFill().WidthWrap.margins(1, 0, 0, 0))
                     }
                     first = false
                 }
@@ -134,7 +134,7 @@ open class XSwipeItemView(context: Context, val itemView: View) : HorItemView(co
             rightViews.measure(0, 0)
             rightViewWidth = rightViews.measuredWidth
         }
-        addView(leftViews, LParam.heightFill().widthWrap())
+        addView(leftViews, LParam.heightFill().WidthWrap)
         addView(onAddItemView(itemView), LParam.fill())
         addView(rightViews, LParam.heightFill().widthPx(rightViewWidth))
         setPadding(-leftViewWidth, 0, 0, 0)

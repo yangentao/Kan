@@ -17,21 +17,21 @@ class UserItemView(context: Context) : RelativeLayout(context) {
 	val statusView: TextView
 
 	init {
-		portraitView = imageView(RParam.ParentLeft.CenterVertical.size(64).margins(15)) {
+		portraitView = imageView(RParam.Left.CenterY.size(64).margins(15)) {
 			scaleCenterCrop()
 			setImageResource(Res.portrait)
 		}
 
-		nameView = textView(RParam.toRightOf(portraitView).ParentTop.wrap().margins(0, 20, 0, 10)) {
+		nameView = textView(RParam.toRight(portraitView).Top.wrap().margins(0, 20, 0, 10)) {
 			textSizeA()
 			textColorMajor()
 		}
-		statusView = textView(RParam.toRightOf(portraitView).below(nameView).wrap()) {
+		statusView = textView(RParam.toRight(portraitView).below(nameView).wrap()) {
 			textSizeB()
 			textColorMinor()
 		}
 
-		imageView(RParam.parentRight().CenterVertical.size(14).marginRight(10)) {
+		imageView(RParam.Right.CenterY.size(14).marginRight(10)) {
 			setImageResource(Res.more)
 		}
 	}

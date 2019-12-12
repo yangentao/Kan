@@ -25,14 +25,14 @@ open class TabBarItemView(context: Context) : RelativeLayout(context) {
     init {
         needId()
         backColorWhite()
-        textView = this.textView(RParam.CenterInParent.Wrap) {
+        textView = this.textView(RParam.Center.Wrap) {
             compoundDrawablePadding = 0
             textSizeD()
             gravityCenter()
             padding(1, 4, 1, 1)
             textColor(D.listColor(ColorX.textPrimary, ColorX.theme))
         }
-        indicateView = textView(RParam.ParentTop.ParentRight.margins(0, 5, 5, 0)) {
+        indicateView = textView(RParam.Top.Right.margins(0, 5, 5, 0)) {
             textColor(Color.WHITE)
             textSizeSp(10)
             gravityCenter()

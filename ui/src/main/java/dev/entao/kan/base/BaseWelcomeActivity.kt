@@ -69,7 +69,7 @@ abstract class BaseWelcomeActivity : BaseActivity() {
                     setImageResource(item as Int)
 
                 }
-                relView.textView(RParam.Wrap.ParentTop.ParentRight.margins(0, 20, 20, 0)) {
+                relView.textView(RParam.Wrap.Top.Right.margins(0, 20, 20, 0)) {
                     textS = "跳过"
                     if (p == guideImages.size - 1) {
                         textS = "进入"
@@ -97,7 +97,7 @@ abstract class BaseWelcomeActivity : BaseActivity() {
             iv.adjustViewBounds = true
             iv.scaleType = ImageView.ScaleType.FIT_XY
             rootRelView.addView(iv, RParam.Fill)
-            rootRelView.textView(RParam.Wrap.ParentTop.ParentRight.margins(0, 20, 20, 0)) {
+            rootRelView.textView(RParam.Wrap.Top.Right.margins(0, 20, 20, 0)) {
                 textS = "跳过"
                 padding(15, 5, 15, 5)
                 val d = ShapeRect().fill(ARGB(100, 80, 80, 80)).stroke(1, RGB(80, 80, 80))

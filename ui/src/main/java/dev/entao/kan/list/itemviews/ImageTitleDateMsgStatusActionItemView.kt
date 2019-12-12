@@ -53,11 +53,11 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
         padding(10, 0, 0, 0)
         addView(iconView, LParam.size(IconSize.Small).Center.margins(0, 0, 5, 0))
         topView.gravityCenterVertical().apply {
-            addView(titleView, LParam.widthDp(0).heightWrap().weight(1f))
+            addView(titleView, LParam.width(0).heightWrap().weight(1f))
             addView(dateView, LParam.wrap().margins(5, 0, 0, 0))
         }
         bottomView.gravityCenterVertical().apply {
-            addView(msgView, LParam.widthDp(0).heightWrap().weight(1f))
+            addView(msgView, LParam.width(0).heightWrap().weight(1f))
             addView(statusView, LParam.wrap().margins(5, 0, 0, 0))
         }
         val ll = createLinearVertical().apply {
@@ -70,7 +70,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
         subIconView = createImageView().backColor(Color.TRANSPARENT, ColorX.fade).padding(16)
         subIconView.setImageDrawable(arrowRight)
         subIconView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        addView(subIconView, LParam.heightFill().widthDp(45).Center )
+        addView(subIconView, LParam.heightFill().width(45).Center )
         subIconView.setOnClickListener(clickListener)
     }
 

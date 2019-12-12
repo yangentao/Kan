@@ -181,7 +181,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
                     }
                 }
             }
-            addView(ll, RParam.ParentLeft.HeightFill.WidthWrap)
+            addView(ll, RParam.Left.HeightFill.WidthWrap)
             leftLinear = ll
         }
 
@@ -200,18 +200,18 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
                     }
                 }
             }
-            addView(ll, RParam.ParentRight.HeightFill.WidthWrap)
+            addView(ll, RParam.Right.HeightFill.WidthWrap)
             rightLinear = ll
         }
         val v = titleView
         if (v != null) {
             if (titleCenter) {
-                addView(v, RParam.CenterInParent.HeightFill.WidthWrap)
+                addView(v, RParam.Center.HeightFill.WidthWrap)
             } else {
                 if (leftLinear == null) {
-                    addView(v, RParam.CenterVertical.ParentLeft.HeightFill.WidthWrap.margins(15, 0, 0, 0))
+                    addView(v, RParam.CenterY.Left.HeightFill.WidthWrap.margins(15, 0, 0, 0))
                 } else {
-                    addView(v, RParam.CenterVertical.toRightOf(leftLinear!!).HeightFill.WidthWrap.margins(15, 0, 0, 0))
+                    addView(v, RParam.CenterY.toRight(leftLinear!!).HeightFill.WidthWrap.margins(15, 0, 0, 0))
                 }
             }
         }

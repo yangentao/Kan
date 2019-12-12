@@ -31,7 +31,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 
 	var onItemClick: (Int) -> Unit = { _ -> }
 
-	var cellLayoutParam: RelativeLayout.LayoutParams = relativeParam().wrap().centerInParent()
+	var cellLayoutParam: RelativeLayout.LayoutParams = RParam.wrap().Center
 
 	private val onClickListener = View.OnClickListener { v ->
 		val pos = v.tag as Int

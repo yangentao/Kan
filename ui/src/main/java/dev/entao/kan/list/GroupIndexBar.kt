@@ -80,7 +80,7 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
         this.onLabelChanged(cc)
         if (feedbackView.parentGroup == null) {
             val rl = this.parentGroup as? RelativeLayout ?: return
-            rl.addView(feedbackView, RParam.CenterInParent.size(70))
+            rl.addView(feedbackView, RParam.Center.size(70))
         }
         feedbackView.text = cc
         feedbackView.visiable()

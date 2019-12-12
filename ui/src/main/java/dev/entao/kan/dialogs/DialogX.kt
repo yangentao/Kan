@@ -135,7 +135,7 @@ class DialogX(val context: Context) {
 
     fun bodyInput(block: EditText.() -> Unit) {
         val rl = context.createRelative()
-        val ed = rl.editX(RParam.CenterInParent.WidthFill.HeightWrap.margins(15)) {
+        val ed = rl.editX(RParam.Center.WidthFill.HeightWrap.margins(15)) {
             minimumWidth = dp(200)
             minimumHeight = dp(ViewSize.EditHeight)
             this.block()
@@ -148,7 +148,7 @@ class DialogX(val context: Context) {
 
     fun bodyInputLines(block: EditText.() -> Unit) {
         val rl = context.createRelative()
-        val ed = rl.edit(RParam.CenterInParent.WidthFill.HeightWrap.margins(15)) {
+        val ed = rl.edit(RParam.Center.WidthFill.HeightWrap.margins(15)) {
             minimumWidth = dp(200)
             minimumHeight = dp(ViewSize.EditHeight * 5)
             this.multiLine()

@@ -84,6 +84,13 @@ fun <T : View> T.needId(): T {
     return this
 }
 
+fun <T : View> T.requireId(): Int {
+    if (this.id == View.NO_ID) {
+        this.id = View.generateViewId()
+    }
+    return this.id
+}
+
 fun <T : View> T.gone(): T {
     visibility = View.GONE
     return this

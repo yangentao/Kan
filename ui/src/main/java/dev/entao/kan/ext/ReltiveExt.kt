@@ -28,9 +28,4 @@ fun ViewGroup.relativeLayout(): RelativeLayout {
 }
 
 
-inline fun <reified T : RelativeLayout> T.addViewParam(view: View, noinline f: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): T {
-    val lp = relativeParam(f)
-    this.addView(view, lp)
-    return this
-}
 

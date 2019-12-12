@@ -24,7 +24,7 @@ class RowItemView(context: Context) : LinearLayout(context) {
         needId()
         horizontal().padding(10, 10, 10, 10).gravityCenterVertical()
         mid = View(context)
-        addView(mid, LParam.widthDp(0).weight(1f).heightDp(10) )
+        addView(mid, LParam.width(0).weight(1f).heightDp(10) )
     }
 
     fun space(spaceDp: Int): RowItemView {

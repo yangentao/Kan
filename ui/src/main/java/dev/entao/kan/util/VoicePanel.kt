@@ -45,7 +45,7 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
 
         textView = context.createTextViewC().gravityCenterHorizontal().textColorWhite()
         infoPanel.addView(textView, LParam.widthFill().heightWrap())
-        parent.addView(infoPanel, relativeParam().centerInParent().width(200).heightWrap())
+        parent.addView(infoPanel, RParam.Center.width(200).heightWrap())
     }
 
     fun setCallback(callback: VoicePanelCallback) {

@@ -121,7 +121,7 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
     private fun addItemRight(text: String): SwitchPanelItem {
         val v = SwitchPanelItem(context).text(text).styleRight()
         v.isSelected = selectIndex == items.size - 1
-        addView(v, LParam.width_(0).weight(1f).heightFill().Center.margins(1))
+        addView(v, LParam.width(0).weight(1f).heightFill().Center.margins(1))
         return v
     }
 

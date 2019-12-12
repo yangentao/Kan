@@ -105,7 +105,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
             if (d != null) {
                 v.setImageDrawable(d.tinted(itemColor))
             }
-            rl.addView(v, RParam.size(36).centerInParent())
+            rl.addView(v, RParam.size(36).Center)
         } else {
             if (d == null) {
                 val v = createTextView()
@@ -113,7 +113,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
                 v.setTextColor(itemColor)
                 v.text = item.label
                 v.textSizeB()
-                rl.addView(v, RParam.Wrap.centerInParent())
+                rl.addView(v, RParam.Wrap.Center)
             } else {
                 val v = createTextView()
                 v.gravityCenter()
@@ -123,7 +123,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
                 v.compoundDrawablePadding = 2.dp
                 v.setCompoundDrawables(null, dd, null, null)
                 v.textSizeD()
-                rl.addView(v, RParam.Wrap.centerInParent())
+                rl.addView(v, RParam.Wrap.Center)
             }
         }
         return rl

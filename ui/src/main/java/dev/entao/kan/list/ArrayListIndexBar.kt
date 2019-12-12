@@ -59,7 +59,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
 
     init {
         orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).makeClickable()
-        feedbackView = feedbackParentView.textView(relativeParam().centerInParent().size(70)) {
+        feedbackView = feedbackParentView.textView(RParam.Center.size(70)) {
             val a = ShapeRect(colorParse("#555"), 10).stroke(2, colorParse("#ddd")).value
             textColor(Color.WHITE).textSizeSp(50).gravityCenter().backDrawable(a).gone()
         }

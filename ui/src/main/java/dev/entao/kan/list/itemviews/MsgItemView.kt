@@ -16,7 +16,7 @@ class MsgItemView(context: Context) : RelativeLayout(context) {
     val relParam: RelativeLayout.LayoutParams
 
     init {
-        relParam = RParam.Wrap.margins(6).ParentTop.ParentLeft
+        relParam = RParam.Wrap.margins(6).Top.Left
         textView = this.textView(relParam) {
             padding(16)
             textSizeA()
@@ -33,11 +33,11 @@ class MsgItemView(context: Context) : RelativeLayout(context) {
         if (isLeft) {
             textView.textColor(ColorX.theme)
             textView.gravityLeftCenter()
-            textView.layoutParams = RParam.Wrap.ParentTop.ParentLeft.margins(6, 6, 40, 6)
+            textView.layoutParams = RParam.Wrap.Top.Left.margins(6, 6, 40, 6)
         } else {
             textView.textColorMajor()
             textView.gravityRightCenter()
-            textView.layoutParams = RParam.Wrap.ParentTop.ParentRight.margins(40, 6, 6, 6)
+            textView.layoutParams = RParam.Wrap.Top.Right.margins(40, 6, 6, 6)
         }
     }
 

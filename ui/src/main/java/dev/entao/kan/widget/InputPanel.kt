@@ -204,7 +204,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
             codeEdit = edit(LParam.width(0).weight(1f).heightFill()) {
                 hint("输入验证码").inputTypeNumber().backDrawable(editDraw).padding(15, 0, 15, 0)
             }
-            codeButton = button(LParam.widthWrap().heightFill()) {
+            codeButton = button(LParam.WidthWrap.heightFill()) {
                 text("获取验证码").backDrawable(btnDraw).textColorWhite()
             }
         }
