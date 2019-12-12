@@ -14,6 +14,16 @@ import kotlin.reflect.KClass
 
 @Keep
 class Msg(val msg: String) {
+    //当前线程同步调用
+    var sync: Boolean = false
+    //异步: 主线程调用
+    var mainThread: Boolean = true
+    //异步: 合并delay毫秒内的消息
+    var mergeDelay: Long = 0L
+
+    //消息广播完成回调
+    var onFireEnd: ((Msg) -> Unit)? = null
+
     var result = ArrayList<Any>()
     var n1: Long = 0
     var n2: Long = 0
@@ -22,9 +32,8 @@ class Msg(val msg: String) {
     var b1: Boolean = false
     var b2: Boolean = false
     var cls: KClass<*>? = null
-    var any:Any? = null
+    var any: Any? = null
 
-    constructor(cls: Class<*>) : this(cls.name)
     constructor(cls: KClass<*>) : this(cls.qualifiedName!!)
 
     override fun hashCode(): Int {
@@ -45,18 +54,11 @@ class Msg(val msg: String) {
         return false
     }
 
-    fun clazz(c: KClass<*>): Msg {
-        this.cls = c
-        return this
-    }
 
     fun isMsg(vararg msgs: String): Boolean {
         return this.msg in msgs
     }
 
-    fun isMsg(vararg classes: Class<*>): Boolean {
-        return classes.find { this.msg == it.name } != null
-    }
 
     fun isMsg(vararg classes: KClass<*>): Boolean {
         return classes.find { this.msg == it.qualifiedName } != null
@@ -66,9 +68,6 @@ class Msg(val msg: String) {
         return isMsg(msg)
     }
 
-    operator fun contains(msg: Class<*>): Boolean {
-        return isMsg(msg)
-    }
 
     operator fun contains(msg: KClass<*>): Boolean {
         return isMsg(msg)
@@ -101,27 +100,8 @@ class Msg(val msg: String) {
         this.result.add(value)
         return this
     }
-
-    fun fire() {
-        MsgCenter.fire(this)
-    }
-
-    fun fireCurrent(): ArrayList<Any> {
-        return MsgCenter.fireCurrent(this)
-    }
-
-    fun fireMerge(delay: Long = 200) {
-        MsgCenter.fireMerge(this, delay)
-    }
 }
 
-fun fireMsg(msg: String) {
-    Msg(msg).fire()
-}
-
-fun fireMsg(cls: KClass<*>) {
-    Msg(cls).fire()
-}
 
 interface MsgListener {
     fun onMsg(msg: Msg)
@@ -148,7 +128,7 @@ object MsgCenter {
     }
 
 
-    fun fireCurrent(msg: Msg): ArrayList<Any> {
+    fun fireCurrent(msg: Msg) {
         val ls2 = ArrayList<MsgListener>()
         sync(this) {
             val ls = allList.filter { it.get() != null }.map { it.get() }
@@ -159,42 +139,60 @@ object MsgCenter {
         ls2.forEach {
             it.onMsg(msg)
         }
-        return msg.result
+        msg.onFireEnd?.invoke(msg)
+        msg.onFireEnd = null
     }
 
     fun fire(msg: Msg) {
-        Task.fore {
+        if (msg.sync) {
             fireCurrent(msg)
+            return
+        }
+        if (msg.mergeDelay > 0L) {
+            mergeAction("MsgCenter.mergeAction" + msg.msg, msg.mergeDelay) {
+                if (msg.mainThread) {
+                    Task.fore {
+                        fireCurrent(msg)
+                    }
+                } else {
+                    Task.back {
+                        fireCurrent(msg)
+                    }
+                }
+            }
+            return
+        }
+        if (msg.mainThread) {
+            Task.fore {
+                fireCurrent(msg)
+            }
+        } else {
+            Task.back {
+                fireCurrent(msg)
+            }
         }
     }
 
-    fun fire(msg: String) {
-        fire(Msg(msg))
-    }
-
-    fun fire(cls: Class<*>) {
-        fire(Msg(cls))
-    }
-
-    fun fire(cls: KClass<*>) {
-        fire(Msg(cls.java))
-    }
-
-    fun fireMerge(msg: Msg, delay: Long = 200) {
-        mergeAction("MsgCenter.mergeAction" + msg.msg, delay) {
-            fire(msg)
-        }
-    }
-
-    fun fireMerge(msg: String, delay: Long = 200) {
-        fireMerge(Msg(msg), delay)
-    }
 }
 
 fun String.fire() {
-    Msg(this).fire()
+    val m = Msg(this)
+    MsgCenter.fire(m)
 }
 
 fun KClass<*>.fire() {
-    Msg(this).fire()
+    val m = Msg(this)
+    MsgCenter.fire(m)
+}
+
+fun String.fire(block: Msg.() -> Unit) {
+    val m = Msg(this)
+    m.block()
+    MsgCenter.fire(m)
+}
+
+fun KClass<*>.fire(block: Msg.() -> Unit) {
+    val m = Msg(this)
+    m.block()
+    MsgCenter.fire(m)
 }

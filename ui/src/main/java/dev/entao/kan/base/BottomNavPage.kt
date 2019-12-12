@@ -21,8 +21,9 @@ import dev.entao.kan.ext.*
 
 class TitleIconPageItem(val title: String, val icon: Int, val page: BasePage)
 
-class BottomNavPage : BasePage() {
-    var bottomNavStyle = com.google.android.material.R.style.Widget_MaterialComponents_BottomNavigationView
+open class BottomNavPage : BasePage() {
+    var bottomNavStyle =
+        com.google.android.material.R.style.Widget_MaterialComponents_BottomNavigationView
     var inactiveColor = 0x8a000000.argb
     var checkedColor: Int = ColorX.theme
     val navItems = ArrayList<TitleIconPageItem>()
@@ -65,6 +66,10 @@ class BottomNavPage : BasePage() {
         }
     }
 
+    open fun onPrepareTabs() {
+
+    }
+
     override fun onCreatePage(context: Context, pageView: RelativeLayout, savedInstanceState: Bundle?) {
         super.onCreatePage(context, pageView, savedInstanceState)
         pageView.linearVer(RParam.Fill) {
@@ -72,8 +77,12 @@ class BottomNavPage : BasePage() {
             val lineView = addViewX(View(context), LParam.WidthFill.height(1))
             lineView.backColor(0x44cccccc.argb)
 
-            bottomNav = addViewX(BottomNavigationView(context, null, bottomNavStyle), LParam.WidthFill.HeightWrap)
+            bottomNav = addViewX(
+                BottomNavigationView(context, null, bottomNavStyle),
+                LParam.WidthFill.HeightWrap
+            )
         }
+        onPrepareTabs()
         pager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
                 return navItems.size

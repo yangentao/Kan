@@ -16,6 +16,7 @@ import dev.entao.kan.theme.MyColor
 import dev.entao.kan.util.Msg
 import dev.entao.kan.util.MsgCenter
 import dev.entao.kan.util.MsgListener
+import dev.entao.kan.util.fire
 
 /**
  * Created by yangentao on 16/3/12.
@@ -92,7 +93,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
                     app.onEnterForeground()
                 }
             }
-            Msg(MsgEnterForeground).fireCurrent()
+            MsgEnterForeground.fire {
+                sync = true
+            }
         }
         _topActivity = this
         super.onStart()
@@ -109,7 +112,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
                     app.onEnterBackground()
                 }
             }
-            Msg(MsgEnterBackground).fireCurrent()
+            MsgEnterBackground.fire {
+                sync = true
+            }
         }
         super.onStop()
     }
