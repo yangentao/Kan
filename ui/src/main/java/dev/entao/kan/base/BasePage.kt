@@ -62,10 +62,18 @@ open class BasePage : Fragment(), MsgListener {
     override fun onDestroyView() {
         pageRootView.removeAllViews()
         pageRootView.removeFromParent()
+        for (ob in watchMap.values) {
+            act.contentResolver.unregisterContentObserver(ob)
+        }
+        watchMap.clear()
+        MsgCenter.remove(this)
         super.onDestroyView()
     }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        spinProgressDlg = SpinProgressDlg(act)
+        horProgressDlg = HorProgressDlg(act)
+        MsgCenter.listenAll(this)
         pageRootView = RelativeLayoutX(act)
         onCreatePage(act, pageRootView, savedInstanceState)
         return pageRootView
@@ -87,13 +95,6 @@ open class BasePage : Fragment(), MsgListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         Perm.onPermResult(requestCode)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        spinProgressDlg = SpinProgressDlg(act)
-        horProgressDlg = HorProgressDlg(act)
-        MsgCenter.listenAll(this)
     }
 
 
@@ -361,15 +362,6 @@ open class BasePage : Fragment(), MsgListener {
 
     }
 
-
-    override fun onDestroy() {
-        for (ob in watchMap.values) {
-            act.contentResolver.unregisterContentObserver(ob)
-        }
-        watchMap.clear()
-        MsgCenter.remove(this)
-        super.onDestroy()
-    }
 
     override fun onMsg(msg: Msg) {
     }
