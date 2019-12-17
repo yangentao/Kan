@@ -33,7 +33,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
 import dev.entao.kan.appbase.ex.argb
-import dev.entao.kan.http.Http
 import dev.entao.kan.log.Yog
 import java.io.File
 import java.io.FileNotFoundException
@@ -72,7 +71,6 @@ object App {
             Yog.e(ex)
             System.exit(-1)
         }
-        Http.appContext = inst
     }
 
     val debug: Boolean by lazy {

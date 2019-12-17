@@ -3,6 +3,8 @@
 package dev.entao.kan.base.ex
 
 import android.util.Base64
+import java.net.URLDecoder
+import java.net.URLEncoder
 import java.util.*
 
 /**
@@ -226,4 +228,13 @@ val String.lowerCased: String
 val String.upperCased: String
     get() {
         return this.toUpperCase(Locale.getDefault())
+    }
+
+val String.urlEncoded: String
+    get() {
+        return URLEncoder.encode(this, Charsets.UTF_8.name())
+    }
+val String.urlDecoded: String
+    get() {
+        return URLDecoder.decode(this, Charsets.UTF_8.name())
     }

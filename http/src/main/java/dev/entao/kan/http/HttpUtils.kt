@@ -17,3 +17,8 @@ class SizeStream : OutputStream() {
     }
 
 }
+
+fun allowDump(ct: String?): Boolean {
+    val a = ct?.toLowerCase() ?: return false
+    return "json" in a || "xml" in a || "html" in a || "text" in a
+}

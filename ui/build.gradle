@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 501
-        versionName "5.0.16"
+        versionName "6.1.0"
     }
     compileOptions {
         sourceCompatibility = 1.7
@@ -38,11 +38,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    implementation 'dev.entao.kan:base:5.0.0'
+    implementation 'dev.entao.kan:base:5.0.1'
     implementation 'dev.entao.kan:json:5.0.0'
-    implementation 'dev.entao.kan:http:5.0.0'
+    implementation 'dev.entao.kan:http:6.1.0'
     implementation 'dev.entao.kan:log:5.0.0'
-    implementation 'dev.entao.kan:appbase:5.0.0'
+    implementation 'dev.entao.kan:appbase:6.1.0'
 
 
 }

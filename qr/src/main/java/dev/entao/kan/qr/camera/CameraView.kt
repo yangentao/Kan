@@ -24,10 +24,10 @@ class CameraView(context: Context) : FrameLayout(context) {
 
     init {
         genId()
-        addView(barcodeView, FParam.fill())
-        addView(viewFinder, FParam.fill())
+        addView(barcodeView, FParam.Fill)
+        addView(viewFinder, FParam.Fill)
         viewFinder.setPreview(barcodeView)
-        addView(statusView, FParam.Wrap.GravityTopCenter.margins(20))
+        addView(statusView, FParam.Wrap.TopCenter.margins(20))
         setStatusText(QRConfig.tips)
     }
 

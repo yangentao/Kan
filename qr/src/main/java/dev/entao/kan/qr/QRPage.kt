@@ -45,9 +45,7 @@ class QRPage : TitlePage() {
         titleBar.title(title)
 
         barcodeScannerView = CameraView(context)
-        contentView.addView(barcodeScannerView) {
-            WidthFill.HeightFlex
-        }
+        contentView.addView(barcodeScannerView, LParam.FillW.HeightFlex)
         capture = CaptureManager(act, barcodeScannerView)
         capture.onFinish = {
             popPage()
@@ -58,15 +56,11 @@ class QRPage : TitlePage() {
         capture.decode()
 
         val ll = createLinearHorizontal().backColor(Color.rgb(50, 50, 50)).padding(10)
-        contentView.addViewParam(ll) {
-            widthFill().heightWrap()
-        }
+        contentView.addView(ll, LParam.FillW.WrapH)
         if (QRConfig.enableManualInput) {
             val tv = makeButton(R.mipmap.qr_round, R.mipmap.qr_round2)
             tv.text = "手动输入"
-            ll.addView(tv) {
-                WidthFlex.HeightWrap
-            }
+            ll.addView(tv, LParam.WidthFlex.WrapH)
             inputTextView = tv
             tv.onClick {
                 onInputCode()
@@ -76,9 +70,7 @@ class QRPage : TitlePage() {
         if (QRConfig.enableLight) {
             val tv = makeButton(R.mipmap.light, R.mipmap.light2)
             tv.text = "开灯"
-            ll.addViewParam(tv) {
-                WidthFlex.HeightWrap
-            }
+            ll.addView(tv, LParam.WidthFlex.WrapH)
             lightTextView = tv
             tv.onClick {
                 onLightToggle()

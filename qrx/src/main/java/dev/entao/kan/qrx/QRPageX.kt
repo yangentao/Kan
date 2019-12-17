@@ -27,26 +27,28 @@ class QRPageX : TitlePage() {
     var enableInputManual = false
     var onResult: (String) -> Unit = {}
     var resolution = Size(1280, 720)
-    var title:String = "扫描二维码"
+    var title: String = "扫描二维码"
 
-    fun resolution1280X720(){
+    fun resolution1280X720() {
         this.resolution = Size(1280, 720)
     }
-    fun resolution640X480(){
+
+    fun resolution640X480() {
         this.resolution = Size(640, 480)
     }
+
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
         super.onCreateContent(context, contentView)
         titleBar {
-            title(this@QRPageX.title )
+            title(this@QRPageX.title)
         }
         previewView = CameraXView(context)
         previewView.resolution = this.resolution
-        contentView.relative(LParam.WidthFill.HeightFill) {
-            addView(previewView, RParam.WidthFill.HeightFill)
-            linearHor(RParam.Wrap.ParentBottom.CenterHorizontal.marginBottom(20)) {
+        contentView.relative(LParam.FillW.FillH) {
+            addView(previewView, RParam.FillW.FillH)
+            linearHor(RParam.Wrap.Bottom.CenterX.marginBottom(20)) {
                 if (enableInputManual) {
-                    textView(LParam.Wrap.gravityCenter().margins(30)) {
+                    textView(LParam.Wrap.Center.margins(30)) {
                         text = "手动输入"
                         val a = StateList.drawables(R.mipmap.yet_qr_round.drawableRes) {
                             selected(R.mipmap.yet_qr_round2.drawableRes)
@@ -61,7 +63,7 @@ class QRPageX : TitlePage() {
                         }
                     }
                 }
-                lightView = textView(LParam.Wrap.gravityCenter().margins(30)) {
+                lightView = textView(LParam.Wrap.Center.margins(30)) {
                     text = "闪光灯"
                     val a = StateList.drawables(R.mipmap.yet_qr_light.drawableRes) {
                         selected(R.mipmap.yet_qr_light2.drawableRes)

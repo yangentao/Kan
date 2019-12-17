@@ -6,7 +6,7 @@ import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.base.Sleep
 import dev.entao.kan.base.ex.MultiHashMap
-import dev.entao.kan.http.Http
+import dev.entao.kan.http.HttpGet
 import java.io.File
 import java.util.*
 
@@ -39,11 +39,11 @@ object FileDownloader {
 		if (url.length < 8) {//http://a.cn
 			return false
 		}
-		var r = Http(url).download(file, null)
+		var r = HttpGet(url).download(file, null)
 		var ok = r.OK && file.exists() && file.length() > 0
 		if (!ok) {
 			Sleep(300)
-			r = Http(url).download(file, null)
+			r = HttpGet(url).download(file, null)
 			ok = r.OK && file.exists() && file.length() > 0
 		}
 		return ok

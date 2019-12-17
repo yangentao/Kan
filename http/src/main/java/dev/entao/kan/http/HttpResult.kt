@@ -3,6 +3,7 @@ package dev.entao.kan.http
 import dev.entao.kan.base.closeSafe
 import dev.entao.kan.json.YsonArray
 import dev.entao.kan.json.YsonObject
+import dev.entao.kan.log.logd
 import dev.entao.kan.log.loge
 import org.json.JSONArray
 import org.json.JSONException
@@ -19,24 +20,17 @@ import java.util.concurrent.TimeoutException
 /**
  * Created by entaoyang@163.com on 16/4/29.
  */
-class HttpResult {
+class HttpResult(val url: String) {
     var response: ByteArray? = null//如果Http.request参数给定了文件参数, 则,response是null
     var responseCode: Int = 0//200
     var responseMsg: String? = null//OK
     var contentType: String? = null
-        //text/html;charset=utf-8
-        set(value) {
-            field = value
-            if (value != null && value.startsWith("text/html")) {
-                needDecode = true
-            }
-        }
     var contentLength: Int = 0//如果是gzip格式, 这个值!=response.length
     var headerMap: Map<String, List<String>>? = null
     var exception: Exception? = null
 
     var needDecode: Boolean = false
-
+    val OK: Boolean get() = responseCode in 200..299
     val errorMsg: String?
         get() {
             val ex = exception
@@ -49,13 +43,6 @@ class HttpResult {
                 else -> ex.message
             }
         }
-
-    var OK: Boolean = false
-        get() = responseCode >= 200 && responseCode < 300
-
-    fun OK(): Boolean {
-        return OK
-    }
 
     //Content-Type: text/html; charset=GBK
     val contentCharset: Charset?
@@ -73,21 +60,40 @@ class HttpResult {
             }
             return null
         }
-
+    fun responseText(charset: Charset = Charsets.UTF_8): String? {
+        val r = this.response ?: return null
+        val ch = contentCharset ?: charset
+        var s = String(r, ch)
+        if (needDecode) {
+            s = URLDecoder.decode(s, ch.name())
+        }
+        return s
+    }
+    fun dump() {
+        logd(">>Response:", this.url)
+        logd("  >>status:", responseCode, responseMsg ?: "")
+        val map = this.headerMap
+        if (map != null) {
+            for ((k, v) in map) {
+                if (v.size == 1) {
+                    logd("  >>head:", k, "=", v.first())
+                } else {
+                    logd("  >>head:", k, "=", "[" + v.joinToString(",") + "]")
+                }
+            }
+        }
+        if (allowDump(this.contentType)) {
+            logd("  >>body:", this.responseText())
+        }
+    }
     fun needDecode(): HttpResult {
         this.needDecode = true
         return this
     }
 
-    fun str(defCharset: Charset): String? {
-        if (OK()) {
-            val resp = response ?: return null
-            val ct = contentCharset ?: defCharset
-            var s = String(resp, ct)
-            if (needDecode) {
-                s = URLDecoder.decode(s, defCharset.name())
-            }
-            return s
+    fun str(charset: Charset): String? {
+        if (OK) {
+            return this.responseText(charset)
         }
         return null
     }
@@ -95,8 +101,8 @@ class HttpResult {
     fun strISO8859_1(): String? = str(Charsets.ISO_8859_1)
     fun strUtf8(): String? = str(Charsets.UTF_8)
 
-    fun <T> castText(block: (String) -> T?): T? {
-        if (OK()) {
+    fun <T> textTo(block: (String) -> T): T? {
+        if (OK) {
             val s = strUtf8()
             if (s != null && s.isNotEmpty()) {
                 try {
@@ -110,15 +116,15 @@ class HttpResult {
     }
 
     fun ysonObject(): YsonObject? {
-        return castText { YsonObject(it) }
+        return textTo { YsonObject(it) }
     }
 
     fun ysonArray(): YsonArray? {
-        return castText { YsonArray(it) }
+        return textTo { YsonArray(it) }
     }
 
     fun jsonObject(): JSONObject? {
-        if (OK()) {
+        if (OK) {
             val s = strUtf8()
             if (s != null && s.isNotEmpty()) {
                 try {
@@ -133,7 +139,7 @@ class HttpResult {
     }
 
     fun jsonArray(): JSONArray? {
-        if (OK()) {
+        if (OK) {
             val s = strUtf8()
             if (s != null && s.isNotEmpty()) {
                 try {
@@ -148,14 +154,15 @@ class HttpResult {
     }
 
     fun bytes(): ByteArray? {
-        if (OK()) {
+        if (OK) {
             return response
         }
         return null
     }
 
     fun saveTo(file: File): Boolean {
-        if (OK()) {
+        val data = this.response ?: return false
+        if (OK) {
             val dir = file.parentFile
             if (dir != null) {
                 if (!dir.exists()) {
@@ -168,7 +175,7 @@ class HttpResult {
             var fos: FileOutputStream? = null
             try {
                 fos = FileOutputStream(file)
-                fos.write(response)
+                fos.write(data)
                 fos.flush()
             } catch (ex: Exception) {
                 ex.printStackTrace()

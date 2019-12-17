@@ -13,7 +13,7 @@ import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.sql.MapTable
 import dev.entao.kan.base.*
 import dev.entao.kan.dialogs.DialogX
-import dev.entao.kan.http.Http
+import dev.entao.kan.http.HttpGet
 import dev.entao.kan.json.YsonObject
 import dev.entao.kan.log.loge
 import java.io.File
@@ -36,7 +36,7 @@ class VersionCheck(val jo: YsonObject) {
 
     fun downloadFile(progress: Progress?): File? {
         val f = App.files.ex.temp(App.appName + ".apk")
-        val r = Http(this.download).download(f, progress)
+        val r = HttpGet(this.download).download(f, progress)
         if (r.OK) {
             return f
         }
@@ -111,7 +111,7 @@ class VersionCheck(val jo: YsonObject) {
 
 
         fun check(): VersionCheck? {
-            val r = Http(CHECK_URL).arg("pkg", App.packageName).get()
+            val r = HttpGet(CHECK_URL).arg("pkg", App.packageName).request()
             if (r.OK) {
                 val jo = r.ysonObject() ?: return null
                 if (jo.int("code") != 0) {

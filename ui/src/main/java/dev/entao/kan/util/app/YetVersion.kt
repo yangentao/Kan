@@ -9,7 +9,7 @@ import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.sql.MapTable
 import dev.entao.kan.base.*
 import dev.entao.kan.dialogs.DialogX
-import dev.entao.kan.http.Http
+import dev.entao.kan.http.HttpGet
 import dev.entao.kan.json.YsonObject
 import java.io.File
 
@@ -31,7 +31,7 @@ class YetVersion(val jo: YsonObject) {
 
     val downloadUrl: String
         get() {
-            return Http(SERVER_DOWN).arg("id", resId).buildGetUrl()
+            return HttpGet(SERVER_DOWN).arg("id", resId).buildGetUrl()
         }
 
     companion object {
@@ -103,7 +103,7 @@ class YetVersion(val jo: YsonObject) {
 
 
         fun check(): YetVersion? {
-            val r = Http(SERVER_CHECK).arg("pkg", App.packageName).get()
+            val r = HttpGet(SERVER_CHECK).arg("pkg", App.packageName).request()
             if (r.OK) {
                 val jo = r.ysonObject() ?: return null
                 if (jo.int("code") != 0) {
@@ -116,9 +116,9 @@ class YetVersion(val jo: YsonObject) {
         }
 
         fun download(resId: Int, progress: Progress?): File? {
-            val url = Http(SERVER_DOWN).arg("id", resId).buildGetUrl()
+            val url = HttpGet(SERVER_DOWN).arg("id", resId).buildGetUrl()
             val f = App.files.ex.temp(App.appName + ".apk")
-            val r = Http(url).download(f, progress)
+            val r = HttpGet(url).download(f, progress)
             if (r.OK) {
                 return f
             }
