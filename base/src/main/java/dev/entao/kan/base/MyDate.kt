@@ -15,6 +15,7 @@ val Int.SEC: Long get() = this * 1000L
 val Int.MIN: Long get() = this * 60_000L
 val Int.HOR: Long get() = this * 3600_000L
 val Int.HOUR: Long get() = this * 3600_000L
+val Int.DAY: Long get() = this * 24 * 3600_000L
 
 
 class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.getDefault()) {
