@@ -18,6 +18,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import dev.entao.kan.appbase.App
@@ -28,7 +29,7 @@ import dev.entao.kan.base.ex.lowerCased
 import dev.entao.kan.dialogs.HorProgressDlg
 import dev.entao.kan.dialogs.SpinProgressDlg
 import dev.entao.kan.dialogs.dialogX
-import dev.entao.kan.ext.removeFromParent
+import dev.entao.kan.ext.*
 import dev.entao.kan.log.Yog
 import dev.entao.kan.util.*
 import dev.entao.kan.widget.RelativeLayoutX
@@ -59,6 +60,17 @@ open class BasePage : Fragment(), MsgListener {
 
     val watchMap = HashMap<Uri, ContentObserver>()
 
+    lateinit var loadingView: ProgressBar
+
+    fun showLoading() {
+        this.loadingView.bringToFront()
+        this.loadingView.visiable()
+    }
+
+    fun hideLoading() {
+        this.loadingView.gone()
+    }
+
     override fun onDestroyView() {
         pageRootView.removeAllViews()
         pageRootView.removeFromParent()
@@ -75,6 +87,12 @@ open class BasePage : Fragment(), MsgListener {
         horProgressDlg = HorProgressDlg(act)
         MsgCenter.listenAll(this)
         pageRootView = RelativeLayoutX(act)
+
+        loadingView = ProgressBar(context)
+        loadingView.isIndeterminate = true
+        loadingView.gone()
+        pageRootView.addView(loadingView, RParam.Center.size(50))
+
         onCreatePage(act, pageRootView, savedInstanceState)
         return pageRootView
     }
