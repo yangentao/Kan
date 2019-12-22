@@ -307,7 +307,7 @@ abstract class HttpReq(val url: String) {
         return this
     }
 
-    fun autoBearer(token: String): HttpReq {
+    fun authBearer(token: String): HttpReq {
         headerMap["Authorization"] = "Bearer $token"
         return this
     }

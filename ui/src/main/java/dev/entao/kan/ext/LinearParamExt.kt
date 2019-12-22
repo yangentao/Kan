@@ -11,6 +11,9 @@ import android.widget.LinearLayout
  */
 
 
+val LParamEdit: LinearLayout.LayoutParams get() = LParam.FillW.HeightEdit.marginY(8)
+val LParamButton: LinearLayout.LayoutParams get() = LParam.FillW.HeightButton.marginY(30)
+
 val LParam: LinearLayout.LayoutParams
     get() {
         return LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)

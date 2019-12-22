@@ -4,6 +4,7 @@ package dev.entao.kan.ext
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.view.View.OnLayoutChangeListener
 import android.widget.CheckBox
@@ -14,17 +15,18 @@ import dev.entao.kan.base.ColorX
  * Created by entaoyang@163.com on 16/6/4.
  */
 
+
 //width:60, height:30
-open class SwitchButton(context: Context) : CheckBox(context) {
-    private val onLayoutChange = OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-        this.post {
-            resetImage()
-        }
-    }
+class SwitchButton(context: Context) : CheckBox(context) {
 
     init {
         this.compoundDrawablePadding = 0
-        this.addOnLayoutChangeListener(this.onLayoutChange)
+        this.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            this.post {
+                resetImage()
+            }
+        }
+        this.layoutParams = MParam.width(WIDTH).height(HEIGHT)
     }
 
     override fun setChecked(checked: Boolean) {
@@ -35,36 +37,34 @@ open class SwitchButton(context: Context) : CheckBox(context) {
         }
     }
 
-    fun makeDrawDp(w: Int, h: Int): LayerDrawable {
-        val dd1 = ShapeRect(Color.WHITE, h / 2).stroke(1, ColorX.borderGray).size(w, h).value
-        val dd2 = ShapeRect(ColorX.green, h / 2).size(w, h).value
-        val dd3 = ShapeRect(ColorX.backDisabled, h / 2).stroke(1, Color.WHITE).size(w, h).value
-        val draw = StateList.drawable(dd1, VState.Checked to dd2, VState.Disabled to dd3)
-        val h2: Int = if (h <= 2) {
-            1
-        } else {
-            h - 2
-        }
-        val a = ShapeOval().fill(Color.WHITE)
-        if (isChecked) {
-            a.stroke(1, ColorX.borderGray)
-        }
-        val round = a.size(h2).value
-
-        val ld = LayerDrawable(arrayOf(draw, round))
-        val offset = dp(w - h)
-        if (this.isChecked) {
-            ld.setLayerInset(1, offset, 1, 1, 1)
-        } else {
-            ld.setLayerInset(1, 1, 1, offset, 1)
-        }
-
+    private fun uncheckedImage(w: Int, h: Int): Drawable {
+        val back = ShapeRect(ColorX.backDisabled, h / 2).size(w, h).value
+        val round = ShapeOval().fill(Color.WHITE).size(h - 2).value
+        val ld = LayerDrawable(arrayOf(back, round))
+        val inner = 1.dp
+        ld.setLayerInset(1, inner * 2, inner, (w - h).dp - 2 * inner, inner)
 
         return ld
     }
 
-    fun resetImage() {
-        this.buttonDrawable = makeDrawDp(px2dp(this.width), px2dp(this.height))
+    private fun checkedImage(w: Int, h: Int): Drawable {
+        val back = ShapeRect(ColorX.green, h / 2).size(w, h).value
+        val round = ShapeOval().fill(Color.WHITE).size(h - 2).value
+        val ld = LayerDrawable(arrayOf(back, round))
+        val inner = 1.dp
+        ld.setLayerInset(1, (w - h).dp - inner, inner, inner * 2, inner)
+        return ld
+    }
+
+    private fun switchDraw(w: Int, h: Int): Drawable {
+        val a = uncheckedImage(w, h)
+        val b = checkedImage(w, h)
+        return StateList.drawable(a, VState.Checked to b)
+    }
+
+
+    private fun resetImage() {
+        this.buttonDrawable = switchDraw(px2dp(this.width), px2dp(this.height))
     }
 
     companion object {
@@ -72,3 +72,5 @@ open class SwitchButton(context: Context) : CheckBox(context) {
         const val HEIGHT = 30
     }
 }
+
+
