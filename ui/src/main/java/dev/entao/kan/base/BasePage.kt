@@ -3,7 +3,6 @@
 package dev.entao.kan.base
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.database.ContentObserver
@@ -162,174 +161,25 @@ open class BasePage : Fragment(), MsgListener {
     val isVisiableToUser: Boolean
         get() = this.isResumed && isVisible
 
-    fun takeViedo(sizeM: Int, block: (Uri) -> Unit) {
-        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, sizeM * 1024 * 1024)
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data?.data != null) {
-                        block.invoke(data.data!!)
-                    }
-                }
-                return true
-            }
 
-        }
-        startActivityForResult(TAKE_VIDEO, intent, onResult)
-    }
 
-    fun pickVideo(block: (Uri) -> Unit) {
-        val i = Intent(Intent.ACTION_PICK)
-        i.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*")
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data?.data != null) {
-                        block.invoke(data.data!!)
-                    }
-                }
-                return true
+    fun startActivityResult(intent: Intent, block: (Boolean, Intent?) -> Unit) {
+        val ob = object : ActivityResultListener {
+            override fun onResult(success: Boolean, intent: Intent?) {
+                block(success, intent)
             }
         }
-        startActivityForResult(PICK_PHOTO, i, onResult)
+        this.startActivityForResult(intent, ob)
     }
 
-    fun selectImage(width: Int, block: (Uri) -> Unit) {
-        this.dialogX.showListItem(listOf("拍照", "相册"), null) {
-            if (it == "拍照") {
-                takePhotoJpg(width) { fff ->
-                    block(Uri.fromFile(fff))
-                }
-            } else {
-                pickPhoto(width) { uu ->
-                    block(uu)
-                }
-            }
-        }
-    }
-
-    fun pickJpg(width: Int, block: (File) -> Unit) {
-        val i = Intent(Intent.ACTION_PICK)
-        i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data?.data != null) {
-                        val outputFile = App.files.ex.temp("" + System.currentTimeMillis() + ".jpg")
-                        val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
-                        if (bmp != null) {
-                            bmp.saveJpg(outputFile)
-                            block.invoke(outputFile)
-                        }
-                    }
-                }
-                return true
-            }
-        }
-        startActivityForResult(PICK_PHOTO, i, onResult)
-    }
-
-    fun pickPhoto(width: Int, block: (Uri) -> Unit) {
-        val i = Intent(Intent.ACTION_PICK)
-        i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data?.data != null) {
-                        val f = App.files.ex.tempFile("PNG")
-                        val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
-                        if (bmp != null) {
-                            bmp.savePng(f)
-                            if (f.exists()) {
-                                block.invoke(Uri.fromFile(f))
-                            }
-                        }
-
-                    }
-                }
-                return true
-            }
-        }
-        startActivityForResult(PICK_PHOTO, i, onResult)
-    }
-
-    fun takePhotoPng(width: Int, block: (File) -> Unit) {
-        takePhoto(width, true, block)
-    }
-
-    fun takePhotoJpg(width: Int, block: (File) -> Unit) {
-        takePhoto(width, false, block)
-    }
-
-    fun takePhoto(width: Int, png: Boolean, block: (File) -> Unit) {
-        val fmt = if (png) "PNG" else "JPEG"
-        val outputFile = App.files.ex.temp("" + System.currentTimeMillis() + "." + fmt)
-        val intent = Intent("android.media.action.IMAGE_CAPTURE")
-        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0)
-        val outUri = UriFromSdFile(outputFile)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri)
-        intent.putExtra("outputFormat", fmt)
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
-                    val f = App.files.ex.tempFile(fmt.lowerCased)
-                    val bmp = Bmp.file(outputFile, width, Bitmap.Config.ARGB_8888)
-                    if (bmp != null) {
-                        if (png) {
-                            bmp.savePng(f)
-                        } else {
-                            bmp.saveJpg(f)
-                        }
-                        if (f.exists()) {
-                            block(f)
-                        }
-                    }
-                }
-                return true
-            }
-        }
-        startActivityForResult(TAKE_PHOTO, intent, onResult)
-    }
-
-
-    fun cropPhoto(uri: Uri, outX: Int, outY: Int, result: (Bitmap?) -> Unit) {
-        val intent = Intent("com.android.camera.action.CROP")
-        intent.setDataAndType(uri, "image/*")
-        intent.putExtra("crop", "true")
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1)
-        intent.putExtra("aspectY", 1)
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", outX)
-        intent.putExtra("outputY", outY)
-        intent.putExtra("return-data", true)
-        // intent.putExtra("output",CAMERA_EXTRA_OUTPUT_FILE);
-        val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (resultCode == Activity.RESULT_OK) {
-                    val extras = data?.extras
-                    var photo: Bitmap? = null
-                    if (extras != null) {
-                        photo = extras.getParcelable("data")
-                    }
-                    result.invoke(photo)
-                } else {
-                    result.invoke(null)
-                }
-                return true
-            }
-        }
-        startActivityForResult(CROP_PHOTO, intent, onResult)
-    }
-
-    fun startActivityForResult(requestCode: Int, intent: Intent, onResult: ActivityResultListener) {
+    fun startActivityForResult(intent: Intent, onResult: ActivityResultListener) {
+        val requestCode = genRequestCode()
         resultListeners[requestCode] = onResult
         startActivityForResult(intent, requestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        resultListeners.remove(requestCode)?.onActivityResult(requestCode, resultCode, data)
+        resultListeners.remove(requestCode)?.onActivityResult(resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -386,10 +236,6 @@ open class BasePage : Fragment(), MsgListener {
 
 
     companion object {
-        private const val TAKE_PHOTO = 988
-        private const val TAKE_VIDEO = 989
-        private const val PICK_PHOTO = 977
-        private const val CROP_PHOTO = 966
 
         private var identity: Int = 1
     }

@@ -72,9 +72,9 @@ open class Perm(private val perms: Set<String>) {
 
     companion object {
         private val permStack: LinkedList<Perm> = LinkedList()
-        private var code = 240
+        private var code = 250
         private fun genCode(): Int {
-            if (code > 250) {
+            if (code > 299) {
                 code = 240
             }
             this.code += 1
