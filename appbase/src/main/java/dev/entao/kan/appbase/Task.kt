@@ -131,6 +131,7 @@ object Task {
         t.setUncaughtExceptionHandler(::uncaughtException)
         t
     }
+    val isMainThread: Boolean get() = Thread.currentThread().id == Looper.getMainLooper().thread.id
 
     //第一次执行block的时候, 取消所有同组任务, 至少millsec会执行一次
     fun mergeX(groupName: String, millSec: Long = 300, block: BlockUnit) {

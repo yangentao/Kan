@@ -21,6 +21,8 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import dev.entao.kan.appbase.App
+import dev.entao.kan.appbase.InMainThread
+import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.ex.Bmp
 import dev.entao.kan.appbase.ex.saveJpg
 import dev.entao.kan.appbase.ex.savePng
@@ -62,12 +64,25 @@ open class BasePage : Fragment(), MsgListener {
     lateinit var loadingView: ProgressBar
 
     fun showLoading() {
-        this.loadingView.bringToFront()
-        this.loadingView.visiable()
+        if (InMainThread) {
+            this.loadingView.bringToFront()
+            this.loadingView.visiable()
+        } else {
+            Task.fore {
+                this.loadingView.bringToFront()
+                this.loadingView.visiable()
+            }
+        }
     }
 
     fun hideLoading() {
-        this.loadingView.gone()
+        if (InMainThread) {
+            this.loadingView.gone()
+        } else {
+            Task.fore {
+                this.loadingView.gone()
+            }
+        }
     }
 
     override fun onDestroyView() {

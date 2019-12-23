@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 501
-        versionName "6.1.8"
+        versionName "6.1.10"
     }
     compileOptions {
         sourceCompatibility = 1.7
@@ -42,7 +42,7 @@ dependencies {
     implementation 'dev.entao.kan:json:5.0.2'
     implementation 'dev.entao.kan:http:6.1.2'
     implementation 'dev.entao.kan:log:5.0.2'
-    implementation 'dev.entao.kan:appbase:6.1.2'
+    implementation 'dev.entao.kan:appbase:6.1.3'
 
 
 }
