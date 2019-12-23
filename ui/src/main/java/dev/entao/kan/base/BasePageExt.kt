@@ -5,108 +5,51 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import dev.entao.kan.appbase.App
-import dev.entao.kan.appbase.ex.Bmp
-import dev.entao.kan.appbase.ex.saveJpg
-import dev.entao.kan.appbase.ex.savePng
-import dev.entao.kan.base.ex.lowerCased
 import dev.entao.kan.dialogs.dialogX
 import dev.entao.kan.util.UriFromSdFile
-import java.io.File
 
 
-fun BasePage.selectImage(width: Int, block: (Uri) -> Unit) {
-    this.dialogX.showListItem(listOf("拍照", "相册"), null) {
-        if (it == "拍照") {
-            takePhotoJpg(width) { fff ->
-                block(Uri.fromFile(fff))
+fun BasePage.selectImage(block: (Uri) -> Unit) {
+    this.dialogX.showListItem(listOf("拍照", "相册"), null) { s ->
+        if (s == "拍照") {
+            takeImage {
+                block(it)
             }
         } else {
-            pickPhoto(width) { uu ->
-                block(uu)
+            pickImage {
+                block(it)
             }
         }
     }
 }
 
-fun BasePage.pickJpg(width: Int, block: (File) -> Unit) {
+
+fun BasePage.pickImage(block: (Uri) -> Unit) {
     val i = Intent(Intent.ACTION_PICK)
     i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-    val onResult = object : ActivityResultListener {
-        override fun onResultOK(intent: Intent?) {
-            if (intent?.data != null) {
-                val outputFile = App.files.ex.temp("" + System.currentTimeMillis() + ".jpg")
-                val bmp = Bmp.uri(intent.data, width, Bitmap.Config.ARGB_8888)
-                if (bmp != null) {
-                    bmp.saveJpg(outputFile)
-                    block.invoke(outputFile)
-                }
-            }
-        }
+
+    startActivityResultUri(i) { data ->
+        block(data)
     }
-    startActivityForResult(i, onResult)
-}
-
-fun BasePage.pickPhoto(width: Int, block: (Uri) -> Unit) {
-    val i = Intent(Intent.ACTION_PICK)
-    i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-    val onResult = object : ActivityResultListener {
-        override fun onResultOK(intent: Intent?) {
-            if (intent?.data != null) {
-                val f = App.files.ex.tempFile("PNG")
-                val bmp = Bmp.uri(intent.data, width, Bitmap.Config.ARGB_8888)
-                if (bmp != null) {
-                    bmp.savePng(f)
-                    if (f.exists()) {
-                        block.invoke(Uri.fromFile(f))
-                    }
-                }
-
-            }
-        }
-    }
-    startActivityForResult(i, onResult)
-}
-
-fun BasePage.takePhotoPng(width: Int, block: (File) -> Unit) {
-    takePhoto(width, true, block)
-}
-
-fun BasePage.takePhotoJpg(width: Int, block: (File) -> Unit) {
-    takePhoto(width, false, block)
 }
 
 
-fun BasePage.takePhoto(width: Int, png: Boolean, block: (File) -> Unit) {
-    val fmt = if (png) "PNG" else "JPEG"
-    val outputFile = App.files.ex.temp("" + System.currentTimeMillis() + "." + fmt)
+fun BasePage.takeImage(block: (Uri) -> Unit) {
+    val fmt = "JPEG"
+    val outputFile = App.files.ex.tempFile(fmt)
+    val outUri = UriFromSdFile(outputFile)
     val intent = Intent("android.media.action.IMAGE_CAPTURE")
     intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0)
-    val outUri = UriFromSdFile(outputFile)
     intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri)
     intent.putExtra("outputFormat", fmt)
-    val onResult = object : ActivityResultListener {
-        override fun onResultOK(intent: Intent?) {
-            if (outputFile.exists()) {
-                val f = App.files.ex.tempFile(fmt.lowerCased)
-                val bmp = Bmp.file(outputFile, width, Bitmap.Config.ARGB_8888)
-                if (bmp != null) {
-                    if (png) {
-                        bmp.savePng(f)
-                    } else {
-                        bmp.saveJpg(f)
-                    }
-                    if (f.exists()) {
-                        block(f)
-                    }
-                }
-            }
+    startActivityResultOK(intent) {
+        if (outputFile.exists()) {
+            block(outUri)
         }
-
     }
-    startActivityForResult(intent, onResult)
 }
 
-fun BasePage.cropPhoto(uri: Uri, outX: Int, outY: Int, result: (Bitmap?) -> Unit) {
+fun BasePage.cropImage(uri: Uri, outX: Int, outY: Int, result: (Bitmap?) -> Unit) {
     val intent = Intent("com.android.camera.action.CROP")
     intent.setDataAndType(uri, "image/*")
     intent.putExtra("crop", "true")

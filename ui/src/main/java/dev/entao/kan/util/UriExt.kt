@@ -20,7 +20,7 @@ fun UriFromSdFile(file: File): Uri {
     }
 }
 
-
+val File.uriLocal: Uri get() = UriFromSdFile(this)
 
 
 val Uri.extName: String?

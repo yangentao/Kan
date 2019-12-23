@@ -162,6 +162,25 @@ open class BasePage : Fragment(), MsgListener {
         get() = this.isResumed && isVisible
 
 
+    fun startActivityResultUri(intent: Intent, block: (Uri) -> Unit) {
+        val ob = object : ActivityResultListener {
+            override fun onResult(success: Boolean, intent: Intent?) {
+                if (success && intent?.data != null) {
+                    block(intent.data!!)
+                }
+            }
+        }
+        this.startActivityForResult(intent, ob)
+    }
+
+    fun startActivityResultOK(intent: Intent, block: (Intent?) -> Unit) {
+        val ob = object : ActivityResultListener {
+            override fun onResultOK(intent: Intent?) {
+                block(intent)
+            }
+        }
+        this.startActivityForResult(intent, ob)
+    }
 
     fun startActivityResult(intent: Intent, block: (Boolean, Intent?) -> Unit) {
         val ob = object : ActivityResultListener {

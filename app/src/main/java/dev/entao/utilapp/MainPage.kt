@@ -2,6 +2,8 @@ package dev.entao.utilapp
 
 import android.content.Context
 import android.widget.LinearLayout
+import dev.entao.kan.base.ImageCast
+import dev.entao.kan.base.pickImage
 import dev.entao.kan.page.TitlePage
 
 
@@ -16,8 +18,8 @@ class MainPage : TitlePage() {
     }
 
     fun selImage() {
-        this.selectImage(256) {
-            println(it)
+        this.pickImage {
+             ImageCast(it).edge(256).jpgFile
         }
     }
 }

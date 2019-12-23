@@ -1,19 +1,17 @@
+@file:Suppress("FunctionName", "unused")
+
 package dev.entao.kan.base
 
+import dev.entao.kan.appbase.App
 import dev.entao.kan.json.YsonArray
 import dev.entao.kan.json.YsonObject
+import java.io.File
 
 
-object YsonObjectTextConvert : ITextConvert {
-    override val defaultValue: Any = YsonObject()
-    override fun fromText(text: String): Any? {
-        return YsonObject(text)
-    }
+fun TempFileExt(ext: String): File {
+    return App.files.ex.tempFile(ext)
 }
 
-object YsonArrayTextConvert : ITextConvert {
-    override val defaultValue: Any = YsonArray()
-    override fun fromText(text: String): Any? {
-        return YsonArray(text)
-    }
+fun TempFileNamed(filename: String): File {
+    return App.files.ex.temp(filename)
 }
