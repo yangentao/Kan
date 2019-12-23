@@ -5,10 +5,21 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import dev.entao.kan.appbase.App
+import dev.entao.kan.appbase.Task
 import dev.entao.kan.dialogs.dialogX
 import dev.entao.kan.log.logd
 import dev.entao.kan.util.UriFromSdFile
 
+
+fun BasePage.backLoading(block: BlockUnit) {
+    showLoading()
+    Task.back {
+        block()
+        Task.fore {
+            hideLoading()
+        }
+    }
+}
 
 fun BasePage.selectPortrait(block: (Bitmap) -> Unit) {
     selectImage { uri ->

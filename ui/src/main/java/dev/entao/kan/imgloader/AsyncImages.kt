@@ -15,10 +15,13 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.base.circled
+import dev.entao.kan.base.rounded
 import dev.entao.kan.ext.leftImage
 import dev.entao.kan.ext.requireId
 import dev.entao.kan.ext.rightImage
 import dev.entao.kan.ext.topImage
+import dev.entao.kan.log.logd
 import dev.entao.kan.res.drawableRes
 import dev.entao.kan.util.uriLocal
 import java.lang.ref.WeakReference
@@ -60,7 +63,7 @@ fun <T : AsyncImage> T.opt(block: ImageOption.() -> Unit): T {
 }
 
 @SuppressLint("UseSparseArrays")
-private val viewMap = HashMap<Int, String>()
+
 
 abstract class AsyncImage(val imageIdent: String) {
 
@@ -76,6 +79,7 @@ abstract class AsyncImage(val imageIdent: String) {
 
 
     fun display(view: View, block: (View, Drawable?) -> Unit) {
+        viewMap[view.requireId()] = imageIdent
         val a = ImageCache.find(keyString())
         if (a != null) {
             makeViewImage(a, view, block)
@@ -87,17 +91,15 @@ abstract class AsyncImage(val imageIdent: String) {
                 block(view, d)
             }
         }
-        viewMap[view.requireId()] = imageIdent
-        val weekView = WeakReference<View>(view)
+        val weakView = WeakReference<View>(view)
         bitmap { bmp ->
             if (bmp != null) {
                 ImageCache.put(keyString(), bmp)
             }
             Task.fore {
-                val v = weekView.get()
+                val v = weakView.get()
                 if (v != null) {
                     makeViewImage(bmp, v, block)
-
                 }
             }
         }
@@ -106,13 +108,9 @@ abstract class AsyncImage(val imageIdent: String) {
     private fun makeDrawable(bmp: Bitmap?): Drawable? {
         val b = bmp ?: return null
         if (option.circled) {
-            val a = RoundedBitmapDrawableFactory.create(App.resource, b)
-            a.isCircular = true
-            return a
+            return b.circled
         } else if (option.corners > 0) {
-            val a = RoundedBitmapDrawableFactory.create(App.resource, b)
-            a.cornerRadius = option.corners.dpf
-            return a
+            return b.rounded(option.corners)
         } else {
             return b.drawable
         }
@@ -122,7 +120,6 @@ abstract class AsyncImage(val imageIdent: String) {
         if (viewMap[view.requireId()] != this.imageIdent) {
             return
         }
-
         if (bmp != null) {
             block(view, makeDrawable(bmp))
         } else if (option.failedImage != 0) {
@@ -160,6 +157,10 @@ abstract class AsyncImage(val imageIdent: String) {
             v as TextView
             v.topImage(d)
         }
+    }
+
+    companion object {
+        private val viewMap: HashMap<Int, String> = HashMap()
     }
 
 }
