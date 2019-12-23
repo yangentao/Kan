@@ -97,6 +97,8 @@ open class LabelListItemView<T : Any>(context: Context) : LabelItemView(context)
     var emptyValueText: String = "请选择"
     private var _value: T? = null
 
+    var onValueChanged: (T) -> Unit = {}
+
     init {
         valueView = textView(LParam.Wrap.RightCenter) {
             textSizeC().textColorMinor().singleLine()
@@ -108,7 +110,11 @@ open class LabelListItemView<T : Any>(context: Context) : LabelItemView(context)
 
     private fun clickMe() {
         DialogX(context).showListItem(options, null, { it.second }) { selVal ->
+            val changed = selVal.first != _value
             value = selVal.first
+            if (changed) {
+                onValueChanged(selVal.first)
+            }
         }
     }
 

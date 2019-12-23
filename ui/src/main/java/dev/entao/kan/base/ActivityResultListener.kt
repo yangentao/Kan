@@ -4,5 +4,5 @@ import android.content.Intent
 
 
 interface ActivityResultListener {
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean
 }

@@ -166,9 +166,9 @@ open class BasePage : Fragment(), MsgListener {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, sizeM * 1024 * 1024)
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.data != null) {
+                    if (data?.data != null) {
                         block.invoke(data.data!!)
                     }
                 }
@@ -183,9 +183,9 @@ open class BasePage : Fragment(), MsgListener {
         val i = Intent(Intent.ACTION_PICK)
         i.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*")
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.data != null) {
+                    if (data?.data != null) {
                         block.invoke(data.data!!)
                     }
                 }
@@ -213,9 +213,9 @@ open class BasePage : Fragment(), MsgListener {
         val i = Intent(Intent.ACTION_PICK)
         i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.data != null) {
+                    if (data?.data != null) {
                         val outputFile = App.files.ex.temp("" + System.currentTimeMillis() + ".jpg")
                         val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
                         if (bmp != null) {
@@ -234,9 +234,9 @@ open class BasePage : Fragment(), MsgListener {
         val i = Intent(Intent.ACTION_PICK)
         i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.data != null) {
+                    if (data?.data != null) {
                         val f = App.files.ex.tempFile("PNG")
                         val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
                         if (bmp != null) {
@@ -271,7 +271,7 @@ open class BasePage : Fragment(), MsgListener {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri)
         intent.putExtra("outputFormat", fmt)
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
                     val f = App.files.ex.tempFile(fmt.lowerCased)
                     val bmp = Bmp.file(outputFile, width, Bitmap.Config.ARGB_8888)
@@ -306,9 +306,9 @@ open class BasePage : Fragment(), MsgListener {
         intent.putExtra("return-data", true)
         // intent.putExtra("output",CAMERA_EXTRA_OUTPUT_FILE);
         val onResult = object : ActivityResultListener {
-            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+            override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
                 if (resultCode == Activity.RESULT_OK) {
-                    val extras = data.extras
+                    val extras = data?.extras
                     var photo: Bitmap? = null
                     if (extras != null) {
                         photo = extras.getParcelable("data")
@@ -329,7 +329,7 @@ open class BasePage : Fragment(), MsgListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        resultListeners.remove(requestCode)?.onActivityResult(requestCode, resultCode, data!!)
+        resultListeners.remove(requestCode)?.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
