@@ -6,8 +6,19 @@ import android.net.Uri
 import android.provider.MediaStore
 import dev.entao.kan.appbase.App
 import dev.entao.kan.dialogs.dialogX
+import dev.entao.kan.log.logd
 import dev.entao.kan.util.UriFromSdFile
 
+
+fun BasePage.selectPortrait(block: (Bitmap) -> Unit) {
+    selectImage { uri ->
+        cropImage(uri, 256, 256) {
+            if (it != null) {
+                block(it)
+            }
+        }
+    }
+}
 
 fun BasePage.selectImage(block: (Uri) -> Unit) {
     this.dialogX.showListItem(listOf("拍照", "相册"), null) { s ->
@@ -43,6 +54,8 @@ fun BasePage.takeImage(block: (Uri) -> Unit) {
     intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri)
     intent.putExtra("outputFormat", fmt)
     startActivityResultOK(intent) {
+        logd("Intent? ", it)
+        logd("Data? ", it?.data)
         if (outputFile.exists()) {
             block(outUri)
         }
@@ -60,6 +73,8 @@ fun BasePage.cropImage(uri: Uri, outX: Int, outY: Int, result: (Bitmap?) -> Unit
     intent.putExtra("outputX", outX)
     intent.putExtra("outputY", outY)
     intent.putExtra("return-data", true)
+    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     // intent.putExtra("output",CAMERA_EXTRA_OUTPUT_FILE);
     val onResult = object : ActivityResultListener {
         override fun onResultOK(intent: Intent?) {
@@ -82,25 +97,15 @@ fun BasePage.cropImage(uri: Uri, outX: Int, outY: Int, result: (Bitmap?) -> Unit
 fun BasePage.takeViedo(sizeM: Int, block: (Uri) -> Unit) {
     val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
     intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, sizeM * 1024 * 1024)
-    val onResult = object : ActivityResultListener {
-        override fun onResultOK(intent: Intent?) {
-            if (intent?.data != null) {
-                block.invoke(intent.data!!)
-            }
-        }
+    startActivityResultUri(intent) {
+        block.invoke(it)
     }
-    startActivityForResult(intent, onResult)
 }
 
 fun BasePage.pickVideo(block: (Uri) -> Unit) {
     val i = Intent(Intent.ACTION_PICK)
     i.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*")
-    val onResult = object : ActivityResultListener {
-        override fun onResultOK(intent: Intent?) {
-            if (intent?.data != null) {
-                block.invoke(intent.data!!)
-            }
-        }
+    startActivityResultUri(i) {
+        block.invoke(it)
     }
-    startActivityForResult(i, onResult)
 }
