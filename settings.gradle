@@ -1,1 +1,1 @@
-include ':app',  ':base', ':appbase', ':http', ':log', ':qr', ':qrx', ':ui', ':json'
+include ':app',  ':base', ':appbase', ':http', ':log', ':qr', ':qrx', ':ui', ':json', ':pinyin'
