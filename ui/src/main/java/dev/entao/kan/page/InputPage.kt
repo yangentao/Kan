@@ -291,24 +291,7 @@ abstract class InputPage : TitlePage() {
         }
     }
 
-    fun date(
-        key: String,
-        title: String,
-        format: String = MyDate.FORMAT_DATE,
-        marginTop: Int = inputMarginTop
-    ): TextDetailView {
-        val v = textDetail(title, marginTop)
-        v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
-        dateMap[key] = v
-        dateFormatMap[key] = format
-        setDate(key, 0L)
-        v.onClick {
-            pickDate(getDate(key)) {
-                setDate(key, it)
-            }
-        }
-        return v
-    }
+
 
     @SuppressLint("SetTextI18n")
     fun selectMap(p: Prop1, optMap: Map<Any, String>): TextDetailView {

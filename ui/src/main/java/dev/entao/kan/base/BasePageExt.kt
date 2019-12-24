@@ -13,35 +13,6 @@ import dev.entao.kan.log.logd
 import dev.entao.kan.util.UriFromSdFile
 
 
-fun BasePage.pickTime(date: MyDate, block: (MyDate) -> Unit) {
-    this.pickTime(date.hour, date.minute, block)
-}
-
-fun BasePage.pickTime(oldHour: Int, oldMinute: Int, block: (MyDate) -> Unit) {
-    val dlg = TimePickerDialog(act, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-        val date = MyDate(0L)
-        date.hour = hour
-        date.minute = minute
-        block(date)
-    }, oldHour, oldMinute, true)
-    dlg.show()
-}
-
-fun BasePage.pickDate(date: MyDate, block: (MyDate) -> Unit) {
-    this.pickDate(date.year, date.month, date.day, block)
-}
-
-fun BasePage.pickDate(oldYear: Int, oldMonth: Int, oldDay: Int, block: (MyDate) -> Unit) {
-    val dlg = DatePickerDialog(act, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-        val date = MyDate(0L)
-        date.year = year
-        date.month = month
-        date.day = dayOfMonth
-        block(date)
-    }, oldYear, oldMonth, oldDay)
-    dlg.show()
-}
-
 fun BasePage.backLoading(block: BlockUnit) {
     showLoading()
     Task.back {

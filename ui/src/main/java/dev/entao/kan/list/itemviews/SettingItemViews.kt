@@ -2,11 +2,11 @@
 
 package dev.entao.kan.list.itemviews
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Size
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -86,8 +86,21 @@ fun <T : LabelValueItemView> T.more(): T {
 
 class LabelTextItemView(context: Context) : LabelValueItemView(context) {
 
+    var onValueChanged: (String) -> Unit = {}
+    var configEditBlock: (EditText) -> Unit = {}
+
     init {
         valueView.multiLine().maxLines(2)
+        this.click(::showInput)
+    }
+
+    private fun showInput() {
+        val oldText = valueView.textS
+        DialogX(context).showInput(label, oldText, configEditBlock) { s ->
+            if (s != oldText) {
+                onValueChanged(s)
+            }
+        }
     }
 
     var value: String?

@@ -294,35 +294,6 @@ fun Fragment.dial(phone: String) {
 }
 
 
-fun Fragment.pickDate(initDate: Long, block: (Long) -> Unit) {
-    pickDate(MyDate(initDate), block)
-}
-
-fun Fragment.pickDate(date: MyDate, block: (Long) -> Unit) {
-    val dlg = DatePickerDialog(act, object : DatePickerDialog.OnDateSetListener {
-        override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-            block(MyDate.makeDate(year, monthOfYear, dayOfMonth))
-        }
-
-    }, date.year, date.month, date.day)
-    dlg.show()
-}
-
-fun Fragment.pickTime(time: Long, block: (Long) -> Unit) {
-    pickTime(MyDate(time), block)
-}
-
-fun Fragment.pickTime(time: MyDate, block: (Long) -> Unit) {
-    val dlg = TimePickerDialog(activity, object : TimePickerDialog.OnTimeSetListener {
-        override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-            block(MyDate.makeTime(hourOfDay, minute))
-        }
-
-    }, time.hour, time.minute, true)
-    dlg.show()
-}
-
-
 val Context.configuration: Configuration
     get() = resources.configuration
 
@@ -341,4 +312,34 @@ fun Intent.yson(yo: YsonObject): Intent {
     return this
 }
 
+
+fun Fragment.pickDate(date: MyDate, block: (MyDate) -> Unit) {
+    this.pickDate(date.year, date.month, date.day, block)
+}
+
+fun Fragment.pickDate(oldYear: Int, oldMonth: Int, oldDay: Int, block: (MyDate) -> Unit) {
+    val dlg = DatePickerDialog(act, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        val date = MyDate(0L)
+        date.year = year
+        date.month = month
+        date.day = dayOfMonth
+        block(date)
+    }, oldYear, oldMonth, oldDay)
+    dlg.show()
+}
+
+
+fun Fragment.pickTime(date: MyDate, block: (MyDate) -> Unit) {
+    this.pickTime(date.hour, date.minute, block)
+}
+
+fun Fragment.pickTime(oldHour: Int, oldMinute: Int, block: (MyDate) -> Unit) {
+    val dlg = TimePickerDialog(act, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+        val date = MyDate(0L)
+        date.hour = hour
+        date.minute = minute
+        block(date)
+    }, oldHour, oldMinute, true)
+    dlg.show()
+}
 
