@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 501
-        versionName "6.1.18"
+        versionName "6.1.19"
     }
     compileOptions {
         sourceCompatibility = 1.7

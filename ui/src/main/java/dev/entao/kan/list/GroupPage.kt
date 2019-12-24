@@ -15,6 +15,7 @@ class GroupItem<T : Any> {
 }
 
 class GroupData<T : Any> {
+    var flatList: ArrayList<Any> = ArrayList()
     var groupList: ArrayList<GroupItem<T>> = ArrayList()
 
     var labelOf: (T) -> String = { throw IllegalAccessException("重写此方法") }
@@ -24,14 +25,11 @@ class GroupData<T : Any> {
         ls.sortBy { it.label }
     }
 
-
     val labelList: List<String>
         get() {
             return this.groupList.map { it.label }
         }
 
-
-    var flatList: ArrayList<Any> = ArrayList()
 
     fun process(items: List<T>) {
         val gl = ArrayList<GroupItem<T>>()
@@ -50,16 +48,15 @@ class GroupData<T : Any> {
             gg.label = lb
             gg.items.add(item)
         }
-
+        for (g in gl) {
+            this.itemsSorter(g.items)
+        }
+        this.groupSorter(gl)
         val ls = ArrayList<Any>(items.size + map.size)
         for (a in gl) {
             ls.add(a)
             ls.addAll(a.items)
         }
-        for (g in gl) {
-            this.itemsSorter(g.items)
-        }
-        this.groupSorter(gl)
         this.flatList = ls
         this.groupList = gl
     }
@@ -85,6 +82,12 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
 
     abstract fun labelOfItem(item: T): String
     abstract fun onSortItems(ls: ArrayList<T>)
+
+    abstract fun onNewItemView(context: Context, position: Int): View
+    abstract fun onBindItemView(itemView: View, item: T)
+    abstract fun onRequestItemModels(): List<T>
+
+
     open fun onSortGroups(gs: ArrayList<GroupItem<T>>) {
         gs.sortBy { it.label }
     }
@@ -93,10 +96,7 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
     override fun onCreateContent(context: Context, contentView: LinearLayout) {
         super.onCreateContent(context, contentView)
         groupIndexBar = GroupIndexBar(context)
-        this.listViewParent.addView(
-            this.groupIndexBar,
-            RParam.width(GroupIndexBar.WIDTH_PREFER).Right.Top.Bottom
-        )
+        this.listViewParent.addView(this.groupIndexBar, RParam.width(GroupIndexBar.WIDTH_PREFER).Right.Top.Bottom)
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 
             override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
@@ -141,10 +141,8 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
         }
     }
 
-    abstract fun onNewItemView(context: Context, position: Int): View
-    abstract fun onBindItemView(itemView: View, item: T)
 
-    override fun onNewView(context: Context, position: Int): View {
+    final override fun onNewView(context: Context, position: Int): View {
         val item = getItem(position)
         return if (item::class == GroupItem::class) {
             val v = TextItemView(context)
@@ -159,7 +157,7 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onBindItem(itemView: View, item: Any) {
+    final override fun onBindItem(itemView: View, item: Any) {
         if (item is GroupItem<*>) {
             val v = itemView as TextItemView
             v.text = item.label
@@ -168,9 +166,8 @@ abstract class GroupPage<T : Any>(val itemClass: KClass<T>) : ListPage() {
         }
     }
 
-    abstract fun onRequestItemModels(): List<T>
 
-    override fun onRequestItems(): List<Any> {
+    final override fun onRequestItems(): List<Any> {
         val ls = onRequestItemModels()
         groupData.process(ls)
         return groupData.flatList
