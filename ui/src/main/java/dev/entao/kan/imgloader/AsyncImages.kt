@@ -22,6 +22,7 @@ import dev.entao.kan.ext.requireId
 import dev.entao.kan.ext.rightImage
 import dev.entao.kan.ext.topImage
 import dev.entao.kan.log.logd
+import dev.entao.kan.res.bitmapRes
 import dev.entao.kan.res.drawableRes
 import dev.entao.kan.util.uriLocal
 import java.lang.ref.WeakReference
@@ -32,6 +33,18 @@ fun ImageView.loadURL(url: String, maxEdge: Int) {
 
 fun ImageView.loadURL(url: String, block: (ImageOption) -> Unit) {
     val h = HttpImage(url)
+    block(h.option)
+    h.display(this)
+}
+
+fun ImageView.loadRes(resId: Int, block: (ImageOption) -> Unit) {
+    val h = ResImage(resId)
+    block(h.option)
+    h.display(this)
+}
+
+fun ImageView.loadUri(uri: Uri, block: (ImageOption) -> Unit) {
+    val h = UriImage(uri)
     block(h.option)
     h.display(this)
 }
@@ -85,17 +98,17 @@ abstract class AsyncImage(val imageIdent: String) {
             makeViewImage(a, view, block)
             return
         }
-        if (!existLocalCache()) {
-            if (option.defaultImage != 0) {
-                val d = option.defaultImage.drawableRes.limited(option.limit)
-                block(view, d)
+        if (existLocalCache()) {
+            bitmap {
+                makeViewImage(it, view, block)
             }
+            return
+        }
+        if (option.defaultImage != 0) {
+            block(view, makeDrawable(option.defaultImage.bitmapRes.limit(option.limit)))
         }
         val weakView = WeakReference<View>(view)
         bitmap { bmp ->
-            if (bmp != null) {
-                ImageCache.put(keyString(), bmp)
-            }
             Task.fore {
                 val v = weakView.get()
                 if (v != null) {
@@ -105,14 +118,13 @@ abstract class AsyncImage(val imageIdent: String) {
         }
     }
 
-    private fun makeDrawable(bmp: Bitmap?): Drawable? {
-        val b = bmp ?: return null
-        if (option.circled) {
-            return b.circled
+    private fun makeDrawable(bmp: Bitmap): Drawable? {
+        return if (option.circled) {
+            bmp.circled
         } else if (option.corners > 0) {
-            return b.rounded(option.corners)
+            bmp.rounded(option.corners)
         } else {
-            return b.drawable
+            bmp.drawable
         }
     }
 
@@ -121,10 +133,10 @@ abstract class AsyncImage(val imageIdent: String) {
             return
         }
         if (bmp != null) {
+            ImageCache.put(keyString(), bmp)
             block(view, makeDrawable(bmp))
         } else if (option.failedImage != 0) {
-            val d = option.failedImage.drawableRes.limited(option.limit)
-            block(view, d)
+            block(view, makeDrawable(option.failedImage.bitmapRes.limit(option.limit)))
         } else {
             block(view, null)
         }
@@ -167,7 +179,6 @@ abstract class AsyncImage(val imageIdent: String) {
 
 class UriImage(val uri: Uri) : AsyncImage(uri.toString()) {
 
-
     override fun bitmap(block: (Bitmap?) -> Unit) {
         val b = Bmp.uri(uri, option.limit, option.quility)
         block(b)
@@ -176,7 +187,23 @@ class UriImage(val uri: Uri) : AsyncImage(uri.toString()) {
     override fun existLocalCache(): Boolean {
         return true
     }
+}
 
+class ResImage(val resId: Int) : AsyncImage("resDrawable@$resId") {
+
+    override fun bitmap(block: (Bitmap?) -> Unit) {
+        if (resId == 0) {
+            block(null)
+        } else {
+            val bmp = resId.bitmapRes
+            val b = bmp.limit(option.limit)
+            block(b)
+        }
+    }
+
+    override fun existLocalCache(): Boolean {
+        return true
+    }
 }
 
 

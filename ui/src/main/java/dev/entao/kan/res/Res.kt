@@ -36,13 +36,11 @@ val Int.drawableRes: Drawable
     get() {
         return AppCompatResources.getDrawable(App.inst, this)!!
     }
-val Int.bitmapRes: Bitmap?
+val Int.bitmapRes: Bitmap
     get() {
         val a = AppCompatResources.getDrawable(App.inst, this)
-        if (a is BitmapDrawable) {
-            return a.bitmap
-        }
-        return null
+        val bd = a as BitmapDrawable
+        return bd.bitmap
     }
 
 object Res {
@@ -70,6 +68,7 @@ object Res {
     fun strArgs(resId: Int, vararg args: Any): String {
         return App.resource.getString(resId, *args)
     }
+
     @Suppress("DEPRECATION")
     fun color(resId: Int): Int {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -45,7 +45,7 @@ class Notify(val id: Int) {
             builder.setSmallIcon(App.iconLauncher)
         }
         if (largeIcon != 0) {
-            builder.setLargeIcon(largeIcon.bitmapRes!!)
+            builder.setLargeIcon(largeIcon.bitmapRes)
         } else {
             val appIcon = App.iconBitmap
             if (appIcon != null) {
@@ -64,7 +64,7 @@ class Notify(val id: Int) {
     }
 
     fun iconLarge(icon: Int): Notify {
-        return iconLarge(icon.bitmapRes!!)
+        return iconLarge(icon.bitmapRes)
     }
 
     fun iconLarge(icon: Bitmap): Notify {

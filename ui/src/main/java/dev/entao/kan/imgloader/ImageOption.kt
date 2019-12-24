@@ -23,6 +23,7 @@ class ImageOption {
 
     fun portrait(): ImageOption {
         limit256().onFailed(Res.portrait).onDefault(Res.portrait)
+        quility8888()
         return this
     }
 
