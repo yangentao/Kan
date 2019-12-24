@@ -25,9 +25,10 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
         calendar.timeInMillis = time
     }
 
-    val utilDate: java.util.Date get() = java.util.Date(time)
-    val sqlDate: java.sql.Date get() = java.sql.Date(time)
-    val sqlTime: java.sql.Time get() = java.sql.Time(time)
+    val toDate: java.util.Date get() = java.util.Date(time)
+    val toDateSQL: java.sql.Date get() = java.sql.Date(time)
+    val toTimeSQL: java.sql.Time get() = java.sql.Time(time)
+    val toTimestamp: java.sql.Timestamp get() = java.sql.Timestamp(time)
 
     var time: Long
         get() {
@@ -172,6 +173,10 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
         return format(FORMAT_DATE_TIME_X)
     }
 
+    fun formatTimestamp(): String {
+        return format(FORMAT_DATE_TIMESTAMP)
+    }
+
     fun formatYearMonth(): String {
         return format("yyyy-MM")
     }
@@ -227,6 +232,7 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
         const val FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss"
         const val FORMAT_DATE_TIME_NO_SEC = "yyyy-MM-dd HH:mm"
         const val FORMAT_DATE_TIME_X = "yyyy-MM-dd HH:mm:ss.SSS"
+        const val FORMAT_DATE_TIMESTAMP = "yyyy-MM-dd HH:mm:ss.SSS"
 
         fun format(date: Long, pattern: String): String {
             val ff = SimpleDateFormat(pattern, Locale.getDefault())
@@ -291,6 +297,13 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
                 return null
             }
             return parse(FORMAT_DATE_TIME_X, s)
+        }
+
+        fun parseTimestamp(s: String?): MyDate? {
+            if (s == null || s.length < 6) {
+                return null
+            }
+            return parse(FORMAT_DATE_TIMESTAMP, s)
         }
 
         private var tmpFileN: Long = 1

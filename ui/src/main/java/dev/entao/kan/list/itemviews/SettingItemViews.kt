@@ -2,6 +2,7 @@
 
 package dev.entao.kan.list.itemviews
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Size
@@ -57,15 +58,36 @@ open class LabelItemView(context: Context) : HorItemView(context) {
         }
 }
 
-fun <T : LabelItemView> T.leftImage(d: Drawable) {
+fun <T : LabelItemView> T.leftImage(d: Drawable): T {
     labelView.setCompoundDrawables(d, null, null, null)
     labelView.compoundDrawablePadding = dp(10)
+    return this
 }
 
-class LabelValueItemView(context: Context) : LabelItemView(context) {
+open class LabelValueItemView(context: Context) : LabelItemView(context) {
     val valueView: TextView = textView(LParam.Wrap.RightCenter) {
-        textSizeC().textColorMinor().gravityRightCenter().multiLine()
-        maxLines(2)
+        textSizeC().textColorMinor().gravityRightCenter().singleLine()
+    }
+}
+
+fun <T : LabelValueItemView> T.rightImage(d: Drawable): T {
+    valueView.setCompoundDrawables(null, null, d, null)
+    valueView.compoundDrawablePadding = dp(10)
+    return this
+}
+
+fun <T : LabelValueItemView> T.more(): T {
+    this.padRight(2)
+    val d = D.res(Res.more).sized(12)
+    valueView.setCompoundDrawables(null, null, d, null)
+    valueView.compoundDrawablePadding = dp(2)
+    return this
+}
+
+class LabelTextItemView(context: Context) : LabelValueItemView(context) {
+
+    init {
+        valueView.multiLine().maxLines(2)
     }
 
     var value: String?
@@ -73,38 +95,17 @@ class LabelValueItemView(context: Context) : LabelItemView(context) {
         set(value) {
             this.valueView.text = value ?: ""
         }
-
-    fun rightImage(d: Drawable): LabelValueItemView {
-        valueView.setCompoundDrawables(null, null, d, null)
-        valueView.compoundDrawablePadding = dp(10)
-        return this
-    }
-
-    fun more(): LabelValueItemView {
-        this.padRight(2)
-        val d = D.res(Res.more).sized(12)
-        valueView.setCompoundDrawables(null, null, d, null)
-        valueView.compoundDrawablePadding = dp(2)
-        return this
-    }
 }
 
 
-open class LabelListItemView<T : Any>(context: Context) : LabelItemView(context) {
-
-    val options: ArrayList<Pair<T, String>> = ArrayList()
-    val valueView: TextView
-    var emptyValueText: String = "请选择"
+open class LabelListItemView<T : Any>(context: Context) : LabelValueItemView(context) {
     private var _value: T? = null
+    val options: ArrayList<Pair<T, String>> = ArrayList()
 
     var onValueChanged: (T) -> Unit = {}
 
     init {
-        valueView = textView(LParam.Wrap.RightCenter) {
-            textSizeC().textColorMinor().singleLine()
-            text = emptyValueText
-        }
-
+        valueView.text = "请选择"
         this.click(::clickMe)
     }
 
@@ -122,7 +123,7 @@ open class LabelListItemView<T : Any>(context: Context) : LabelItemView(context)
         get() = _value
         set(value) {
             _value = value
-            valueView.text = options.firstOrNull { it.first == value }?.second ?: emptyValueText
+            valueView.text = options.firstOrNull { it.first == value }?.second ?: value?.toString() ?: ""
         }
 
 
@@ -164,13 +165,27 @@ class StringLabelListItemView(context: Context) : LabelListItemView<String>(cont
 }
 
 class LabelSwitchItemView(context: Context) : LabelItemView(context) {
-    val switchView: SwitchButton = this.add(SwitchButton(context), LParam.width(SwitchButton.WIDTH).height(SwitchButton.HEIGHT).RightCenter)
+    private val switchView: SwitchButton = this.add(SwitchButton(context), LParam.width(SwitchButton.WIDTH).height(SwitchButton.HEIGHT).RightCenter)
+    private var _value: Boolean = false
+    var onValueChanged: (Boolean) -> Unit = {}
 
-    var isChecked: Boolean
-        get() = this.switchView.isChecked
+    init {
+        switchView.setOnCheckedChangeListener { _, isChecked ->
+            if (_value != isChecked) {
+                _value = isChecked
+                onValueChanged(isChecked)
+            }
+        }
+
+    }
+
+    var value: Boolean
+        get() = _value
         set(value) {
+            _value = value
             this.switchView.isChecked = value
         }
+
 }
 
 class LabelImageItemView(context: Context) : LabelItemView(context) {
@@ -202,6 +217,7 @@ class LabelImageItemView(context: Context) : LabelItemView(context) {
 
 }
 
+
 fun ViewGroup.labelImage(param: ViewGroup.LayoutParams, block: LabelImageItemView.() -> Unit): LabelImageItemView {
     val v = LabelImageItemView(this.context)
     this.addView(v, param)
@@ -216,15 +232,15 @@ fun ViewGroup.labelImage(block: LabelImageItemView.() -> Unit): LabelImageItemVi
     return v
 }
 
-fun ViewGroup.labelValue(param: ViewGroup.LayoutParams, block: LabelValueItemView.() -> Unit): LabelValueItemView {
-    val v = LabelValueItemView(this.context)
+fun ViewGroup.labelText(param: ViewGroup.LayoutParams, block: LabelTextItemView.() -> Unit): LabelTextItemView {
+    val v = LabelTextItemView(this.context)
     this.addView(v, param)
     v.block()
     return v
 }
 
-fun ViewGroup.labelValue(block: LabelValueItemView.() -> Unit): LabelValueItemView {
-    val v = LabelValueItemView(this.context)
+fun ViewGroup.labelText(block: LabelTextItemView.() -> Unit): LabelTextItemView {
+    val v = LabelTextItemView(this.context)
     this.addView(v)
     v.block()
     return v

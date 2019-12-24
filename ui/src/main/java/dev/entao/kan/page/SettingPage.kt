@@ -49,8 +49,8 @@ open class SettingPage : TitlePage() {
         }
     }
 
-    fun labelValue(label: String): LabelValueItemView {
-        return contentView.labelValue(itemParam) {
+    fun labelText(label: String): LabelTextItemView {
+        return contentView.labelText(itemParam) {
             this.label = label
         }
     }
