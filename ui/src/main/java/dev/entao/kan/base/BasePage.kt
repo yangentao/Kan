@@ -101,6 +101,7 @@ open class BasePage : Fragment(), MsgListener {
         horProgressDlg = HorProgressDlg(act)
         MsgCenter.listenAll(this)
         pageRootView = RelativeLayoutX(act)
+        pageRootView.click { }
 
         loadingView = ProgressBar(context)
         loadingView.isIndeterminate = true
