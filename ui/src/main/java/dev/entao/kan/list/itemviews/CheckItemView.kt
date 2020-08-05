@@ -5,13 +5,21 @@ package dev.entao.kan.list.itemviews
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
+import android.widget.Checkable
 import android.widget.CheckedTextView
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
+import dev.entao.kan.base.DrawableDef
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
  */
+
+interface ItemViewCheckable : Checkable {
+
+    var isCheckModel: Boolean
+
+    fun setCheckboxMarginRight(dp: Int)
+}
 
 
 @SuppressLint("ViewConstructor")
@@ -28,7 +36,7 @@ class CheckItemView(context: Context, val itemView: View, listener: CheckStatusL
         addView(itemView, 0, LParam.WidthFlex.WrapH)
 
         checkView = CheckedTextView(context).needId().gone()
-        checkView.checkMarkDrawable = D.CheckBox
+        checkView.checkMarkDrawable = DrawableDef.CheckBox
         addView(checkView, LParam.Wrap.RightCenter.margins(10, 0, MR, 0))
 
         if (this.listener == null && itemView is CheckStatusListener) {
@@ -69,7 +77,7 @@ class CheckItemView(context: Context, val itemView: View, listener: CheckStatusL
         }
 
     override fun setCheckboxMarginRight(dp: Int) {
-        checkView.layoutParams =  LParam.Wrap.RightCenter.margins(10, 0, MR + dp, 0)
+        checkView.layoutParams = LParam.Wrap.RightCenter.margins(10, 0, MR + dp, 0)
         this.requestLayout()
     }
 

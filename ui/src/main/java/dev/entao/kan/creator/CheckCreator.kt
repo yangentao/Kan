@@ -9,7 +9,7 @@ import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.textColorMajor
-import dev.entao.kan.res.D
+import dev.entao.kan.base.DrawableDef
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
@@ -62,7 +62,7 @@ fun Fragment.createCheckBox(): CheckBox {
 fun Context.createCheckBox(): CheckBox {
     val cb = CheckBox(this).needId()
     cb.textColorMajor()
-    cb.buttonDrawable = D.CheckBox
+    cb.buttonDrawable = DrawableDef.CheckBox
     return cb
 }
 

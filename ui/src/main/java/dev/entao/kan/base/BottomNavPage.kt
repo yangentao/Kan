@@ -4,6 +4,7 @@ package dev.entao.kan.base
 
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
@@ -12,9 +13,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.argb
-import dev.entao.kan.appbase.ex.colors
+import dev.entao.kan.appbase.argb
+import dev.entao.kan.appbase.listColor
 import dev.entao.kan.creator.addViewX
 import dev.entao.kan.creator.linearVer
 import dev.entao.kan.ext.*
@@ -81,6 +81,7 @@ open class BottomNavPage : BasePage() {
                 BottomNavigationView(context, null, bottomNavStyle),
                 LParam.FillW.WrapH
             )
+            bottomNav.backColor(Color.WHITE)
         }
         onPrepareTabs()
         pager.adapter = object : FragmentStateAdapter(this) {
@@ -98,12 +99,14 @@ open class BottomNavPage : BasePage() {
             }
         })
 
-        val cs = StateList.colors(inactiveColor) {
+        bottomNav.itemTextColor = listColor(inactiveColor) {
             selected(checkedColor)
             checked(checkedColor)
         }
-        bottomNav.itemTextColor = cs
-        bottomNav.itemIconTintList = cs
+        bottomNav.itemIconTintList = listColor(inactiveColor) {
+            selected(checkedColor)
+            checked(checkedColor)
+        }
         bottomNav.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 
         bottomNav.setOnNavigationItemSelectedListener {

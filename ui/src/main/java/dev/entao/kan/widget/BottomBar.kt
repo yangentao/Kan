@@ -12,18 +12,18 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.ShapeRect
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.sized
-import dev.entao.kan.appbase.ex.tinted
+import dev.entao.kan.appbase.colorDrawable
+import dev.entao.kan.appbase.ShapeRect
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
+import dev.entao.kan.appbase.tinted
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.base.ColorX
+import dev.entao.kan.base.ImageDef
 import dev.entao.kan.creator.createLinearVertical
 import dev.entao.kan.creator.createTextViewB
 import dev.entao.kan.ext.*
 import dev.entao.kan.page.Cmd
-import dev.entao.kan.res.D
-import dev.entao.kan.res.Res
-import dev.entao.kan.res.drawableRes
 
 /**
  * Created by entaoyang@163.com on 2018-04-18.
@@ -106,7 +106,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
     }
 
     fun actionImage(@DrawableRes resId: Int, cmd: String = "$resId"): Cmd {
-        return actionImage(resId.drawableRes, cmd)
+        return actionImage(resId.resDrawable, cmd)
     }
 
     fun actionImage(d: Drawable, cmd: String = Cmd.genCmd): Cmd {
@@ -148,7 +148,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
         val gd = ShapeRect().fill(Color.WHITE).stroke(1, ColorX.borderGray).corners(2, 2, 0, 0).value
 
         val popRootView = context.createLinearVertical()
-        popRootView.minimumWidth = dp(150)
+        popRootView.minimumWidth = 150.dp
         popRootView.backDrawable(gd).padding(5)
         popRootView.divider()
         val itemList = ArrayList<ActionMenuItemInfo>(cmd.items.filter { !it.hidden })
@@ -174,7 +174,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
     }
 
     fun menu(block: Cmd.() -> Unit) {
-        val m = find(MENU) ?: actionImage(Res.menu, MENU)
+        val m = find(MENU) ?: actionImage(ImageDef.menu, MENU)
         m.block()
     }
 
@@ -193,12 +193,12 @@ class BottomBar(context: Context) : LinearLayout(context) {
         var d: Drawable = if (item.drawable != null) {
             item.drawable!!.mutate()
         } else if (item.resIcon != 0) {
-            item.resIcon.drawableRes.mutate()
+            item.resIcon.resDrawable.mutate()
         } else {
-            D.color(Color.TRANSPARENT)
+            Color.TRANSPARENT.colorDrawable
         }
         d = d.sized(ImgSize)
-        tv.compoundDrawablePadding = dp(10)
+        tv.compoundDrawablePadding = 10.dp
         tv.setCompoundDrawables(d, null, null, null)
         tv.textColorMajor()
         return tv
@@ -217,7 +217,7 @@ class BottomBar(context: Context) : LinearLayout(context) {
         iv.backColorTransFade()
         iv.textColorMajor()
         iv.gravityCenter()
-        iv.minimumWidth = dp(HEIGHT)
+        iv.minimumWidth = HEIGHT.dp
         iv.padding(5, 0, 5, 0)
         return iv
     }

@@ -11,13 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.BlockUnit
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.createImageView
 import dev.entao.kan.creator.createTextView
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.drawableRes
 
 
 class BottomActionBar(context: Context) : LinearLayout(context) {
@@ -77,7 +76,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
             v.setOnClickListener {
                 item.onAction()
             }
-            v.background = StateList.colorDrawables(Color.TRANSPARENT) {
+            v.background = listColorDrawable(Color.TRANSPARENT) {
                 pressed(ColorX.fade)
                 checked(ColorX.fade)
                 selected(ColorX.fade)
@@ -91,7 +90,7 @@ class BottomActionBar(context: Context) : LinearLayout(context) {
         get() {
             var d: Drawable? = this.drawable
             if (d == null && this.drawResId != 0) {
-                d = this.drawResId.drawableRes
+                d = this.drawResId.resDrawable
             }
             return d
         }

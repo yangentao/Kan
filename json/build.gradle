@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 500
-        versionName "5.0.3"
+        versionCode 504
+        versionName "5.0.4"
     }
 
 }
@@ -23,7 +23,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'dev.entao.kan:base:5.0.3'
+
+    implementation 'dev.entao.kan:base:5.0.4'
+
+//    implementation project(':base')
+
+//    implementation project(':log')
+//    implementation project(':json')
 }
 
 
@@ -44,7 +50,7 @@ uploadArchives {
             }
             pom.project {
                 artifactId = "json"
-                groupId = project.group //'dev.entao'
+                groupId = project.group //'dev.entao.kan'
                 version = android.defaultConfig.versionName
                 packaging = 'aar'
             }
