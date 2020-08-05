@@ -28,13 +28,13 @@ class QRImageAnalysis : ImageAnalysis.Analyzer {
         a(s)
     }
 
-    override fun analyze(image: ImageProxy, rotationDegrees: Int) {
+    override fun analyze(image: ImageProxy) {
         if (processing) {
             return
         }
         processing = true
         try {
-            logd("Analyze...", rotationDegrees, image.width, image.height)
+            logd("Analyze...",  image.width, image.height)
             if (image.format != ImageFormat.YUV_420_888 && image.format != ImageFormat.YUV_422_888) {
                 loge("Expect ImageFormat.YUV_420_888 OR YUV_422_888")
                 return

@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.Size
 import android.widget.LinearLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.drawables
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.listRes
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.base.ManiPerm
 import dev.entao.kan.base.hasPerm
 import dev.entao.kan.base.popPage
@@ -19,7 +18,6 @@ import dev.entao.kan.dialogs.dialogX
 import dev.entao.kan.ext.*
 import dev.entao.kan.log.logd
 import dev.entao.kan.page.TitlePage
-import dev.entao.kan.res.drawableRes
 
 class QRPageX : TitlePage() {
     private lateinit var previewView: CameraXView
@@ -50,9 +48,9 @@ class QRPageX : TitlePage() {
                 if (enableInputManual) {
                     textView(LParam.Wrap.Center.margins(30)) {
                         text = "手动输入"
-                        val a = StateList.drawables(R.mipmap.yet_qr_round.drawableRes) {
-                            selected(R.mipmap.yet_qr_round2.drawableRes)
-                            pressed(R.mipmap.yet_qr_round2.drawableRes)
+                        val a = listRes(R.mipmap.yet_qr_round) {
+                            selected(R.mipmap.yet_qr_round2)
+                            pressed(R.mipmap.yet_qr_round2)
                         }.sized(60)
                         compoundDrawablePadding = 2.dp
                         setCompoundDrawables(null, a, null, null)
@@ -65,10 +63,11 @@ class QRPageX : TitlePage() {
                 }
                 lightView = textView(LParam.Wrap.Center.margins(30)) {
                     text = "闪光灯"
-                    val a = StateList.drawables(R.mipmap.yet_qr_light.drawableRes) {
-                        selected(R.mipmap.yet_qr_light2.drawableRes)
-                        pressed(R.mipmap.yet_qr_light2.drawableRes)
+                    val a = listRes(R.mipmap.yet_qr_light) {
+                        selected(R.mipmap.yet_qr_light2)
+                        pressed(R.mipmap.yet_qr_light2)
                     }.sized(60)
+
                     compoundDrawablePadding = 2.dp
                     setCompoundDrawables(null, a, null, null)
                     gravityCenter()

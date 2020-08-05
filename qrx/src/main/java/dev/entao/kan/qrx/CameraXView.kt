@@ -7,10 +7,13 @@ import android.util.Size
 import android.view.Surface
 import android.view.TextureView
 import androidx.camera.core.*
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import dev.entao.kan.appbase.TaskQueue
 
-class CameraXView(context: Context) : TextureView(context) {
+class CameraXView(context: Context) : PreviewView(context) {
     private val taskHandler: TaskQueue = TaskQueue("image_analysis")
     var preview: Preview? = null
     var resolution = Size(1280, 720)
@@ -18,72 +21,54 @@ class CameraXView(context: Context) : TextureView(context) {
     var onResult: (String) -> Unit = {}
 
     fun start(lifeOwner: LifecycleOwner) {
-//        val w = this.width
-//        val h = this.height
         val ratio = Rational(9, 16)
         val rotation = this.display.rotation
 
 
-        val pre = Preview.Builder().apply {
-            setTargetAspectRatio(AspectRatio.RATIO_16_9)
-            setTargetRotation(rotation)
-//            setLensFacing(CameraX.LensFacing.BACK)
-            setTargetResolution(resolution)
-        }.build()
-        preview = pre
-        pre.setOnPreviewOutputUpdateListener {
-            this.surfaceTexture = it.surfaceTexture
-            updateTransform()
-        }
+        val cpf = ProcessCameraProvider.getInstance(context)
 
-        val alConfig = ImageAnalysisConfig.Builder().apply {
-            setTargetAspectRatio(ratio)
-            setTargetRotation(rotation)
-            setLensFacing(CameraX.LensFacing.BACK)
-            setTargetResolution(resolution)
-            setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
-            this.setImageQueueDepth(2)
-            setCallbackHandler(taskHandler.handler)
-        }.build()
-        val al = ImageAnalysis(alConfig).apply {
-            val a = QRImageAnalysis()
-            a.onResult = {
+        cpf.addListener(Runnable {
+            val cp = cpf.get()
+            cp.unbindAll()
+            val pre = Preview.Builder().apply {
+                setTargetAspectRatio(AspectRatio.RATIO_16_9)
+                setTargetRotation(rotation)
+                setTargetResolution(resolution)
+            }.build()
+            val ex = ContextCompat.getMainExecutor(context)
+
+            val cs = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+            val qrAnaly = QRImageAnalysis()
+            qrAnaly.onResult = {
                 invokeResult(it)
             }
-            analyzer = a
+            val imgAnalyzer = ImageAnalysis.Builder().build().also {
+                it.setAnalyzer(ex, qrAnaly)
+            }
 
-        }
-        CameraX.bindToLifecycle(lifeOwner, pre, al)
-        onReady()
+            val imgCap = ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
+            val camera = cp.bindToLifecycle(lifeOwner, cs, pre, imgCap, imgAnalyzer)
+            pre.setSurfaceProvider(this.createSurfaceProvider())
+//            pre.setSurfaceProvider(this.createSurfaceProvider(camera.cameraInfo))
+
+            onReady()
+        }, ContextCompat.getMainExecutor(context))
+
+
     }
 
     fun isTorchOn(): Boolean {
-        return this.preview?.isTorchOn ?: false
+//        return this.preview?.isTorchOn ?: false
+        return false
     }
 
     fun setTorchOn(on: Boolean) {
-        this.preview?.enableTorch(on)
+//        this.preview?.enableTorch(on)
     }
 
     private fun invokeResult(s: String) {
         this.onResult(s)
     }
 
-    private fun updateTransform() {
-        val ddd = this.display ?: return
-        val deg = when (ddd.rotation) {
-            Surface.ROTATION_0 -> 0
-            Surface.ROTATION_90 -> 90
-            Surface.ROTATION_180 -> 180
-            Surface.ROTATION_270 -> 270
-            else -> return
-        }
-        val m = Matrix()
-        val cX = this.width / 2f
-        val cY = this.height / 2f
-        m.postRotate(-deg.toFloat(), cX, cY)
-        this.setTransform(m)
-
-    }
 
 }
