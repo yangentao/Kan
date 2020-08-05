@@ -6,13 +6,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.database.ContentObserver
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -20,21 +18,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.InMainThread
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.Bmp
-import dev.entao.kan.appbase.ex.saveJpg
-import dev.entao.kan.appbase.ex.savePng
-import dev.entao.kan.base.ex.lowerCased
 import dev.entao.kan.dialogs.HorProgressDlg
 import dev.entao.kan.dialogs.SpinProgressDlg
-import dev.entao.kan.dialogs.dialogX
 import dev.entao.kan.ext.*
 import dev.entao.kan.log.Yog
 import dev.entao.kan.util.*
 import dev.entao.kan.widget.RelativeLayoutX
-import java.io.File
 import kotlin.collections.set
 
 /**

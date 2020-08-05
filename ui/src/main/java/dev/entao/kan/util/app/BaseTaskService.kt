@@ -2,9 +2,9 @@ package dev.entao.kan.util.app
 
 import android.content.Intent
 import dev.entao.kan.log.logd
-import dev.entao.kan.util.IdGen
-import dev.entao.kan.util.RunTask
-import dev.entao.kan.util.TaskQueue
+import dev.entao.kan.appbase.IdGen
+import dev.entao.kan.appbase.RunTask
+import dev.entao.kan.appbase.TaskQueue
 
 /**
  * IntentService有个问题, 如果后面的Intent提前处理完, 调用了stopSelf(int startId), 则, 整个service被关闭了.
