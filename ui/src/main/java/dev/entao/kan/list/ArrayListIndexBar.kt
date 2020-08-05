@@ -14,8 +14,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.ShapeRect
-import dev.entao.kan.appbase.ex.colorParse
+import dev.entao.kan.appbase.ShapeRect
+import dev.entao.kan.appbase.colorParse
 import dev.entao.kan.base.BlockUnit
 import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*
@@ -58,7 +58,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
     }
 
     init {
-        orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).makeClickable()
+        orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).clickable()
         feedbackView = feedbackParentView.textView(RParam.Center.size(70)) {
             val a = ShapeRect(colorParse("#555"), 10).stroke(2, colorParse("#ddd")).value
             textColor(Color.WHITE).textSizeSp(50).gravityCenter().backDrawable(a).gone()

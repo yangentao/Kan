@@ -4,10 +4,9 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.annotation.DrawableRes
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.StateList
+import dev.entao.kan.appbase.lightResDrawables
 import dev.entao.kan.base.ColorX
-import dev.entao.kan.res.D
-import dev.entao.kan.res.lightDrawable
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.theme.IconSize
 import dev.entao.kan.ui.R
 import java.util.*
@@ -215,12 +214,12 @@ class Action(val tag: String) {
     }
 
     fun icon(@DrawableRes resId: Int): Action {
-        this.icon = D.res(resId)
+        this.icon = resId.resDrawable
         return this
     }
 
     fun icon(@DrawableRes normalId: Int, @DrawableRes lightId: Int): Action {
-        this.icon = StateList.lightDrawable(normalId, lightId)
+        this.icon = lightResDrawables(normalId, lightId)
         return this
     }
 
@@ -257,7 +256,7 @@ class Action(val tag: String) {
     }
 
     fun subIcon(@DrawableRes res: Int): Action {
-        return subIcon(D.res(res))
+        return subIcon(res.resDrawable)
     }
 
     fun subIcon(subIcon: Drawable?): Action {
@@ -266,12 +265,12 @@ class Action(val tag: String) {
     }
 
     fun more(arrow: Boolean = true): Action {
-        this.subIcon = if (arrow) D.res(R.drawable.yet_arrow_right) else null
+        this.subIcon = if (arrow) R.drawable.yet_arrow_right.resDrawable else null
         return this
     }
 
     fun subIconLeft(@DrawableRes res: Int, size: Int = IconSize.Small): Action {
-        subIconLeft(D.res(res))
+        subIconLeft(res.resDrawable)
         this.subIconLeftSize = size
         return this
     }

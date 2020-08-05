@@ -4,26 +4,17 @@ package dev.entao.kan.imgloader
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.LruCache
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import dev.entao.kan.appbase.App
-import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.*
-import dev.entao.kan.base.circled
-import dev.entao.kan.base.rounded
+import dev.entao.kan.appbase.*
 import dev.entao.kan.ext.leftImage
 import dev.entao.kan.ext.requireId
 import dev.entao.kan.ext.rightImage
 import dev.entao.kan.ext.topImage
-import dev.entao.kan.log.logd
-import dev.entao.kan.res.bitmapRes
-import dev.entao.kan.res.drawableRes
 import dev.entao.kan.util.uriLocal
 import java.lang.ref.WeakReference
 
@@ -105,7 +96,7 @@ abstract class AsyncImage(val imageIdent: String) {
             return
         }
         if (option.defaultImage != 0) {
-            block(view, makeDrawable(option.defaultImage.bitmapRes.limit(option.limit)))
+            block(view, makeDrawable(option.defaultImage.resBitmap.limit(option.limit)))
         }
         val weakView = WeakReference<View>(view)
         bitmap { bmp ->
@@ -136,7 +127,7 @@ abstract class AsyncImage(val imageIdent: String) {
             ImageCache.put(keyString(), bmp)
             block(view, makeDrawable(bmp))
         } else if (option.failedImage != 0) {
-            block(view, makeDrawable(option.failedImage.bitmapRes.limit(option.limit)))
+            block(view, makeDrawable(option.failedImage.resBitmap.limit(option.limit)))
         } else {
             block(view, null)
         }
@@ -195,7 +186,7 @@ class ResImage(val resId: Int) : AsyncImage("resDrawable@$resId") {
         if (resId == 0) {
             block(null)
         } else {
-            val bmp = resId.bitmapRes
+            val bmp = resId.resBitmap
             val b = bmp.limit(option.limit)
             block(b)
         }

@@ -32,7 +32,6 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
-import dev.entao.kan.appbase.ex.argb
 import dev.entao.kan.log.Yog
 import java.io.File
 import java.io.FileNotFoundException
@@ -177,44 +176,13 @@ object App {
             return inst.getExternalFilesDir(null)!!
         }
 
-    fun px2dp(px: Int): Int {
-        return (px / density + 0.5f).toInt()
-    }
-
-    fun px2dpF(px: Float): Float {
-        return px / density
-    }
-
-    fun sp2px(spValue: Float): Int {
-        return (spValue * scaledDensity + 0.5f).toInt()
-    }
-
-    fun sp2pxF(spValue: Float): Float {
-        return spValue * scaledDensity
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    fun dp2pxF(dpValue: Float): Float {
-        return dpValue * density
-    }
-
-    fun dp2px(dpValue: Int): Int {
-        return if (dpValue >= 0) {
-            (dpValue * density + 0.5f).toInt()
-        } else {
-            -((-dpValue * density + 0.5f).toInt())
-        }
-    }
-
 
     @Throws(FileNotFoundException::class)
     fun openStream(uri: Uri): InputStream? = contentResolver.openInputStream(uri)
 
 
     // 获取ApiKey
-    fun getMetaValue(context: Context, metaKey: String): String? {
+    fun metaValue(context: Context, metaKey: String): String? {
         try {
             val ai = context.packageManager.getApplicationInfo(
                 context.packageName,
@@ -229,7 +197,7 @@ object App {
     }
 
     fun metaValue(metaKey: String): String? {
-        return getMetaValue(inst, metaKey)
+        return metaValue(inst, metaKey)
     }
 
 
@@ -502,3 +470,5 @@ object App {
 }
 
 val Files: App.files get() = App.files
+
+val isDebug: Boolean by lazy { App.debug }
