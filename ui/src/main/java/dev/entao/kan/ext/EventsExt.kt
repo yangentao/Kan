@@ -25,13 +25,6 @@ fun <T : View> T.click(block: () -> Unit): T {
     return this
 }
 
-@Suppress("UNCHECKED_CAST")
-fun <T : View> T.onClick(block: (view: T) -> Unit): T {
-    this.setOnClickListener {
-        block.invoke(it as T)
-    }
-    return this
-}
 
 fun <T : Switch> T.onCheckChanged(block: (Switch, Boolean) -> Unit): T {
     this.setOnCheckedChangeListener { view, check ->

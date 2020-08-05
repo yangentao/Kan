@@ -3,7 +3,6 @@
 package dev.entao.kan.http
 
 
-import android.app.Application
 import android.content.Context
 import android.net.Uri
 import android.os.NetworkOnMainThreadException
@@ -11,15 +10,12 @@ import android.util.Base64
 import dev.entao.kan.base.Progress
 import dev.entao.kan.base.closeSafe
 import dev.entao.kan.base.copyStream
-import dev.entao.kan.base.ex.head
 import dev.entao.kan.base.ex.urlEncoded
-import dev.entao.kan.json.YsonObject
-import dev.entao.kan.log.log
+import dev.entao.json.YsonObject
 import dev.entao.kan.log.logd
 import dev.entao.kan.log.loge
 import java.io.*
 import java.net.*
-import java.nio.charset.Charset
 import java.util.*
 import java.util.zip.GZIPInputStream
 
@@ -474,7 +470,7 @@ abstract class HttpReq(val url: String) {
             } else {
                 ByteArrayOutputStream(if (total > 0) total else 64)
             }
-
+            //TODO  4xx, 5xx时直接返回
             var input = connection.inputStream
             val mayGzip = connection.contentEncoding
             if (mayGzip != null && mayGzip.contains("gzip")) {
@@ -486,6 +482,7 @@ abstract class HttpReq(val url: String) {
             }
         } catch (ex: Exception) {
             result.exception = ex
+            ex.printStackTrace()
         }
         return result
     }

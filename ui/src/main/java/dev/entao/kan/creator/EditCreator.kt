@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import dev.entao.kan.appbase.ex.gray
+import dev.entao.kan.appbase.gray
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
+import dev.entao.kan.base.DrawableDef
 import dev.entao.kan.widget.EditTextX
 
 /**
@@ -62,7 +62,7 @@ fun Context.createEdit(): EditText {
     val ed = EditText(this).needId().singleLine()
     ed.setHintTextColor(0x80.gray)
     ed.textColorMajor()
-    ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
+    ed.textSizeB().gravityLeftCenter().backDrawable(DrawableDef.Input).padding(8, 2, 8, 2)
     return ed
 }
 
@@ -112,7 +112,7 @@ fun Fragment.createEditX(): EditTextX {
 fun Context.createEditX(): EditTextX {
     val ed = EditTextX(this).needId().singleLine()
     ed.setHintTextColor(0x80.gray)
-    ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
+    ed.textSizeB().gravityLeftCenter().backDrawable(DrawableDef.Input).padding(8, 2, 8, 2)
     return ed
 }
 
@@ -162,6 +162,6 @@ fun Fragment.createEditArea(): EditText {
 fun Context.createEditArea(): EditText {
     val ed = EditText(this).needId()
     ed.setHintTextColor(0x80.gray)
-    ed.textSizeB().gravityTopLeft().backDrawable(D.Input).padding(10, 5, 10, 5).multiLine()
+    ed.textSizeB().gravityTopLeft().backDrawable(DrawableDef.Input).padding(10, 5, 10, 5).multiLine()
     return ed
 }

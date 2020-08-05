@@ -18,7 +18,8 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.dpf
 import dev.entao.kan.base.BlockUnit
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.act
@@ -65,7 +66,7 @@ class DialogX(val context: Context) {
 //
 
         cardView.setCardBackgroundColor(Color.WHITE)
-        cardView.cardElevation = dp(5).toFloat()
+        cardView.cardElevation = 5.dpf
         cardView.preventCornerOverlap = false
         cardView.radius = ViewSize.DialogCorner.dp.toFloat()
 
@@ -73,10 +74,10 @@ class DialogX(val context: Context) {
         cardView.addView(rootLayout, FParam.FillW.WrapH)
         rootLayout.divider()
 
-        cardView.minimumHeight = dp(80)
+        cardView.minimumHeight = 80.dp
         val minW = App.screenWidthPx * 3 / 4
         rootLayout.minimumWidth = minW
-        rootLayout.minimumHeight = dp(80)
+        rootLayout.minimumHeight = 80.dp
     }
 
 
@@ -136,8 +137,8 @@ class DialogX(val context: Context) {
     fun bodyInput(block: EditText.() -> Unit) {
         val rl = context.createRelative()
         val ed = rl.editX(RParam.Center.FillW.WrapH.margins(15)) {
-            minimumWidth = dp(200)
-            minimumHeight = dp(ViewSize.EditHeight)
+            minimumWidth = 200.dp
+            minimumHeight = ViewSize.EditHeight.dp
             this.block()
         }
         beforeDismiss = {
@@ -149,8 +150,8 @@ class DialogX(val context: Context) {
     fun bodyInputLines(block: EditText.() -> Unit) {
         val rl = context.createRelative()
         val ed = rl.edit(RParam.Center.FillW.WrapH.margins(15)) {
-            minimumWidth = dp(200)
-            minimumHeight = dp(ViewSize.EditHeight * 5)
+            minimumWidth = 200.dp
+            minimumHeight = (ViewSize.EditHeight * 5).dp
             this.multiLine()
             minLines = 5
             gravityTopLeft()
@@ -203,7 +204,7 @@ class DialogX(val context: Context) {
     fun bodyGrid(block: SimpleGridView.() -> Unit): SimpleGridView {
         bodyViewParam = LParam.FillW.HeightFlex
         val lv = SimpleGridView(context)
-        lv.verticalSpacing = dp(5)
+        lv.verticalSpacing = 5.dp
         body(lv)
         lv.block()
         return lv
@@ -225,7 +226,7 @@ class DialogX(val context: Context) {
             }
         }
 
-        bodyView.minimumHeight = dp(60)
+        bodyView.minimumHeight = 60.dp
         rootLayout.addView(bodyView, bodyViewParam)
 
         if (buttons.isNotEmpty()) {
@@ -239,7 +240,7 @@ class DialogX(val context: Context) {
                         padding(15, 10, 15, 10)
                         gravityCenter()
                         textS = b.text
-                        onClick {
+                        click {
                             dismiss()
                             b.callback(b.text)
                         }
@@ -276,7 +277,7 @@ class DialogX(val context: Context) {
 
     fun gravityTop(yMargin: Int) {
         windowParam.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-        windowParam.y = dp(yMargin)
+        windowParam.y = yMargin.dp
         dialog.window!!.attributes = windowParam
     }
 
@@ -288,7 +289,7 @@ class DialogX(val context: Context) {
 
     fun gravityBottom(margin: Int = 0): DialogX {
         windowParam.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-        windowParam.y = dp(margin)
+        windowParam.y = margin.dp
         return this
     }
 

@@ -3,7 +3,7 @@
 package dev.entao.kan.appbase.sql
 
 import android.content.ContentValues
-import dev.entao.kan.json.*
+import dev.entao.json.*
 import java.io.File
 
 /**

@@ -1,8 +1,8 @@
 package dev.entao.kan.appbase.files
 
 import dev.entao.kan.appbase.App
-import dev.entao.kan.json.YsonNull
-import dev.entao.kan.json.YsonObject
+import dev.entao.json.YsonNull
+import dev.entao.json.YsonObject
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -38,7 +38,7 @@ class FileMap<V : Any>(filename: String, private val coder: ItemCoder) {
         val yo = YsonObject(this.map.size)
         for ((k, v) in this.map) {
             val yv = this.coder.encoder(v)
-            yo[k] = yv
+            yo.data[k] = yv
         }
         file.writeText(yo.yson())
     }

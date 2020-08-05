@@ -4,8 +4,8 @@ package dev.entao.kan.base
 
 import android.graphics.Color
 import dev.entao.kan.appbase.App
-import dev.entao.kan.appbase.ex.argb
-import dev.entao.kan.appbase.ex.rgb
+import dev.entao.kan.appbase.argb
+import dev.entao.kan.appbase.rgb
 
 object ColorX {
     val theme: Int get() = App.themeColor

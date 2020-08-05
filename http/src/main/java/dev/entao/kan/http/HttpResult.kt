@@ -1,14 +1,15 @@
 package dev.entao.kan.http
 
 import dev.entao.kan.base.closeSafe
-import dev.entao.kan.json.YsonArray
-import dev.entao.kan.json.YsonObject
+import dev.entao.json.YsonArray
+import dev.entao.json.YsonObject
 import dev.entao.kan.log.logd
 import dev.entao.kan.log.loge
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.net.NoRouteToHostException
 import java.net.SocketException
@@ -40,7 +41,8 @@ class HttpResult(val url: String) {
                 is TimeoutException -> "请求超时"
                 is SocketTimeoutException -> "请求超时"
                 is SocketException -> "网络错误"
-                else -> ex.message
+                is FileNotFoundException -> ""
+                else -> ex.localizedMessage
             }
         }
 
@@ -60,6 +62,7 @@ class HttpResult(val url: String) {
             }
             return null
         }
+
     fun responseText(charset: Charset = Charsets.UTF_8): String? {
         val r = this.response ?: return null
         val ch = contentCharset ?: charset
@@ -69,6 +72,7 @@ class HttpResult(val url: String) {
         }
         return s
     }
+
     fun dump() {
         logd(">>Response:", this.url)
         logd("  >>status:", responseCode, responseMsg ?: "")
@@ -82,10 +86,15 @@ class HttpResult(val url: String) {
                 }
             }
         }
+        if (this.exception != null) {
+            logd("  >>Exception:", this.exception?.localizedMessage)
+        }
         if (allowDump(this.contentType)) {
             logd("  >>body:", this.responseText())
         }
+
     }
+
     fun needDecode(): HttpResult {
         this.needDecode = true
         return this

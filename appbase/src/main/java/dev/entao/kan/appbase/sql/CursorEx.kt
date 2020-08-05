@@ -3,8 +3,8 @@
 package dev.entao.kan.appbase.sql
 
 import android.database.Cursor
+import dev.entao.json.*
 import dev.entao.kan.base.*
-import dev.entao.kan.json.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.createInstance
@@ -98,7 +98,7 @@ val Cursor.currentYsonObject: YsonObject
                 Cursor.FIELD_TYPE_BLOB -> YsonBlob(c.getBlob(i))
                 else -> YsonNull.inst
             }
-            map[key] = v
+            map.data[key] = v
         }
         return map
     }

@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.AdapterView
 import android.widget.GridView
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.ext.needId
 import dev.entao.kan.ext.padding
 import dev.entao.kan.list.AnyAdapter
@@ -33,7 +33,7 @@ open class GridPanel(context: Context) : GridView(context) {
 		this.needId()
 		padding(10)
 		numColumns = 3
-		verticalSpacing = dp(10)
+		verticalSpacing = 10.dp
 
 		anyAdapter.onBindView = { v, p ->
 			this@GridPanel.onBindView(v as GridItemView, getItem(p))

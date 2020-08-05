@@ -9,9 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.ShapeRect
-import dev.entao.kan.appbase.ex.colorParse
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.createTextView
 import dev.entao.kan.creator.textView
@@ -33,11 +31,12 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
         val action = event.actionMasked
         val y = event.y.toInt()
         if (action == MotionEvent.ACTION_DOWN) {
-            this.isSelected = true
+//            this.isSelected = true
+            selectByY(y)
         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL
             || action == MotionEvent.ACTION_OUTSIDE
         ) {
-            this.isSelected = false
+//            this.isSelected = false
             selectByY(y)
         } else if (action == MotionEvent.ACTION_MOVE) {
             selectByY(y)
@@ -56,12 +55,14 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
         feedbackView.textColor(Color.WHITE).textSizeSp(50).gravityCenter().backDrawable(d).gone()
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
 
     private fun selectByY(y: Int) {
         for (i in 0 until childCount) {
             val itemView = getChildAt(i)
             if (y >= itemView.top && y <= itemView.bottom) {
-                itemView.isSelected = true
                 val s = itemView.tag as? String
                 if (s != null && s != this.currentLabel) {
                     this.currentLabel = s
@@ -69,10 +70,9 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
                         fireChanged()
                     }
                 }
-            } else {
-                itemView.isSelected = false
             }
         }
+        updateLabelSelectState()
     }
 
     private fun fireChanged() {
@@ -89,9 +89,6 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
         }
     }
 
-    override fun performClick(): Boolean {
-        return super.performClick()
-    }
 
     fun setLabelItems(items: List<String>) {
         this.items = items
@@ -105,8 +102,12 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
                 this.tag = s
                 this.text(s).textSizeD().gravityCenter()
                 this.typeface = Typeface.MONOSPACE
-                this.textColor(labelColor, Color.WHITE)
-                this.backColor(Color.TRANSPARENT, Color.GRAY)
+                this.textColorList(labelColor) {
+                    selected(Color.WHITE)
+                }
+                this.backColorList(Color.TRANSPARENT) {
+                    selected(Color.GRAY)
+                }
             }
         }
         if (this.items.isEmpty()) {
@@ -119,12 +120,12 @@ class GroupIndexBar(context: Context) : LinearLayout(context) {
     fun setCurrentLabel(label: String) {
         this.currentLabel = label
         Task.mergeX("set_curr_label", 20) {
-            setLabel2()
+            updateLabelSelectState()
         }
     }
 
-    private fun setLabel2() {
-        val lb = this.currentLabel ?: return
+    private fun updateLabelSelectState() {
+        val lb = this.currentLabel ?: "__"
         for (i in 0 until childCount) {
             val v = getChildAt(i)
             v.isSelected = v.tag == lb

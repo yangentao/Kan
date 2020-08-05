@@ -7,7 +7,7 @@ import dev.entao.kan.appbase.sql.MapTable
 import dev.entao.kan.base.Sleep
 import dev.entao.kan.base.ex.MultiHashMap
 import dev.entao.kan.http.HttpGet
-import dev.entao.kan.util.TaskQueue
+import dev.entao.kan.appbase.TaskQueue
 import java.io.File
 import java.util.*
 
