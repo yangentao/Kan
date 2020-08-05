@@ -2,9 +2,9 @@
 
 package dev.entao.kan.http
 
-import dev.entao.kan.json.YsonArray
-import dev.entao.kan.json.YsonObject
-import dev.entao.kan.json.createYsonModel
+import dev.entao.json.YsonArray
+import dev.entao.json.YsonObject
+import dev.entao.json.createYsonModel
 import kotlin.reflect.KClass
 
 /**
@@ -82,7 +82,7 @@ class ProtoResult(val httpResult: HttpResult) {
         return ls
     }
 
-    fun <T> dataListModel(cls: KClass<*>): ArrayList<T> {
+    inline fun <reified T : Any> dataListModel(cls: KClass<T>): ArrayList<T> {
         val ls = ArrayList<T>()
         if (OK) {
             val ar = this.dataArray ?: return ls
@@ -94,7 +94,7 @@ class ProtoResult(val httpResult: HttpResult) {
         return ls
     }
 
-    fun <T> dataModel(cls: KClass<*>): T? {
+    inline fun <reified T : Any> dataModel(cls: KClass<T>): T? {
         if (OK) {
             val yo: YsonObject = this.dataObject ?: return null
             return cls.createYsonModel(yo)

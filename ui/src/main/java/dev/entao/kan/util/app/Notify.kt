@@ -9,9 +9,9 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import dev.entao.kan.appbase.App
-import dev.entao.kan.appbase.ex.UriRes
-import dev.entao.kan.json.YsonObject
-import dev.entao.kan.res.bitmapRes
+import dev.entao.kan.appbase.UriRes
+import dev.entao.json.YsonObject
+import dev.entao.kan.appbase.resBitmap
 
 /**
  * 图标默认是应用程序图标
@@ -45,7 +45,7 @@ class Notify(val id: Int) {
             builder.setSmallIcon(App.iconLauncher)
         }
         if (largeIcon != 0) {
-            builder.setLargeIcon(largeIcon.bitmapRes)
+            builder.setLargeIcon(largeIcon.resBitmap)
         } else {
             val appIcon = App.iconBitmap
             if (appIcon != null) {
@@ -64,7 +64,7 @@ class Notify(val id: Int) {
     }
 
     fun iconLarge(icon: Int): Notify {
-        return iconLarge(icon.bitmapRes)
+        return iconLarge(icon.resBitmap)
     }
 
     fun iconLarge(icon: Bitmap): Notify {

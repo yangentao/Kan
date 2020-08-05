@@ -6,9 +6,9 @@ import android.annotation.SuppressLint
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
-import dev.entao.kan.appbase.ex.Bmp
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.drawable
+import dev.entao.kan.appbase.Bmp
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.drawable
 import dev.entao.kan.base.ColorX
 
 /**
@@ -73,7 +73,7 @@ fun <T : LinearLayout> T.divider(ld: Divider): T {
     if (ld.size > 0) {
         val d = Bmp.line(ld.size, ld.size, ld.color).drawable
         this.dividerDrawable = d
-        this.dividerPadding = dp(ld.pad)
+        this.dividerPadding = ld.pad.dp
         var n = LinearLayout.SHOW_DIVIDER_NONE
         if (ld.begin) {
             n = n or LinearLayout.SHOW_DIVIDER_BEGINNING

@@ -3,7 +3,7 @@
 package dev.entao.kan.ext
 
 import android.view.ViewGroup
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.dp
 import dev.entao.kan.theme.ViewSize
 
 /**
@@ -83,9 +83,9 @@ fun <T : ViewGroup.LayoutParams> T.widthPx(w: Int): T {
 
 fun <T : ViewGroup.LayoutParams> T.height(h: Int): T {
     if (h > 0) {
-        this.height = dp(h)
+        this.height = h.dp
     } else {
-        this.height = h
+        this.height = 0
     }
     return this
 }

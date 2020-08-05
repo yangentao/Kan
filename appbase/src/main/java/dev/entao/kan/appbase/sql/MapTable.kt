@@ -5,8 +5,8 @@ package dev.entao.kan.appbase.sql
 import android.util.Log
 import dev.entao.kan.appbase.App
 import dev.entao.kan.base.*
-import dev.entao.kan.json.YsonArray
-import dev.entao.kan.json.YsonObject
+import dev.entao.json.YsonArray
+import dev.entao.json.YsonObject
 import java.util.*
 import kotlin.collections.HashSet
 import kotlin.reflect.KProperty

@@ -15,7 +15,7 @@ import dev.entao.kan.creator.createImageView
 import dev.entao.kan.creator.createTextViewA
 import dev.entao.kan.creator.createTextViewB
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
+import dev.entao.kan.base.DrawableDef
 
 /**
  * 左右对齐listview itemview
@@ -92,7 +92,7 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 
     fun addCheckBoxRight(marginLeft: Int): CheckBox {
         val cb = context.createCheckBox()
-        cb.buttonDrawable = D.CheckBox
+        cb.buttonDrawable = DrawableDef.CheckBox
         cb.layoutParams =  LParam.size(20).RightCenter.margins(marginLeft, 0, 0, 0)
         this.addView(cb)
         return cb

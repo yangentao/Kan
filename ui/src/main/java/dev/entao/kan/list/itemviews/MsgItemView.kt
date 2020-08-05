@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.RelativeLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.dpf
+import dev.entao.kan.appbase.dpf
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*

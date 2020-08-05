@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.annotation.StyleRes
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.dp
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.createTextView
 import dev.entao.kan.ext.backColor
@@ -55,7 +55,7 @@ open class PopWindow {
 	}
 
 	fun width(dpWidth: Int): PopWindow {
-		w = dp(dpWidth)
+		w = dpWidth.dp
 		return this
 	}
 
@@ -70,7 +70,7 @@ open class PopWindow {
 	}
 
 	fun height(dpHeight: Int): PopWindow {
-		h = dp(dpHeight)
+		h = dpHeight.dp
 		return this
 	}
 
@@ -159,8 +159,8 @@ open class PopWindow {
 	}
 
 	fun location(xDp: Int, yDp: Int): PopWindow {
-		this.x = dp(xDp)
-		this.y = dp(yDp)
+		this.x = xDp.dp
+		this.y = yDp.dp
 		return this
 	}
 

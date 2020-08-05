@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import dev.entao.kan.appbase.App
+import dev.entao.kan.base.YetApp
 import dev.entao.kan.base.yson
 
 /**

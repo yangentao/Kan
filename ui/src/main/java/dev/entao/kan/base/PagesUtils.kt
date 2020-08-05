@@ -10,12 +10,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
-import android.os.Looper
 import android.view.Gravity
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,17 +21,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import dev.entao.kan.appbase.InMainThread
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.argb
-import dev.entao.kan.appbase.ex.dpf
-import dev.entao.kan.appbase.ex.rgb
+import dev.entao.kan.appbase.argb
+import dev.entao.kan.appbase.dpf
 import dev.entao.kan.base.ex.extraString
 import dev.entao.kan.creator.createTextView
 import dev.entao.kan.ext.padding
 import dev.entao.kan.ext.style
-import dev.entao.kan.ext.textColorWhite
 import dev.entao.kan.ext.textSizeB
-import dev.entao.kan.json.YsonObject
-import dev.entao.kan.log.logd
+import dev.entao.json.YsonObject
 import dev.entao.kan.log.loge
 import kotlin.reflect.KClass
 

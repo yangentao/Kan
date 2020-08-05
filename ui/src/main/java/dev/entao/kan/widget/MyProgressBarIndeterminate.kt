@@ -8,13 +8,14 @@ import android.graphics.drawable.GradientDrawable
 import android.view.View
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
+import dev.entao.kan.appbase.dp
 import dev.entao.kan.base.ColorX
 
 /**
  * Created by yet on 2015/10/31.
  */
 class MyProgressBarIndeterminate(context: Context) : View(context) {
-    private val MIN_WIDTH = App.dp2px(30)//
+    private val MIN_WIDTH = 30.dp
     private val durationIndeterm = 5000//
     private var foreImg: Drawable? = null
     private var indeterTime = 0

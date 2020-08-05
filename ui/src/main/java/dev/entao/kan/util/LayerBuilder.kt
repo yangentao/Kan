@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.view.Gravity
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.dp
 import java.util.*
 
 class LayerItemDrawable(var drawable: Drawable) {
@@ -85,4 +85,10 @@ class LayerBuilder {
             return ld
         }
 
+}
+
+fun layerDrawable(block: LayerBuilder.() -> Unit): Drawable {
+    val b = LayerBuilder()
+    b.block()
+    return b.value
 }

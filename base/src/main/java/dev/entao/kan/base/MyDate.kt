@@ -2,6 +2,7 @@
 
 package dev.entao.kan.base
 
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +18,11 @@ val Int.HOR: Long get() = this * 3600_000L
 val Int.HOUR: Long get() = this * 3600_000L
 val Int.DAY: Long get() = this * 24 * 3600_000L
 
+
+val Timestamp.myDate: MyDate get() = MyDate(this.time)
+val java.sql.Date.myDate: MyDate get() = MyDate(this.time)
+val java.sql.Time.myDate: MyDate get() = MyDate(this.time)
+val java.util.Date.myDate: MyDate get() = MyDate(this.time)
 
 class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.getDefault()) {
     val calendar: Calendar = Calendar.getInstance(locale)
@@ -224,6 +230,18 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
     fun formatTemp(): String {
         return format("yyyyMMdd_HHmmss_SSS")
     }
+
+    val shortTime: String
+        get() {
+            val now = MyDate()
+            if (now.year != this.year) {
+                return this.format("yy-MM-dd HH:mm")
+            }
+            if (now.dayOfYear != this.dayOfYear) {
+                return this.format("MM-dd HH:mm")
+            }
+            return this.format("HH:mm")
+        }
 
     companion object {
         const val FORMAT_DATE = "yyyy-MM-dd"

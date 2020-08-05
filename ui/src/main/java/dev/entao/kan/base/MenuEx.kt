@@ -2,7 +2,7 @@ package dev.entao.kan.base
 
 import android.view.Menu
 import androidx.annotation.DrawableRes
-import dev.entao.kan.util.IdGen
+import dev.entao.kan.appbase.IdGen
 
 
 fun Menu.buildItems(block: MenuItemBuilder.() -> Unit) {

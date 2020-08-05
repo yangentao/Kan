@@ -83,18 +83,25 @@ abstract class ListPage : TitlePage() {
             val iv = unpackBindView(v, p)
             this@ListPage.onBindView(iv, p)
         }
-        anyAdapter.typeCount = if (itemTypes.isEmpty()) 1 else itemTypes.size
-        anyAdapter.onViewType = {
-            if (itemTypes.isEmpty()) {
-                0
-            } else {
-                itemTypes.indexOf(getItem(it)::class)
-            }
-        }
+        anyAdapter.onViewTypeCount = ::onViewTypeCount
+        anyAdapter.onViewType = this::onViewType
         beforeSetAdapter()
         listView.adapter = anyAdapter
         bindListEvents()
         enablePullRefresh(false)
+    }
+
+
+    open fun onViewTypeCount(): Int {
+        return if (itemTypes.isEmpty()) 1 else itemTypes.size
+    }
+
+    open fun onViewType(pos: Int): Int {
+        return if (itemTypes.isEmpty()) {
+            0
+        } else {
+            itemTypes.indexOf(getItem(pos)::class)
+        }
     }
 
     open fun onSearchTextChanged(s: String) {

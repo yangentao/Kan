@@ -8,67 +8,69 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import dev.entao.kan.appbase.listColorDrawable
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.act
 import dev.entao.kan.ext.needId
 import dev.entao.kan.list.SimpleListView
-import dev.entao.kan.res.D
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
 fun ViewGroup.simpleList(block: SimpleListView.() -> Unit): SimpleListView {
-	val lv = SimpleListView(context)
-	this.addView(lv)
-	lv.block()
-	return lv
+    val lv = SimpleListView(context)
+    this.addView(lv)
+    lv.block()
+    return lv
 }
 
 fun ViewGroup.simpleListView(param: ViewGroup.LayoutParams, block: SimpleListView.() -> Unit): SimpleListView {
-	val lv = SimpleListView(context)
-	this.addView(lv, param)
-	lv.block()
-	return lv
+    val lv = SimpleListView(context)
+    this.addView(lv, param)
+    lv.block()
+    return lv
 }
 
 //List View
 fun ViewGroup.listView(block: ListView.() -> Unit): ListView {
-	val v = this.createListView()
-	this.addView(v)
-	v.block()
-	return v
+    val v = this.createListView()
+    this.addView(v)
+    v.block()
+    return v
 }
 
 fun ViewGroup.listView(param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
-	val v = this.createListView()
-	this.addView(v, param)
-	v.block()
-	return v
+    val v = this.createListView()
+    this.addView(v, param)
+    v.block()
+    return v
 }
 
 fun ViewGroup.listView(index: Int, param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
-	val v = this.createListView()
-	this.addView(v, index, param)
-	v.block()
-	return v
+    val v = this.createListView()
+    this.addView(v, index, param)
+    v.block()
+    return v
 }
 
 fun ViewGroup.listViewBefore(ankor: View, param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
-	return this.listView(this.indexOfChild(ankor), param, block)
+    return this.listView(this.indexOfChild(ankor), param, block)
 }
 
 
 fun View.createListView(): ListView {
-	return this.context.createListView()
+    return this.context.createListView()
 }
 
 fun Fragment.createListView(): ListView {
-	return this.act.createListView()
+    return this.act.createListView()
 }
 
 fun Context.createListView(): ListView {
-	val lv = ListView(this).needId()
-	lv.cacheColorHint = 0
-	lv.selector = D.lightColor(Color.TRANSPARENT, ColorX.fade)
-	return lv
+    val lv = ListView(this).needId()
+    lv.cacheColorHint = 0
+    lv.selector = listColorDrawable(Color.TRANSPARENT) {
+        lighted(ColorX.fade)
+    }
+    return lv
 }
