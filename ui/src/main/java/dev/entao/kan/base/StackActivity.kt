@@ -30,6 +30,7 @@ open class StackActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         window.requestFeature(Window.FEATURE_NO_TITLE)
         containerView = this.createFrame()
+        containerView.fitsSystemWindows = true
         setContentView(containerView)
 
         val pg = this.intent.getIntExtra(PAGE_IDENT_, 0)
@@ -74,11 +75,14 @@ open class StackActivity : BaseActivity() {
     }
 
     fun push(fragment: BasePage, pushAnim: Boolean, popAnim: Boolean) {
-        val a = if (pushAnim) R.anim.yet_enter_right else 0
-        val b = if (popAnim) R.anim.yet_exit_right else 0
+//        val a = if (pushAnim) R.anim.yet_enter_right else 0
+        val a = if (pushAnim) R.animator.yet_enter_right else 0
+//        val b = if (popAnim) R.anim.yet_exit_right else 0
+        val b = if (popAnim) R.animator.yet_exit_right else 0
         trans {
             if (fragMgr.fragments.size > 0) {
                 if (pushAnim || popAnim) {
+//                    setCustomAnimations(a, b)
                     setCustomAnimations(a, 0, 0, b)
                 }
             }

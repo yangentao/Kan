@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.ARGB
-import dev.entao.kan.appbase.ex.RGB
-import dev.entao.kan.appbase.ex.ShapeRect
+import dev.entao.kan.appbase.ARGB
+import dev.entao.kan.appbase.RGB
+import dev.entao.kan.appbase.ShapeRect
 import dev.entao.kan.base.toast
 import dev.entao.kan.creator.createLinearVertical
 import dev.entao.kan.creator.createTextViewC

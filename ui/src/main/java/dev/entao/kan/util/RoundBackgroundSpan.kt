@@ -6,11 +6,12 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.text.style.ReplacementSpan
 import dev.entao.kan.appbase.App
+import dev.entao.kan.appbase.dp
 
 class RoundBackgroundSpan(backColor: Int, textColor: Int, radiusDp: Int) : ReplacementSpan() {
     private var backColor = Color.GRAY
     private var textColor = Color.argb(255, 30, 30, 30)
-    private var radius = App.dp2px(4)
+    private var radius = 4.dp
 
 
     init {
@@ -28,7 +29,7 @@ class RoundBackgroundSpan(backColor: Int, textColor: Int, radiusDp: Int) : Repla
     }
 
     fun setRadius(dp: Int) {
-        this.radius = App.dp2px(dp)
+        this.radius = dp.dp
     }
 
     override fun draw(

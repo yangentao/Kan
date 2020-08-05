@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.ShapeRect
+import dev.entao.kan.appbase.ShapeRect
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.ext.backColorWhite
 

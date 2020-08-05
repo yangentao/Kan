@@ -2,7 +2,7 @@ package dev.entao.kan.util.app
 
 import android.content.Intent
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.util.RunTask
+import dev.entao.kan.appbase.RunTask
 import java.util.*
 
 /**

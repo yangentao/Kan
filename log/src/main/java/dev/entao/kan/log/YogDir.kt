@@ -52,7 +52,7 @@ class YogDir(val logdir: File, val keepDays: Int = 30) : YogPrinter {
 
 
     private fun deleteOldLogs(logdir: File, days: Int) {
-        val ls = logdir.listFiles().filter { it.name.endsWith(".log") }.sortedByDescending { it.name }
+        val ls = logdir.listFiles()?.filter { it.name.endsWith(".log") }?.sortedByDescending { it.name } ?: emptyList()
         val n = days + 1
         if (n > 0 && ls.size > n) {
             for (i in n until ls.size) {

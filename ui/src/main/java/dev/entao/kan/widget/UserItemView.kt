@@ -8,7 +8,7 @@ import android.widget.TextView
 import dev.entao.kan.creator.imageView
 import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.ImageDef
 
 class UserItemView(context: Context) : RelativeLayout(context) {
 
@@ -19,7 +19,7 @@ class UserItemView(context: Context) : RelativeLayout(context) {
 	init {
 		portraitView = imageView(RParam.Left.CenterY.size(64).margins(15)) {
 			scaleCenterCrop()
-			setImageResource(Res.portrait)
+			setImageResource(ImageDef.portrait)
 		}
 
 		nameView = textView(RParam.toRight(portraitView).Top.Wrap.margins(0, 20, 0, 10)) {
@@ -32,7 +32,7 @@ class UserItemView(context: Context) : RelativeLayout(context) {
 		}
 
 		imageView(RParam.Right.CenterY.size(14).marginRight(10)) {
-			setImageResource(Res.more)
+			setImageResource(ImageDef.more)
 		}
 	}
 

@@ -41,7 +41,7 @@ class Snack(context: Context) : LinearLayout(context) {
 			backColor(Color.TRANSPARENT, ColorX.fade)
 			gravityCenter()
 			text("取消")
-			onClick {
+			clickView {
 				hide()
 			}
 		}
@@ -111,7 +111,7 @@ class Snack(context: Context) : LinearLayout(context) {
 		if (opt.ok.isNotEmpty()) {
 			this.okButton.text = opt.ok
 			this.okButton.visiable()
-			this.okButton.onClick {
+			this.okButton.click {
 				opt.onOK()
 			}
 		}

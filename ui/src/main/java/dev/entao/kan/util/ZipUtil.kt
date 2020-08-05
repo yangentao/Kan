@@ -1,7 +1,7 @@
 package dev.entao.kan.util
 
 
-import dev.entao.kan.appbase.ex.Asset
+import dev.entao.kan.appbase.Asset
 
 import java.io.*
 import java.nio.charset.Charset

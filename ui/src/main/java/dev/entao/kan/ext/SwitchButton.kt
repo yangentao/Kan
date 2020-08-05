@@ -6,9 +6,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-import android.view.View.OnLayoutChangeListener
 import android.widget.CheckBox
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
 
 /**
@@ -59,7 +58,9 @@ class SwitchButton(context: Context) : CheckBox(context) {
     private fun switchDraw(w: Int, h: Int): Drawable {
         val a = uncheckedImage(w, h)
         val b = checkedImage(w, h)
-        return StateList.drawable(a, VState.Checked to b)
+        return listDrawable(a) {
+            checked(b)
+        }
     }
 
 

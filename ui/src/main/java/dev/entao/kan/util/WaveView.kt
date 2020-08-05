@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
 import dev.entao.kan.appbase.App
+import dev.entao.kan.appbase.dpf
 import java.util.*
 
 /**
@@ -19,7 +20,7 @@ class WaveView(context: Context) : View(context) {
 
     init {
         paint.color = Color.GRAY
-        paint.strokeWidth = App.dp2px(2).toFloat()
+        paint.strokeWidth = 2.dpf
     }
 
     fun clearData() {
@@ -33,7 +34,7 @@ class WaveView(context: Context) : View(context) {
     }
 
     fun setStrokeWidth(dp: Int): WaveView {
-        paint.strokeWidth = App.dp2px(dp).toFloat()
+        paint.strokeWidth = dp.dpf
         return this
     }
 

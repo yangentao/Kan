@@ -6,12 +6,12 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.ImageDef
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.theme.Space
 
 /**
@@ -59,19 +59,19 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 
     fun setLeftImage(d: Drawable): TextDetailView {
         textView.setCompoundDrawables(d, null, null, null)
-        textView.compoundDrawablePadding = dp(10)
+        textView.compoundDrawablePadding = 10.dp
         return this
     }
 
 
     fun setRightImage(d: Drawable): TextDetailView {
         detailView.setCompoundDrawables(null, null, d, null)
-        detailView.compoundDrawablePadding = dp(10)
+        detailView.compoundDrawablePadding = 10.dp
         return this
     }
 
     fun rightImageMore(): TextDetailView {
-        val d = D.res(Res.more).sized(12)
+        val d = ImageDef.more.resDrawable.sized(12)
         setRightImage(d)
         return this
     }

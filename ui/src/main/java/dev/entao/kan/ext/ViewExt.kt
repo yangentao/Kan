@@ -7,35 +7,15 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
-import dev.entao.kan.appbase.ex.ShapeRect
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.VState
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
-import dev.entao.kan.res.D
-import dev.entao.kan.theme.Space
 import kotlin.reflect.KClass
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
  */
-
-
-fun <T : View> T.backTintRed(): T {
-    return this.backTint(ColorX.red)
-}
-
-fun <T : View> T.backTintGreen(): T {
-    return this.backTint(ColorX.green)
-}
-
-fun <T : View> T.backTint(color: Int): T {
-    this.backgroundTintList = StateList.color(color, VState.Disabled to ColorX.backDisabled)
-    return this
-}
 
 
 fun View.removeFromParent() {
@@ -119,43 +99,43 @@ fun <T : View> T.isInvisiable(): Boolean {
 }
 
 fun <T : View> T.paddingX(p: Int): T {
-    this.setPadding(dp(p), this.paddingTop, dp(p), this.paddingBottom)
+    this.setPadding(p.dp, this.paddingTop, p.dp, this.paddingBottom)
     return this
 }
 
 fun <T : View> T.paddingY(p: Int): T {
-    this.setPadding(this.paddingLeft, dp(p), this.paddingRight, dp(p))
+    this.setPadding(this.paddingLeft, p.dp, this.paddingRight, p.dp)
     return this
 }
 
 fun <T : View> T.padding(left: Int, top: Int, right: Int, bottom: Int): T {
-    this.setPadding(dp(left), dp(top), dp(right), dp(bottom))
+    this.setPadding(left.dp, top.dp, right.dp, bottom.dp)
     return this
 }
 
 fun <T : View> T.padding(p: Int): T {
-    this.setPadding(dp(p), dp(p), dp(p), dp(p))
+    this.setPadding(p.dp, p.dp, p.dp, p.dp)
     return this
 }
 
 
 fun <T : View> T.padLeft(n: Int): T {
-    this.setPadding(dp(n), this.paddingTop, this.paddingRight, this.paddingBottom)
+    this.setPadding(n.dp, this.paddingTop, this.paddingRight, this.paddingBottom)
     return this
 }
 
 fun <T : View> T.padTop(n: Int): T {
-    this.setPadding(this.paddingLeft, dp(n), this.paddingRight, this.paddingBottom)
+    this.setPadding(this.paddingLeft, n.dp, this.paddingRight, this.paddingBottom)
     return this
 }
 
 fun <T : View> T.padRight(n: Int): T {
-    this.setPadding(this.paddingLeft, this.paddingTop, dp(n), this.paddingBottom)
+    this.setPadding(this.paddingLeft, this.paddingTop, n.dp, this.paddingBottom)
     return this
 }
 
 fun <T : View> T.padBottom(n: Int): T {
-    this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, dp(n))
+    this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, n.dp)
     return this
 }
 
@@ -165,7 +145,9 @@ fun <T : View> T.backColor(color: Int): T {
 }
 
 fun <T : View> T.backColor(color: Int, fadeColor: Int): T {
-    this.background = StateList.lightColorDrawable(color, fadeColor)
+    backColorList(color) {
+        lighted(fadeColor)
+    }
     return this
 }
 
@@ -212,19 +194,8 @@ fun <T : View> T.backFillFade(fillColor: Int, corner: Int): T {
     return this
 }
 
-fun <T : View> T.backFill(fillColor: Int, corner: Int): T {
-    val a = ShapeRect(fillColor, corner).value
-    backDrawable(a)
-    return this
-}
 
-fun <T : View> T.backStrike(fillColor: Int, corner: Int, borderWidth: Int, borderColor: Int): T {
-    val a = ShapeRect(fillColor, corner).stroke(borderWidth, borderColor).value
-    backDrawable(a)
-    return this
-}
-
-fun <T : View> T.backDrawable(@DrawableRes resId: Int): T {
+fun <T : View> T.backRes(@DrawableRes resId: Int): T {
     this.setBackgroundResource(resId)
     return this
 }
@@ -236,12 +207,16 @@ fun <T : View> T.backDrawable(d: Drawable): T {
 
 
 fun <T : View> T.backDrawable(normal: Drawable, pressed: Drawable): T {
-    this.background = D.light(normal, pressed)
+    backDrawableList(normal) {
+        lighted(pressed)
+    }
     return this
 }
 
 fun <T : View> T.backDrawable(@DrawableRes resId: Int, @DrawableRes pressed: Int): T {
-    this.background = D.light(resId, pressed)
+    backResList(resId) {
+        lighted(pressed)
+    }
     return this
 }
 
@@ -252,10 +227,6 @@ fun <T : View> T.backRect(block: ShapeRect.() -> Unit): T {
     return this
 }
 
-fun View.makeClickable(): View {
-    this.isClickable = true
-    return this
-}
 
 fun View.clickable(): View {
     this.isClickable = true

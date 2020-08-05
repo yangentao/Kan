@@ -36,10 +36,33 @@ open class SettingPage : TitlePage() {
         }
     }
 
-    fun labelList(label: String, p: Prop): IntLabelListItemView {
+    fun labelListInt(label: String, p: Prop): IntLabelListItemView {
         return contentView.labelListInt(itemParam) {
             this.label = label
             this.optionsFrom(p)
+        }
+    }
+
+    fun labelListInt(label: String, p: Prop, block: IntLabelListItemView.() -> Unit): IntLabelListItemView {
+        return contentView.labelListInt(itemParam) {
+            this.label = label
+            this.optionsFrom(p)
+            this.block()
+        }
+    }
+
+    fun labelListString(label: String, p: Prop): StringLabelListItemView {
+        return contentView.labelListString(itemParam) {
+            this.label = label
+            this.optionsFrom(p)
+        }
+    }
+
+    fun labelListString(label: String, p: Prop, block: StringLabelListItemView.() -> Unit): StringLabelListItemView {
+        return contentView.labelListString(itemParam) {
+            this.label = label
+            this.optionsFrom(p)
+            this.block()
         }
     }
 
@@ -49,16 +72,36 @@ open class SettingPage : TitlePage() {
         }
     }
 
+    fun labelSwitch(label: String, block: LabelSwitchItemView.() -> Unit): LabelSwitchItemView {
+        return contentView.labelSwitch(itemParam) {
+            this.label = label
+            this.block()
+        }
+    }
+
     fun labelText(label: String): LabelTextItemView {
         return contentView.labelText(itemParam) {
             this.label = label
         }
     }
 
+    fun labelText(label: String, block: LabelTextItemView.() -> Unit): LabelTextItemView {
+        return contentView.labelText(itemParam) {
+            this.label = label
+            this.block()
+        }
+    }
+
     fun labelImage(label: String): LabelImageItemView {
         return contentView.labelImage(itemParam) {
             this.label = label
-//            this.image = Res.portrait.drawableRes
+        }
+    }
+
+    fun labelImage(label: String, block: LabelImageItemView.() -> Unit): LabelImageItemView {
+        return contentView.labelImage(itemParam) {
+            this.label = label
+            this.block()
         }
     }
 

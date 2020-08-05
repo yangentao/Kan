@@ -3,7 +3,7 @@ package dev.entao.kan.util
 import android.net.Uri
 import android.os.Build
 import android.webkit.MimeTypeMap
-import dev.entao.kan.util.app.FileProv
+import dev.entao.kan.base.FileProv
 import dev.entao.kan.util.app.MediaInfo
 import java.io.File
 

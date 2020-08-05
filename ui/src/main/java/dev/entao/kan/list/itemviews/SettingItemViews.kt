@@ -10,8 +10,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.base.FormOptions
 import dev.entao.kan.base.Prop
 import dev.entao.kan.creator.add
@@ -19,8 +19,8 @@ import dev.entao.kan.creator.imageView
 import dev.entao.kan.creator.textView
 import dev.entao.kan.dialogs.DialogX
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.ImageDef
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.theme.Space
 import kotlin.reflect.full.findAnnotation
 
@@ -51,6 +51,15 @@ open class LabelItemView(context: Context) : HorItemView(context) {
         textSizeB().textColorMajor().singleLine()
     }
 
+    init {
+        backColorWhite()
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(l)
+        backColorWhiteFade()
+    }
+
     var label: String
         get() = this.labelView.textS
         set(value) {
@@ -60,7 +69,7 @@ open class LabelItemView(context: Context) : HorItemView(context) {
 
 fun <T : LabelItemView> T.leftImage(d: Drawable): T {
     labelView.setCompoundDrawables(d, null, null, null)
-    labelView.compoundDrawablePadding = dp(10)
+    labelView.compoundDrawablePadding = 10.dp
     return this
 }
 
@@ -72,25 +81,33 @@ open class LabelValueItemView(context: Context) : LabelItemView(context) {
 
 fun <T : LabelValueItemView> T.rightImage(d: Drawable): T {
     valueView.setCompoundDrawables(null, null, d, null)
-    valueView.compoundDrawablePadding = dp(10)
+    valueView.compoundDrawablePadding = 10.dp
     return this
 }
 
 fun <T : LabelValueItemView> T.more(): T {
     this.padRight(2)
-    val d = D.res(Res.more).sized(12)
+    val d = ImageDef.more.resDrawable.sized(12)
     valueView.setCompoundDrawables(null, null, d, null)
-    valueView.compoundDrawablePadding = dp(2)
+    valueView.compoundDrawablePadding = 2.dp
     return this
 }
 
 class LabelTextItemView(context: Context) : LabelValueItemView(context) {
 
-    var onValueChanged: (String) -> Unit = {}
+    var _onValueChanged: (String) -> Unit = {}
     var configEditBlock: (EditText) -> Unit = {}
 
     init {
         valueView.multiLine().maxLines(2)
+    }
+
+    fun onValueChanged(block: (String) -> Unit) {
+        autoInput()
+        _onValueChanged = block
+    }
+
+    fun autoInput() {
         this.click(::showInput)
     }
 
@@ -98,7 +115,7 @@ class LabelTextItemView(context: Context) : LabelValueItemView(context) {
         val oldText = valueView.textS
         DialogX(context).showInput(label, oldText, configEditBlock) { s ->
             if (s != oldText) {
-                onValueChanged(s)
+                _onValueChanged(s)
             }
         }
     }

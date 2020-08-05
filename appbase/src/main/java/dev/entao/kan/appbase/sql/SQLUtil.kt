@@ -2,9 +2,9 @@
 
 package dev.entao.kan.appbase.sql
 
+import dev.entao.json.*
 import dev.entao.kan.base.Prop
 import dev.entao.kan.base.userName
-import dev.entao.kan.json.*
 import kotlin.reflect.KClass
 
 /**

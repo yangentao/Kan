@@ -9,13 +9,13 @@ import android.widget.EditText
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.dp
+import dev.entao.kan.appbase.dp
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.getValue
 import dev.entao.kan.base.userLabel
 import dev.entao.kan.creator.*
 import dev.entao.kan.dialogs.DialogX
-import dev.entao.kan.res.D
+import dev.entao.kan.base.DrawableDef
 import dev.entao.kan.theme.ViewSize
 import kotlin.reflect.KProperty0
 
@@ -29,7 +29,7 @@ class FormView(val tableLayout: TableLayout) {
             setBackgroundColor(ColorX.theme)
             textView(RowParam.WrapW.HeightEditSmall) {
                 text = label
-                minimumWidth = dp(80)
+                minimumWidth = 80.dp
                 textColorWhite()
                 gravityCenter()
             }
@@ -50,7 +50,7 @@ class FormView(val tableLayout: TableLayout) {
             }
             val v = block(context)
             val p = v.layoutParams ?: RowParam.WrapW.WrapH.margins(10, 0, 0, 0).CenterY
-            v.minimumHeight = dp(ViewSize.EditHeightSmall)
+            v.minimumHeight = ViewSize.EditHeightSmall.dp
             addView(v, p)
         }
     }
@@ -72,7 +72,7 @@ class FormView(val tableLayout: TableLayout) {
     fun rowButton(label: String, text: String): TextView {
         val v = tableLayout.createTextViewB()
         v.gravityCenter()
-        v.backDrawable(D.buttonWhite(2))
+        v.backDrawable(DrawableDef.buttonWhite(2))
         v.clickable()
         row(label) {
             v.text = text
@@ -84,7 +84,7 @@ class FormView(val tableLayout: TableLayout) {
     fun rowEdit(label: String, text: String = ""): EditText {
         val v = tableLayout.createEditX()
         v.gravityLeftCenter()
-        v.backDrawable(D.InputRect)
+        v.backDrawable(DrawableDef.InputRect)
         row(label) {
             v.textS = text
             v
@@ -98,7 +98,7 @@ class FormView(val tableLayout: TableLayout) {
         } else {
             text
         }
-        return rowButton(label, s).onClick { tv ->
+        return rowButton(label, s).clickView { tv ->
             DialogX(tv.context).showListItem(items, label) {
                 tv.tag = it
                 tv.textS = it
@@ -174,13 +174,13 @@ fun TableRow.edit(text: String, withClear: Boolean = false): EditText {
     return if (withClear) {
         this.editX(colParam) {
             gravityLeftCenter()
-            backDrawable(D.InputRect)
+            backDrawable(DrawableDef.InputRect)
             textS = text
         }
     } else {
         this.edit(colParam) {
             gravityLeftCenter()
-            backDrawable(D.InputRect)
+            backDrawable(DrawableDef.InputRect)
             textS = text
         }
     }
@@ -193,7 +193,7 @@ fun TableRow.button(label: String): TextView {
         textColorMajor()
         textSizeB()
         gravityCenter()
-        backDrawable(D.buttonWhite(2))
+        backDrawable(DrawableDef.buttonWhite(2))
         clickable()
     }
 }

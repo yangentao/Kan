@@ -5,12 +5,10 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.RelativeLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.textView
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
-import dev.entao.kan.res.drawableRes
 
 /**
  * Created by entaoyang@163.com on 2018-04-18.
@@ -30,15 +28,20 @@ open class TabBarItemView(context: Context) : RelativeLayout(context) {
             textSizeD()
             gravityCenter()
             padding(1, 4, 1, 1)
-            textColor(D.listColor(ColorX.textPrimary, ColorX.theme))
+            textColorList(ColorX.textPrimary) {
+                lighted(ColorX.theme)
+            }
         }
         indicateView = textView(RParam.Top.Right.margins(0, 5, 5, 0)) {
             textColor(Color.WHITE)
             textSizeSp(10)
             gravityCenter()
-            backDrawable(ShapeRect(RGB(255, 80, 80), 7).value)
+            backDrawable(shapeRect {
+                fill(RGB(255, 80, 80))
+                corner(7)
+            })
             padding(2, 0, 2, 0)
-            minimumWidth = dp(14)
+            minimumWidth = 14.dp
             gone()
         }
     }
@@ -64,7 +67,7 @@ open class TabBarItemView(context: Context) : RelativeLayout(context) {
 
     fun setIcon(res: Int) {
         if (res != 0) {
-            setIcon(res.drawableRes)
+            setIcon(res.resDrawable)
         }
     }
 

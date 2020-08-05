@@ -8,7 +8,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.creator.createLinearHorizontal
 import dev.entao.kan.creator.createTextViewA

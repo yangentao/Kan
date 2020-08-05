@@ -19,11 +19,11 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.dp
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
+import dev.entao.kan.appbase.textColorList
 import dev.entao.kan.base.ColorX
-import dev.entao.kan.res.D
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.theme.Space
 import dev.entao.kan.theme.TextSize
 import dev.entao.kan.ui.R
@@ -34,6 +34,16 @@ import dev.entao.kan.util.XTextWatcher
  * Created by entaoyang@163.com on 16/3/12.
  */
 
+
+fun <T : TextView> T.multiLineImeSend(block: (TextView) -> Unit): T {
+    gravityTopLeft()
+    inputType = InputType.TYPE_CLASS_TEXT
+    this.imeOptions = EditorInfo.IME_ACTION_SEND
+    this.imeAction(EditorInfo.IME_ACTION_SEND, block)
+    maxLines(100)
+    setHorizontallyScrolling(false)
+    return this
+}
 
 fun <T : TextView> T.html(block: HtmlText.() -> Unit): T {
     val h = HtmlText()
@@ -156,12 +166,12 @@ fun <T : TextView> T.gravityTopLeft(): T {
 }
 
 fun <T : TextView> T.miniWidthDp(widthDp: Int): T {
-    this.minWidth = dp(widthDp)
+    this.minWidth = widthDp.dp
     return this
 }
 
 fun <T : TextView> T.miniHeightDp(heightDp: Int): T {
-    this.minHeight = dp(heightDp)
+    this.minHeight = heightDp.dp
     return this
 }
 
@@ -268,7 +278,9 @@ fun <T : TextView> T.textColor(color: Int): T {
 
 
 fun <T : TextView> T.textColor(color: Int, pressed: Int): T {
-    this.setTextColor(StateList.lightColor(color, pressed))
+    textColorList(color) {
+        lighted(pressed)
+    }
     return this
 }
 
@@ -284,6 +296,16 @@ fun <T : TextView> T.textColorWhite(): T {
 
 fun <T : TextView> T.colorWhite(): T {
     this.setTextColor(Color.WHITE)
+    return this
+}
+
+fun <T : TextView> T.majorStyle(): T {
+    this.textColorMajor().textSizeB()
+    return this
+}
+
+fun <T : TextView> T.minorStyle(): T {
+    this.textColorMinor().textSizeC()
     return this
 }
 
@@ -328,7 +350,9 @@ fun <T : TextView> T.colorRed(): T {
 }
 
 fun <T : TextView> T.textColorMajorFade(): T {
-    setTextColor(D.listColor(ColorX.textPrimary, ColorX.fade))
+    textColorList(ColorX.textPrimary) {
+        lighted(ColorX.fade)
+    }
     return this
 }
 
@@ -407,62 +431,62 @@ fun <T : TextView> T.linkifyAll(): T {
 
 fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
-    this.setCompoundDrawables(D.res(resId).sized(size), old[1], old[2], old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.setCompoundDrawables(resId.resDrawable.sized(size), old[1], old[2], old[3])
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.leftImage(d: Drawable?, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(d, old[1], old[2], old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
-    this.setCompoundDrawables(old[0], old[1], D.res(resId).sized(size), old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.setCompoundDrawables(old[0], old[1], resId.resDrawable.sized(size), old[3])
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.rightImage(d: Drawable?, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], d, old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.X0): T {
     val old = this.compoundDrawables
-    this.setCompoundDrawables(old[0], D.res(resId).sized(size), old[2], old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.setCompoundDrawables(old[0], resId.resDrawable.sized(size), old[2], old[3])
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.topImage(d: Drawable?, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], d, old[2], old[3])
-    this.compoundDrawablePadding = dp(margin)
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
-    this.setCompoundDrawables(old[0], old[1], old[2], D.res(resId).sized(size))
-    this.compoundDrawablePadding = dp(margin)
+    this.setCompoundDrawables(old[0], old[1], old[2], resId.resDrawable.sized(size))
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.bottomImage(d: Drawable?, margin: Int = Space.Y): T {
     val old = this.compoundDrawables
     this.setCompoundDrawables(old[0], old[1], old[2], d)
-    this.compoundDrawablePadding = dp(margin)
+    this.compoundDrawablePadding = margin.dp
     return this
 }
 
 fun <T : TextView> T.imagePadding(p: Int): T {
-    this.compoundDrawablePadding = dp(p)
+    this.compoundDrawablePadding = p.dp
     return this
 }
 

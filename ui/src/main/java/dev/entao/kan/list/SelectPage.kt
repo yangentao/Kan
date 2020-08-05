@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import dev.entao.kan.base.toast
-import dev.entao.kan.theme.Str
+import dev.entao.kan.theme.StrDef
 import dev.entao.kan.ui.R
 import dev.entao.kan.widget.BarItem
 
@@ -16,7 +16,7 @@ import dev.entao.kan.widget.BarItem
  */
 
 abstract class SelectPage : ListPage() {
-    protected var title: String = Str.SELECT
+    protected var title: String = StrDef.SELECT
     var multiSelect: Boolean = false
     private var limit: Int = -1
 
@@ -80,7 +80,7 @@ abstract class SelectPage : ListPage() {
                     notifyDataSetChanged()
                     checkSellAllState()
                 }
-                doneAction = rightText(Str.DONE)
+                doneAction = rightText(StrDef.DONE)
                 doneAction?.onClick = {
                     finish()
                     if (anyAdapter.checkedCount > 0) {
@@ -115,9 +115,9 @@ abstract class SelectPage : ListPage() {
             }
             val n = anyAdapter.checkedCount
             if (n == 0) {
-                doneAction?.text = Str.DONE
+                doneAction?.text = StrDef.DONE
             } else {
-                doneAction?.text = Str.DONE + "(" + n + ")"
+                doneAction?.text = StrDef.DONE + "(" + n + ")"
             }
             titleBar.commit()
         }

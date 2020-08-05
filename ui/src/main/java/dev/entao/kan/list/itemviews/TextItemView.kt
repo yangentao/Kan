@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.TextView
 import androidx.annotation.DrawableRes
-import dev.entao.kan.appbase.ex.sized
+import dev.entao.kan.appbase.dp
+import dev.entao.kan.appbase.sized
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
+import dev.entao.kan.appbase.resDrawable
 import dev.entao.kan.theme.IconSize
 import dev.entao.kan.theme.Space
 
@@ -16,7 +17,11 @@ import dev.entao.kan.theme.Space
 class TextItemView(context: Context) : TextView(context) {
     init {
         needId()
-        padding(Space.X, Space.Y, Space.X, Space.Y).gravityLeftCenter().textSizeA().textColorMajor()
+        padding(Space.X, Space.Y, Space.X, Space.Y)
+        gravityLeftCenter()
+        majorStyle()
+        minimumHeight = 40.dp
+        this.layoutParams = MParam.FillW.WrapH
     }
 
     fun icon(d: Drawable?) {
@@ -30,12 +35,12 @@ class TextItemView(context: Context) : TextView(context) {
     }
 
     fun icon(@DrawableRes resId: Int, size: Int) {
-        val d = D.sized(resId, size)
+        val d = resId.resDrawable.sized(size)
         setCompoundDrawables(d, null, null, null)
     }
 
     fun icon(@DrawableRes resId: Int) {
-        val d = D.res(resId)
+        val d = resId.resDrawable
         setCompoundDrawables(d, null, null, null)
     }
 }

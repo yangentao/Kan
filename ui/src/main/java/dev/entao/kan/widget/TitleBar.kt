@@ -9,15 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.DrawableRes
-import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
+import dev.entao.kan.base.ImageDef
 import dev.entao.kan.base.StackActivity
 import dev.entao.kan.creator.*
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
-import dev.entao.kan.res.Res
-import dev.entao.kan.res.drawableRes
 
 @SuppressLint("ViewConstructor")
 class TitleBar(val context: Activity) : RelativeLayout(context) {
@@ -134,7 +131,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         if (item.drawable != null) {
             d = item.drawable?.mutate()
         } else if (item.resIcon != 0) {
-            d = item.resIcon.drawableRes.mutate()
+            d = item.resIcon.resDrawable.mutate()
         }
         if (d != null) {
             if (item.tintTheme) {
@@ -154,7 +151,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         tv.backColorTransFade()
         tv.textColorWhite()
         tv.gravityCenter()
-        tv.minimumWidth = dp(HEIGHT)
+        tv.minimumWidth = HEIGHT.dp
         tv.padding(5, 0, 5, 0)
         tv.text = item.text
         item.view = tv
@@ -223,9 +220,8 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         tv.textColorWhite()
         tv.text = text
         titleView = tv
-        titleView?.onClick {
-            titleClickCallback()
-        }
+        titleView?.click(titleClickCallback)
+
         return tv
     }
 
@@ -234,9 +230,8 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         iv.setImageResource(resId)
         iv.scaleCenterCrop()
         titleView = iv
-        titleView?.onClick {
-            titleClickCallback()
-        }
+        titleView?.click(titleClickCallback)
+
         return iv
     }
 
@@ -264,7 +259,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
     }
 
 
-    fun showBack(resId: Int = Res.back): BarItem {
+    fun showBack(resId: Int = ImageDef.back): BarItem {
         val c = find(BACK)
         if (c != null) {
             return c
@@ -282,7 +277,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
     }
 
     fun rightImage(resId: Int, BarItem: String = "$resId"): BarItem {
-        return rightImage(resId.drawableRes, BarItem)
+        return rightImage(resId.resDrawable, BarItem)
     }
 
     fun rightImage(d: Drawable, cmd: String = BarItem.autoIdent()): BarItem {
@@ -300,7 +295,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
     }
 
     fun leftImage(resId: Int, BarItem: String = "$resId"): BarItem {
-        return leftImage(resId.drawableRes, BarItem)
+        return leftImage(resId.resDrawable, BarItem)
     }
 
     fun leftImage(d: Drawable, cmd: String = BarItem.autoIdent()): BarItem {
@@ -334,7 +329,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         p.setBackgroundDrawable(ColorDrawable(0))
         val gd = ShapeRect(ColorX.theme).corners(0, 0, 2, 2).value
         val popRootView = context.createLinearVertical()
-        popRootView.minimumWidth = dp(150)
+        popRootView.minimumWidth = 150.dp
         popRootView.backDrawable(gd).padding(5)
         popRootView.divider()
         val itemList = ArrayList<BarItem>(item.children.filter { !it.hidden })
@@ -359,7 +354,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
     }
 
     fun menu(block: BarItem.() -> Unit) {
-        val m = find(MENU) ?: rightImage(Res.menu, MENU)
+        val m = find(MENU) ?: rightImage(ImageDef.menu, MENU)
         m.block()
     }
 
@@ -383,16 +378,16 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
         var d: Drawable = if (item.drawable != null) {
             item.drawable!!.mutate()
         } else if (item.resIcon != 0) {
-            item.resIcon.drawableRes.mutate()
+            item.resIcon.resDrawable.mutate()
         } else {
-            D.color(Color.TRANSPARENT)
+            Color.TRANSPARENT.colorDrawable
         }
         d = if (item.tintTheme) {
             d.tintedWhite.sized(TitleBar.ImgSize)
         } else {
             d.sized(TitleBar.ImgSize)
         }
-        tv.compoundDrawablePadding = dp(10)
+        tv.compoundDrawablePadding = 10.dp
         tv.setCompoundDrawables(d, null, null, null)
         tv.textColorWhite()
         item.view = tv
@@ -410,7 +405,7 @@ class TitleBar(val context: Activity) : RelativeLayout(context) {
     }
 
     fun menuItems(block: TitleBarMenuItemBuilder.() -> Unit) {
-        val m = find(MENU) ?: rightImage(Res.menu, MENU)
+        val m = find(MENU) ?: rightImage(ImageDef.menu, MENU)
         val a = TitleBarMenuItemBuilder(m)
         a.block()
     }

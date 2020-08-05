@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.colors
+import dev.entao.kan.appbase.listColor
 import dev.entao.kan.creator.addViewX
 import dev.entao.kan.ext.*
 import dev.entao.kan.page.TitlePage
@@ -49,12 +48,14 @@ open class TabLayoutPage : TitlePage() {
         }
 
 
-        val st = StateList.colors(colorNormal) {
+        tabLayout.tabIconTint = listColor(colorNormal) {
             selected(colorSelected)
             checked(colorSelected)
         }
-        tabLayout.tabIconTint = st
-        tabLayout.tabTextColors = st
+        tabLayout.tabTextColors = listColor(colorNormal) {
+            selected(colorSelected)
+            checked(colorSelected)
+        }
 
 
         pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
