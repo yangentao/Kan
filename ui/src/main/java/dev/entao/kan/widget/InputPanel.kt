@@ -5,17 +5,16 @@ import android.graphics.Color
 import android.view.View
 import android.widget.*
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.appbase.ex.ShapeRect
-import dev.entao.kan.appbase.ex.StateList
-import dev.entao.kan.appbase.ex.VState
+import dev.entao.kan.appbase.ShapeRect
+import dev.entao.kan.appbase.listDrawable
 import dev.entao.kan.base.BasePage
 import dev.entao.kan.base.ColorX
 import dev.entao.kan.base.hideInputMethod
 import dev.entao.kan.base.toast
 import dev.entao.kan.creator.*
 import dev.entao.kan.ext.*
-import dev.entao.kan.res.D
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.DrawableDef
+import dev.entao.kan.appbase.resString
 import dev.entao.kan.theme.ViewSize
 import dev.entao.kan.ui.R
 import dev.entao.kan.util.TimeDown
@@ -114,7 +113,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
 
     fun addPhone(
         key: String,
-        hint: String = Res.str(R.string.yet_phone_input),
+        hint: String = R.string.yet_phone_input.resString,
         marginTop: Int = inputMarginTop
     ): EditText {
         val ed = makeEdit(hint, marginTop)
@@ -134,12 +133,12 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
     }
 
     fun addPasswordAgain(key: String): EditText {
-        return addPassword(key, Res.str(R.string.yet_pwd_again), inputMarginTop)
+        return addPassword(key, R.string.yet_pwd_again.resString, inputMarginTop)
     }
 
     fun addPassword(
         key: String,
-        hint: String = Res.str(R.string.yet_pwd_input),
+        hint: String = R.string.yet_pwd_input.resString,
         marginTop: Int = inputMarginTop
     ): EditText {
         val ed = makeEdit(hint, marginTop)
@@ -151,7 +150,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
 
     fun addPasswordNumber(
         key: String,
-        hint: String = Res.str(R.string.yet_pwd_input),
+        hint: String = R.string.yet_pwd_input.resString,
         marginTop: Int = inputMarginTop
     ): EditText {
         val ed = makeEdit(hint, marginTop)
@@ -193,11 +192,12 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
         val btnDisableDraw =
             ShapeRect(ColorX.backDisabled).corners(0, ViewSize.EditCorner, ViewSize.EditCorner, 0)
                 .value
-        val btnDraw = StateList.drawable(
-            btnNormalDraw,
-            VState.Pressed to btnPressDraw,
-            VState.Disabled to btnDisableDraw
-        )
+        val btnDraw = listDrawable(
+            btnNormalDraw
+        ) {
+            pressed(btnPressDraw)
+            disabled(btnDisableDraw)
+        }
 
         linearHor(LParam.FillW.height(ViewSize.EditHeight).margins(0, marginTop, 0, 0)) {
             backDrawable(llDraw).padding(1)
@@ -232,7 +232,7 @@ class InputPanel constructor(context: Context, private val fragment: BasePage? =
             checkBox(LParam.FillW.WrapH.margins(0, marginTop, 0, 0)) {
                 padding(20, 5, 5, 5)
                 text = title
-                buttonDrawable = D.CheckBox
+                buttonDrawable = DrawableDef.CheckBox
             }
     }
 

@@ -3,7 +3,7 @@
 package dev.entao.kan.imgloader
 
 import android.graphics.Bitmap
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.ImageDef
 
 class ImageOption {
     var quility: Bitmap.Config = Bitmap.Config.RGB_565
@@ -13,16 +13,16 @@ class ImageOption {
 
     var forceDownload: Boolean = false
     //加载失败的图片
-    var failedImage: Int = Res.imageMiss
+    var failedImage: Int = ImageDef.imageMiss
     //默认的图片, 下载前
-    var defaultImage: Int = Res.imageMiss
+    var defaultImage: Int = ImageDef.imageMiss
 
     val keyString: String
         get() = "$quility:$limit"
 
 
     fun portrait(): ImageOption {
-        limit256().onFailed(Res.portrait).onDefault(Res.portrait)
+        limit256().onFailed(ImageDef.portrait).onDefault(ImageDef.portrait)
         quility8888()
         return this
     }

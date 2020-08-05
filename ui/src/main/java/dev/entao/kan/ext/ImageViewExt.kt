@@ -5,9 +5,8 @@ package dev.entao.kan.ext
 import android.graphics.Color
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.base.ColorX
-import dev.entao.kan.res.drawableRes
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -50,22 +49,22 @@ fun <T : ImageView> T.scaleFitEnd(): T {
 }
 
 fun <T : ImageView> T.tintWhite(@DrawableRes resId: Int): T {
-    this.setImageDrawable(resId.drawableRes.tintedWhite)
+    this.setImageDrawable(resId.resDrawable.tintedWhite)
     return this
 }
 
 fun <T : ImageView> T.resSizedWhite(@DrawableRes resId: Int, size: Int): T {
     scaleCenterInside()
-    val b = Bmp.res(resId)
-    val bb = b.limit(dp(size)).tint(Color.WHITE)
+    val b = resId.resBitmap
+    val bb = b.limit(size.dp).tint(Color.WHITE)
     this.setImageBitmap(bb)
     return this
 }
 
 fun <T : ImageView> T.resSizedTheme(@DrawableRes resId: Int, size: Int): T {
     scaleCenterInside()
-    val b = Bmp.res(resId)
-    val bb = b.limit(dp(size)).tint(ColorX.theme)
+    val b = resId.resBitmap
+    val bb = b.limit(size.dp).tint(ColorX.theme)
     this.setImageBitmap(bb)
     return this
 }

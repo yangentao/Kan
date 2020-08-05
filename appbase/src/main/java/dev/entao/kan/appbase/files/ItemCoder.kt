@@ -1,7 +1,7 @@
 package dev.entao.kan.appbase.files
 
-import dev.entao.kan.json.Yson
-import dev.entao.kan.json.YsonValue
+import dev.entao.json.Yson
+import dev.entao.json.YsonValue
 import kotlin.reflect.KClass
 
 open class ItemCoder(private val itemCls: KClass<*>) {

@@ -9,7 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import dev.entao.kan.appbase.App
 import dev.entao.kan.base.yson
-import dev.entao.kan.json.YsonObject
+import dev.entao.json.YsonObject
 import dev.entao.kan.log.Yog
 
 /**

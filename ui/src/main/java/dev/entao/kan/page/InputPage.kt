@@ -2,9 +2,11 @@ package dev.entao.kan.page
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import android.widget.*
 import dev.entao.kan.appbase.Task
+import dev.entao.kan.appbase.shapeRect
 import dev.entao.kan.base.*
 import dev.entao.kan.creator.*
 import dev.entao.kan.dialogs.dialogX
@@ -12,7 +14,7 @@ import dev.entao.kan.ext.*
 import dev.entao.kan.list.itemviews.TextDetailView
 import dev.entao.kan.list.itemviews.textDetail
 import dev.entao.kan.log.logd
-import dev.entao.kan.res.Res
+import dev.entao.kan.base.ImageDef
 import dev.entao.kan.theme.ViewSize
 import dev.entao.kan.util.TimeDown
 import java.util.regex.Pattern
@@ -250,7 +252,7 @@ abstract class InputPage : TitlePage() {
             )
         ) {
             text = label
-            rightImage(Res.imageMiss, imgHeight)
+            rightImage(ImageDef.imageMiss, imgHeight)
         }
     }
 
@@ -292,16 +294,15 @@ abstract class InputPage : TitlePage() {
     }
 
 
-
     @SuppressLint("SetTextI18n")
     fun selectMap(p: Prop1, optMap: Map<Any, String>): TextDetailView {
         val v = textDetail(p.userLabel)
         if (p.hasAnnotation<Required>()) {
             v.textView.text = p.userLabel + "*"
         }
-        v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
+        v.detailView.background = backVal
         selectMap[p.userName] = v
-        v.onClick {
+        v.clickView {
             this.dialogX.showListItem(optMap.keys.toList(), null, { optMap[it] ?: "" }) {
                 v.tag = it
                 v.detailValue = optMap[it]
@@ -310,6 +311,15 @@ abstract class InputPage : TitlePage() {
         }
         return v
     }
+
+    val backVal: Drawable
+        get() {
+            return shapeRect {
+                fill(ColorX.TRANS)
+                corner(3)
+                stroke(1, ColorX.lineGray)
+            }
+        }
 
     fun select(p: Prop1): TextDetailView {
         return selectMap(p, p.selectOptionsStatic.mapKeys { it.key as Any })
@@ -325,9 +335,9 @@ abstract class InputPage : TitlePage() {
         if (p.hasAnnotation<Required>()) {
             v.textView.text = p.userLabel + "*"
         }
-        v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
+        v.detailView.background = backVal
         selectMap[p.userName] = v
-        v.onClick {
+        v.clickView {
             this.dialogX.showListAny(
                 items.toList(),
                 null,
@@ -341,11 +351,11 @@ abstract class InputPage : TitlePage() {
 
     fun select(key: String, title: String, value: String, items: List<String>): TextDetailView {
         val v = textDetail(title)
-        v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
+        v.detailView.background = backVal
         selectMap[key] = v
         v.detailValue = value
         v.tag = value
-        v.onClick {
+        v.clickView {
             this.dialogX.showListItem(items, null) { item ->
                 v.tag = item
                 v.detailValue = item
@@ -372,12 +382,12 @@ abstract class InputPage : TitlePage() {
         items: List<Pair<String, String>>
     ): TextDetailView {
         val v = textDetail(title)
-        v.detailView.backStrike(ColorX.TRANS, 3, 1, ColorX.lineGray)
+        v.detailView.background = backVal
         selectMap[key] = v
         val item = items.find { it.first == value }
         v.detailValue = item?.second
         v.tag = item?.first
-        v.onClick {
+        v.clickView {
             this.dialogX.showListItemN(items.map { it.second }, null) {
                 v.tag = items[it].first
                 v.detailValue = items[it].second
@@ -500,7 +510,7 @@ abstract class InputPage : TitlePage() {
             }
         }
         TimeDown.updateView(this.timeDownKey, codeButton!!)
-        codeButton?.onClick {
+        codeButton?.clickView {
             codeClickTime = System.currentTimeMillis()
             val phone = getText(phoneEditKey)
             if (!isPhoneFormatCN11(phone)) {

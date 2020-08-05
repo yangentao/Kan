@@ -3,32 +3,12 @@
 package dev.entao.kan.base
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import dev.entao.kan.appbase.App
-import dev.entao.kan.appbase.ex.*
+import dev.entao.kan.appbase.*
 import dev.entao.kan.util.uriLocal
 import java.io.File
 import kotlin.math.max
 
-
-val Bitmap.circled: Drawable
-    get() {
-        val d = RoundedBitmapDrawableFactory.create(App.resource, this)
-        d.isCircular = true
-        return d
-    }
-val Bitmap.rounded: Drawable
-    get() {
-        return this.rounded(8)
-    }
-
-fun Bitmap.rounded(corner: Int): Drawable {
-    val d = RoundedBitmapDrawableFactory.create(App.resource, this)
-    d.cornerRadius = corner.dpf
-    return d
-}
 
 class ImageCast(val uri: Uri) {
     var limitEdge: Int = 0
