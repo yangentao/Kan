@@ -257,7 +257,7 @@ object YsonObjectTextConvert : ITextConvert {
 inline fun <reified T : Any> KClass<T>.createYsonModel(argValue: YsonObject): T {
 //    return this.createInstance(YsonObject::class, argValue)
     val c = this.constructors.first { it.parameters.size == 1 && it.parameters.first().type.classifier == YsonObject::class }
-    return c.call(argValue) as T
+    return c.call(argValue)
 }
 
 fun ysonObject(block: YsonObject.() -> Unit): YsonObject {

@@ -8,10 +8,10 @@ import android.view.Surface
 import android.view.TextureView
 import androidx.camera.core.*
 import androidx.lifecycle.LifecycleOwner
-import dev.entao.kan.appbase.ex.TaskHandler
+import dev.entao.kan.appbase.TaskQueue
 
 class CameraXView(context: Context) : TextureView(context) {
-    private val taskHandler: TaskHandler = TaskHandler("image_analysis")
+    private val taskHandler: TaskQueue = TaskQueue("image_analysis")
     var preview: Preview? = null
     var resolution = Size(1280, 720)
     var onReady: () -> Unit = {}
@@ -24,13 +24,12 @@ class CameraXView(context: Context) : TextureView(context) {
         val rotation = this.display.rotation
 
 
-        val preConfig = PreviewConfig.Builder().apply {
-            setTargetAspectRatio(ratio)
+        val pre = Preview.Builder().apply {
+            setTargetAspectRatio(AspectRatio.RATIO_16_9)
             setTargetRotation(rotation)
-            setLensFacing(CameraX.LensFacing.BACK)
+//            setLensFacing(CameraX.LensFacing.BACK)
             setTargetResolution(resolution)
         }.build()
-        val pre = Preview(preConfig)
         preview = pre
         pre.setOnPreviewOutputUpdateListener {
             this.surfaceTexture = it.surfaceTexture

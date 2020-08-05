@@ -11,7 +11,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import dev.entao.kan.appbase.App
 import dev.entao.kan.appbase.Task
-import dev.entao.kan.json.YsonObject
+import dev.entao.json.YsonObject
 import dev.entao.kan.theme.MyColor
 import dev.entao.kan.util.Msg
 import dev.entao.kan.util.MsgCenter
