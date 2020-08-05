@@ -1,6 +1,7 @@
 package dev.entao.utilapp
 
-import dev.entao.kan.util.app.YetApp
+import dev.entao.kan.base.YetApp
+
 
 class MyApp : YetApp() {
 
