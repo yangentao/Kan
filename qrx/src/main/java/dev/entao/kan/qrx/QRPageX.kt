@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Size
 import android.widget.LinearLayout
 import android.widget.TextView
+import dev.entao.kan.appbase.Task
 import dev.entao.kan.appbase.dp
 import dev.entao.kan.appbase.listRes
 import dev.entao.kan.appbase.sized
@@ -115,7 +116,9 @@ class QRPageX : TitlePage() {
     override fun onResume() {
         super.onResume()
         if (hasPerm(ManiPerm.CAMERA)) {
-            previewView.start(this)
+            Task.fore {
+                previewView.start(this)
+            }
         } else {
             reqPerm(ManiPerm.CAMERA) {
                 if (it) {
@@ -127,6 +130,7 @@ class QRPageX : TitlePage() {
 
     override fun onPause() {
         previewView.setTorchOn(false)
+        previewView.stop()
         super.onPause()
     }
 

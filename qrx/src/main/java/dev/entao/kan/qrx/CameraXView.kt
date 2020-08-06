@@ -78,7 +78,7 @@ class CameraXView(context: Context) : PreviewView(context) {
         val pre = Preview.Builder().apply {
             setTargetAspectRatio(aspectRatio)
             setTargetRotation(rotation)
-            setTargetResolution(resolution)
+//            setTargetResolution(resolution)
         }.build()
 
 
