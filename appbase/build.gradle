@@ -19,6 +19,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
