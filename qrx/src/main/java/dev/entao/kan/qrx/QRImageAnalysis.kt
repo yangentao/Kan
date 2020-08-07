@@ -60,6 +60,7 @@ class QRImageAnalysis : ImageAnalysis.Analyzer {
         val bmp = BinaryBitmap(HybridBinarizer(src))
         try {
             val r = reader.decode(bmp)
+            image.close()
             logd("结果: ", r.text)
             Task.fore {
                 invokeResult(r.text)
