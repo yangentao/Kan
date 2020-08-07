@@ -30,34 +30,42 @@ class QRImageAnalysis : ImageAnalysis.Analyzer {
 
     override fun analyze(image: ImageProxy) {
         if (processing) {
+            image.close()
             return
         }
         processing = true
         try {
-            logd("Analyze...",  image.width, image.height)
-            if (image.format != ImageFormat.YUV_420_888 && image.format != ImageFormat.YUV_422_888) {
-                loge("Expect ImageFormat.YUV_420_888 OR YUV_422_888")
-                return
-            }
-            val buffer = image.planes[0].buffer
-            val data = ByteArray(buffer.remaining())
-            val w = image.width
-            val h = image.height
-            buffer.get(data)
-            val src = PlanarYUVLuminanceSource(data, w, h, 0, 0, w, h, false)
-            val bmp = BinaryBitmap(HybridBinarizer(src))
-            try {
-                val r = reader.decode(bmp)
-                Task.fore {
-                    invokeResult(r.text)
-                }
-            } catch (ex: NotFoundException) {
-            }
+            doAnalyze(image)
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
+        image.close()
         processing = false
 
+    }
+
+    private fun doAnalyze(image: ImageProxy) {
+        val w = image.width
+        val h = image.height
+        logd("Analyze...", w, h)
+        if (image.format != ImageFormat.YUV_420_888 && image.format != ImageFormat.YUV_422_888) {
+            loge("Expect ImageFormat.YUV_420_888 OR YUV_422_888")
+            return
+        }
+        val buffer = image.planes[0].buffer
+        val data = ByteArray(buffer.remaining())
+
+        buffer.get(data)
+        val src = PlanarYUVLuminanceSource(data, w, h, 0, 0, w, h, false)
+        val bmp = BinaryBitmap(HybridBinarizer(src))
+        try {
+            val r = reader.decode(bmp)
+            logd("结果: ", r.text)
+            Task.fore {
+                invokeResult(r.text)
+            }
+        } catch (ex: NotFoundException) {
+        }
     }
 
 }

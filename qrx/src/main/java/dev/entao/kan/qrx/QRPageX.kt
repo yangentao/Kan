@@ -106,10 +106,11 @@ class QRPageX : TitlePage() {
     }
 
     private fun onQRResult(s: String) {
-        logd(s)
+        logd("二维码扫描结果:  ",s)
         val a = this.onResult
         this.onResult = {}
         a(s)
+//        previewView.stop()
         this.popPage()
     }
 

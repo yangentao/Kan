@@ -43,11 +43,11 @@ class CameraXView(context: Context) : PreviewView(context) {
         this.cameraInst = null
         exeService?.shutdown()
         exeService = null
-        displayManager.unregisterDisplayListener(displayListener)
+//        displayManager.unregisterDisplayListener(displayListener)
     }
 
     fun start(lifeOwner: LifecycleOwner) {
-        displayManager.registerDisplayListener(displayListener, null)
+//        displayManager.registerDisplayListener(displayListener, null)
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener(Runnable {
@@ -59,7 +59,7 @@ class CameraXView(context: Context) : PreviewView(context) {
     }
 
     private fun doStart(lifeOwner: LifecycleOwner, cameraProvider: ProcessCameraProvider) {
-        val rotation = this.display.rotation
+        val rotation = this.display?.rotation ?: return
         val lens = when {
             cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) -> {
                 CameraSelector.LENS_FACING_BACK
@@ -71,8 +71,7 @@ class CameraXView(context: Context) : PreviewView(context) {
                 return
             }
         }
-        val cameraExec: ExecutorService = Executors.newSingleThreadExecutor()
-        exeService = cameraExec
+
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lens).build()
 
         val pre = Preview.Builder().apply {
@@ -86,15 +85,30 @@ class CameraXView(context: Context) : PreviewView(context) {
         qrAnaly.onResult = {
             invokeResult(it)
         }
+        val cameraExec: ExecutorService = Executors.newSingleThreadExecutor()
+        exeService = cameraExec
         val imgAnalyzer = ImageAnalysis.Builder()
             .setTargetAspectRatio(aspectRatio)
             .setTargetRotation(rotation)
             .build().also {
                 it.setAnalyzer(cameraExec, qrAnaly)
+//                it.setAnalyzer(cameraExec, HelloAnalyzer())
             }
 
-        val imageCapture = ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
-        val camera = cameraProvider.bindToLifecycle(lifeOwner, cameraSelector, pre, imageCapture, imgAnalyzer)
+        val imageCapture =
+            ImageCapture.Builder()
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .setTargetAspectRatio(aspectRatio)
+                .setTargetRotation(rotation)
+                .build()
+        val camera = cameraProvider.bindToLifecycle(
+            lifeOwner,
+            cameraSelector,
+            pre,
+            imageCapture,
+            imgAnalyzer
+
+        )
         pre.setSurfaceProvider(this.createSurfaceProvider())
         this.imageCapture = imageCapture
         this.imageAnalyzer = imgAnalyzer
