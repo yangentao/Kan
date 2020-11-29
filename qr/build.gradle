@@ -31,11 +31,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.zxing:core:3.3.3'
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.google.zxing:core:3.3.3'
 
-    implementation 'dev.entao.kan:ui:6.2.1'
+
+//    implementation 'dev.entao.kan:ui:6.2.1'
+    api project(":ui")
 }
 
 

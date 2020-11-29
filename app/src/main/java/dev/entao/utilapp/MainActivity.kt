@@ -9,7 +9,6 @@ import dev.entao.kan.ext.Bottom
 import dev.entao.kan.ext.LParam
 import dev.entao.kan.ext.Wrap
 import dev.entao.kan.ext.WrapH
-import dev.entao.kan.qrx.QRPageX
 import dev.entao.viewbuilder.*
 
 //import dev.entao.kan.log.logd
@@ -20,7 +19,7 @@ class MainActivity : StackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentPage(QRPageX())
+//        setContentPage(QRPageX())
 
         val l = android.widget.LinearLayout(this)
 

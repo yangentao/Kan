@@ -27,13 +27,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    api 'androidx.annotation:annotation:1.1.0'
+//    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    api 'dev.entao.kan:base:5.0.4'
 
-//    implementation project(':base')
+//    api 'dev.entao.kan:base:5.0.4'
+
+    api project(':base')
 
 //    implementation project(':log')
 //    implementation project(':json')
