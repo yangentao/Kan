@@ -105,38 +105,6 @@ inline fun <T : Closeable> T.closeAfter(block: (T) -> Unit): Unit {
     }
 }
 
-fun md5(value: String): String? {
-    try {
-        val md5 = MessageDigest.getInstance("MD5")
-        md5.update(value.toByteArray())
-        val m = md5.digest()
-        return Hex.encode(m)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-    return null
-}
-
-
-/**
- * @param max
- * @return [0-max]
- */
-fun random(max: Int): Int {
-    return Random(System.nanoTime()).nextInt(max + 1)
-}
-
-/**
- * @param min
- * @param max
- * @return [min, max]
- */
-fun random(min: Int, max: Int): Int {
-    val max2 = max - min
-    val ret = random(max2)
-    return ret + min
-}
-
 
 fun Sleep(millSeconds: Long) {
     try {

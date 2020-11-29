@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 504
-        versionName "5.0.4"
+        versionCode 700
+        versionName "7.0.0"
 
         consumerProguardFiles 'base.pro'
     }

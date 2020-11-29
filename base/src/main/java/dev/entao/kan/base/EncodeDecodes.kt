@@ -1,5 +1,6 @@
 package dev.entao.kan.base
 
+import android.util.Base64
 import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -94,6 +95,36 @@ object Hex {
 fun String.decodeHex(): ByteArray? {
     return Hex.decode(this)
 }
+
+
+object Base64X {
+    fun encode(data: ByteArray, flag: Int = Base64.DEFAULT): String {
+        val arr = Base64.encode(data, flag)
+        return String(arr)
+    }
+
+    fun encodeSafe(data: ByteArray): String {
+        val arr = Base64.encode(data, Base64.URL_SAFE)
+        return String(arr)
+    }
+
+    fun decode(data: ByteArray, flag: Int = Base64.DEFAULT): ByteArray {
+        return Base64.decode(data, flag)
+    }
+
+    fun decodeSafe(data: ByteArray): ByteArray {
+        return Base64.decode(data, Base64.URL_SAFE)
+    }
+
+    fun decode(s: String, flag: Int = Base64.DEFAULT): ByteArray {
+        return Base64.decode(s.toByteArray(Charsets.ISO_8859_1), flag)
+    }
+
+    fun decodeSafe(s: String): ByteArray {
+        return Base64.decode(s.toByteArray(Charsets.ISO_8859_1), Base64.URL_SAFE)
+    }
+}
+
 
 /**
  * Created by entaoyang@163.com on 16/4/27.

@@ -26,22 +26,6 @@ val String.formatedPhone: String
     }
 
 
-val String.base64Decoded: String
-    get() {
-        if (this.isEmpty()) {
-            return ""
-        }
-        val ba = Base64.decode(this, Base64.URL_SAFE)
-        return String(ba, Charsets.UTF_8)
-    }
-val String.base64Encoded: String
-    get() {
-        if (this.isEmpty()) {
-            return ""
-        }
-        return Base64.encodeToString(this.toByteArray(), Base64.URL_SAFE)
-    }
-
 fun String.substr(from: Int, size: Int): String {
     val a = if (from >= 0) {
         from
@@ -55,7 +39,13 @@ fun String.substr(from: Int, size: Int): String {
 }
 
 fun String.escapeXML(): String {
-    return this.replaceChars('<' to "&lt;", '>' to "&gt;", '&' to "&amp;", '"' to "&quot;", '\'' to "&apos;")
+    return this.replaceChars(
+        '<' to "&lt;",
+        '>' to "&gt;",
+        '&' to "&amp;",
+        '"' to "&quot;",
+        '\'' to "&apos;"
+    )
 }
 
 fun String.replaceChars(vararg charValuePair: Pair<Char, String>): String {
@@ -217,7 +207,13 @@ fun String.escapeHtml(forView: Boolean): String {
 
 val String.escapedXML: String
     get() {
-        return this.replaceChars('<' to "&lt;", '>' to "&gt;", '&' to "&amp;", '"' to "&quot;", '\'' to "&apos;")
+        return this.replaceChars(
+            '<' to "&lt;",
+            '>' to "&gt;",
+            '&' to "&amp;",
+            '"' to "&quot;",
+            '\'' to "&apos;"
+        )
     }
 
 
@@ -237,4 +233,20 @@ val String.urlEncoded: String
 val String.urlDecoded: String
     get() {
         return URLDecoder.decode(this, Charsets.UTF_8.name())
+    }
+
+val String.base64Decoded: String
+    get() {
+        if (this.isEmpty()) {
+            return ""
+        }
+        val ba = Base64.decode(this, Base64.URL_SAFE)
+        return String(ba, Charsets.UTF_8)
+    }
+val String.base64Encoded: String
+    get() {
+        if (this.isEmpty()) {
+            return ""
+        }
+        return Base64.encodeToString(this.toByteArray(), Base64.URL_SAFE)
     }
