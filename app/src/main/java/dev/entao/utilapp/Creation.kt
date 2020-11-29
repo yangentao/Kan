@@ -1,34 +1,34 @@
 package dev.entao.utilapp
 
 import android.app.Activity
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
+import android.view.WindowManager
+import android.widget.*
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager.widget.ViewPager
+import dev.entao.viewbuilder.LinearParams
 
-class ContentView(val activity: Activity)
-
-val Activity.ContentView: ContentView
-    get() {
-        return ContentView(this)
-    }
-//val Fragment.ContentView: ContentView
-//    get() {
-//        return ContentView(this.requireActivity())
-//    }
-
-fun ContentView.LinearLayout(block: LinearLayout.() -> Unit): LinearLayout {
-    val b = LinearLayout(this.activity)
-    this.activity.setContentView(b)
-    b.block()
-    return b
-}
 
 fun ViewGroup.Button(lp: ViewGroup.LayoutParams, block: Button.() -> Unit) {
     val b = Button(this.context)
     this.addView(b, lp)
     b.block()
 }
+
+fun ViewGroup.Button(block: Button.() -> Unit) {
+    val b = Button(this.context)
+//    this.addView(b, lp)
+    b.block()
+}
+
+fun View.linearParams(block: LinearParams.() -> Unit) {
+    val p = LinearParams(LinearParams.WRAP_CONTENT, LinearParams.WRAP_CONTENT)
+    this.layoutParams = p
+    p.block()
+}
+
 
 fun hello() {
     var g: LinearLayout? = null

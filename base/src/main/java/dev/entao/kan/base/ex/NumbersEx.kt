@@ -56,11 +56,15 @@ fun makeIntValue(h1: Byte, h2: Byte, h3: Byte, h4: Byte): Int {
 
 
 val LongComparator: Comparator<Long> = Comparator<Long> { o1, o2 ->
-    if (o1 > o2) {
-        1
-    } else if (o1 < o2) {
-        -1
-    } else {
-        0
+    when {
+        o1 > o2 -> {
+            1
+        }
+        o1 < o2 -> {
+            -1
+        }
+        else -> {
+            0
+        }
     }
 }

@@ -6,6 +6,7 @@ import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.IllegalArgumentException
 import java.security.MessageDigest
 import java.text.Collator
 import java.util.*
@@ -15,6 +16,7 @@ private const val PROGRESS_DELAY = 50
 
 typealias BlockUnit = () -> Unit
 
+fun errorArg(message: Any): Nothing = throw IllegalArgumentException(message.toString())
 
 
 fun <T : Closeable> T?.closeSafe() {
@@ -26,7 +28,14 @@ fun <T : Closeable> T?.closeSafe() {
 }
 
 @Throws(IOException::class)
-fun copyStream(input: InputStream, closeIs: Boolean, os: OutputStream, closeOs: Boolean, total: Int, progress: Progress?) {
+fun copyStream(
+    input: InputStream,
+    closeIs: Boolean,
+    os: OutputStream,
+    closeOs: Boolean,
+    total: Int,
+    progress: Progress?
+) {
     try {
         progress?.onProgressStart(total)
 
@@ -108,6 +117,7 @@ fun md5(value: String): String? {
     return null
 }
 
+
 /**
  * @param max
  * @return [0-max]
@@ -142,3 +152,30 @@ fun Sleep(ms: Int) {
 }
 
 
+object Rand {
+    val random = Random(System.nanoTime())
+
+    //[0, bound)
+    fun int(bound: Int): Int {
+        return random.nextInt(bound)
+    }
+
+    //[from, toValue)
+    fun int(from: Int, toValue: Int): Int {
+        val dist = toValue - from
+        if (dist > 0) {
+            return random.nextInt(dist) + dist
+        }
+        error("Assertion failed")
+    }
+
+    //[1000, 9999]
+    fun code4(): String {
+        return this.int(1000, 10000).toString()
+    }
+
+    //[100000,999999]
+    fun code6(): String {
+        return this.int(100000, 1000000).toString()
+    }
+}

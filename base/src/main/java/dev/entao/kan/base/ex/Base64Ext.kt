@@ -6,6 +6,10 @@ import android.util.Base64
  * Created by entaoyang@163.com on 2016-10-07.
  */
 
+//fun hello(){
+//	Base64.
+//}
+
 fun Base64.encode(data: ByteArray): String {
 	val arr = Base64.encode(data, Base64.DEFAULT)
 	return String(arr)
